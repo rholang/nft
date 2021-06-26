@@ -14,7 +14,6 @@ import {
   CreateAssetProvider,
 } from '../components/Provider';
 import '../styles/customprogress.css';
-import * as gtag from '../utils/gtag';
 
 NProgress.configure({
   minimum: 0.3,
@@ -24,32 +23,6 @@ NProgress.configure({
 });
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  const start = () => NProgress.start();
-  const end = (url) => {
-    NProgress.done();
-    gtag.pageview(url);
-  };
-
-  useEffect(() => {
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      
-      const axe = require('@axe-core/react');
-      axe(React, ReactDOM, 1000);
-    }
-  }, []);
-
-  useEffect(() => {
-    Router.events.on('routeChangeStart', start);
-    Router.events.on('routeChangeComplete', end);
-    Router.events.on('routeChangeError', end);
-    return () => {
-      Router.events.off('routeChangeStart', start);
-      Router.events.off('routeChangeComplete', end);
-      Router.events.off('routeChangeError', end);
-    };
-  }, []);
-
   return (
     <SimpleReactLightbox>
       <ModalProvider>

@@ -14,7 +14,8 @@ import {
   HalfButton,
 } from './Modal.styled';
 import InputField from '../InputField';
-import { ReactComponent as CloseIcon } from '../../public/close.svg';
+import closeIcon from '../../public/close.svg';
+import Image from 'next/image';
 import ProtonSDK from '../../services/proton';
 import { useWindowSize } from '../../hooks';
 
@@ -54,7 +55,7 @@ export const BurnAssetModal = (): JSX.Element => {
         <Section>
           <Title>Burn NFT</Title>
           <CloseIconContainer role="button" onClick={closeModal}>
-            <CloseIcon />
+            <Image src={closeIcon} />
           </CloseIconContainer>
         </Section>
         <Description>

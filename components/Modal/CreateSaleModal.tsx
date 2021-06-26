@@ -22,7 +22,8 @@ import {
   HalfButton,
   FeeLabel,
 } from './Modal.styled';
-import { ReactComponent as CloseIcon } from '../../public/close.svg';
+import closeIcon from '../../public/close.svg';
+import Image from 'next/image';
 import {
   TOKEN_SYMBOL,
   TOKEN_PRECISION,
@@ -92,7 +93,7 @@ const SaleModal = ({
         <Section>
           <Title>{title}</Title>
           <CloseIconContainer role="button" onClick={closeModal}>
-            <CloseIcon />
+            <Image src={closeIcon} />
           </CloseIconContainer>
         </Section>
         <Description>{description}</Description>

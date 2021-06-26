@@ -26,7 +26,8 @@ import {
 } from './Modal.styled';
 import { useWindowSize } from '../../hooks';
 import uploadToIPFS from '../../services/upload';
-import { ReactComponent as CloseIcon } from '../../public/close.svg';
+import closeIcon from '../../public/close.svg';
+import Image from 'next/image';
 import { fileReader, delay } from '../../utils';
 import ProtonSDK from '../../services/proton';
 import { SM_FILE_UPLOAD_TYPES_TEXT } from '../../utils/constants';
@@ -232,7 +233,7 @@ const CollectionModal = ({ type, modalProps }: Props): JSX.Element => {
         <Section>
           <Title>{type === TYPES.UPDATE ? 'Update' : 'New'} collection</Title>
           <CloseIconContainer role="button" onClick={closeModal}>
-            <CloseIcon />
+            <Image src={closeIcon} />
           </CloseIconContainer>
         </Section>
         <Row>

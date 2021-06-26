@@ -15,7 +15,8 @@ import {
   HalfButton,
 } from './Modal.styled';
 import { useWindowSize } from '../../hooks';
-import { ReactComponent as CloseIcon } from '../../public/close.svg';
+import closeIcon from '../../public/close.svg';
+import Image from 'next/image';
 import ProtonSDK from '../../services/proton';
 
 type Props = {
@@ -46,7 +47,7 @@ const CancelModal = ({
         <Section>
           <Title>{title}</Title>
           <CloseIconContainer role="button" onClick={closeModal}>
-            <CloseIcon />
+            <Image src={closeIcon} />
           </CloseIconContainer>
         </Section>
         <Description>{description}</Description>

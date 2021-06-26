@@ -1,4 +1,5 @@
-import { ReactComponent as CheckIcon } from '../../public/check.svg';
+import checkIcon from '../../public/check.svg';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '../Provider';
 import {
@@ -28,7 +29,7 @@ const CreateNftSuccess = ({
     <SuccessPageContainer>
       <SuccessContentContainer>
         <CheckIconContainer>
-          <CheckIcon />
+          <Image src={checkIcon} />
         </CheckIconContainer>
         <SuccessText>Success</SuccessText>
         <SuccessDescription>

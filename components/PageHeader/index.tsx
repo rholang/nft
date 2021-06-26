@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Image } from '../../styles/index.styled';
+
 import {
   PageHeaderContainer,
   ImageContainer,
@@ -8,7 +8,8 @@ import {
   SubName,
   ButtonContainer,
 } from './PageHeader.styled';
-import { ReactComponent as MoreIcon } from '../../public/more.svg';
+import moreIcon from '../../public/more.svg';
+import Image from 'next/image';
 import ShareOnSocial from '../ShareOnSocial';
 import { useClickAway } from '../../hooks';
 import { IPFS_RESOLVER_IMAGE, RESIZER_IMAGE } from '../../utils/constants';
@@ -58,7 +59,7 @@ const PageHeader = ({
       size="40px"
       ref={shareRef}
       onClick={() => setShareActive(!shareActive)}>
-      <MoreIcon />
+      <Image src={moreIcon} />
       <ShareOnSocial top="50px" active={shareActive} />
     </RoundButton>
   );

@@ -12,8 +12,9 @@ import {
   getSearchCollections,
 } from '../../services/collections';
 import { DEFAULT_COLLECTION } from '../../utils/constants';
-import { ReactComponent as MagnifyingIcon } from '../../public/icon-light-search-24-px.svg';
-import { ReactComponent as CloseIcon } from '../../public/icon-light-close-16-px.svg';
+import Image from 'next/image';
+import magnifyingIcon from '../../public/icon-light-search-24-px.svg';
+import closeIcon from '../../public/icon-light-close-16-px.svg';
 
 type Props = {
   isMobileSearchOpen: boolean;
@@ -136,7 +137,7 @@ const SearchInput = ({
       isMobileSearchOpen={isMobileSearchOpen}
       isSearchInputActive={isSearchInputActive}>
       <MagnifyingIconButton onClick={() => search(input)}>
-        <MagnifyingIcon />
+        <Image src={magnifyingIcon} width="24" height="24" />
       </MagnifyingIconButton>
       <Input
         ref={inputRef}
@@ -153,7 +154,7 @@ const SearchInput = ({
         onClick={clearText}
         isVisibleOnDesktop={input.length !== 0}
         onKeyDown={handleClearTextButtonKeyDown}>
-        <CloseIcon />
+        <Image src={closeIcon} width="16" height="16" />
       </ClearTextButton>
       {input && collections.length !== 0 && (
         <SearchInputResultsList

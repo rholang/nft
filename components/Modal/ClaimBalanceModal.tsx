@@ -12,7 +12,8 @@ import {
 import ProtonSDK from '../../services/proton';
 import { formatPrice } from '../../utils';
 import { useWindowSize } from '../../hooks';
-import { ReactComponent as CloseIcon } from '../../public/close.svg';
+import closeIcon from '../../public/close.svg';
+import Image from 'next/image';
 
 export const ClaimBalanceModal = (): JSX.Element => {
   const {
@@ -58,7 +59,7 @@ export const ClaimBalanceModal = (): JSX.Element => {
         <Section>
           <Title>Claim {formatPrice(atomicMarketBalance)}</Title>
           <CloseIconContainer role="button" onClick={closeModal}>
-            <CloseIcon />
+            <Image src={closeIcon} />
           </CloseIconContainer>
         </Section>
         <Description>

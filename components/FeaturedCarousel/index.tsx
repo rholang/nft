@@ -6,7 +6,8 @@ import {
   ButtonBack,
   ButtonNext,
 } from 'pure-react-carousel';
-import { ReactComponent as Arrow } from '../../public/chevron-right.svg';
+import arrowIcon from '../../public/chevron-right.svg';
+import Image from 'next/image';
 import {
   Template,
   getAllTemplatesByCollection,
@@ -48,6 +49,7 @@ const FeaturedCarousel = ({
       const prices = await getLowestPricesForAllCollectionTemplates({
         type: collection,
       });
+      console.log(templates);
       const templatesWithLowestPrice = formatTemplatesWithPriceData(
         templates,
         prices
@@ -164,13 +166,13 @@ const FeaturedCarousel = ({
               <ButtonBackContainer
                 display={!isLoading && templates.length > visibleSlides}>
                 <ButtonBack>
-                  <Arrow />
+                  <Image src={arrowIcon} />
                 </ButtonBack>
               </ButtonBackContainer>
               <ButtonNextContainer
                 display={!isLoading && templates.length > visibleSlides}>
                 <ButtonNext>
-                  <Arrow />
+                  <Image src={arrowIcon} />
                 </ButtonNext>
               </ButtonNextContainer>
             </CarouselProvider>

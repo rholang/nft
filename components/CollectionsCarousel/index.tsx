@@ -1,10 +1,10 @@
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import CollectionBox from '../CollectionBox';
-import { ReactComponent as Arrow } from '../../public/chevron-right.svg';
+import arrowIcon from '../../public/chevron-right.svg';
+import Image from 'next/image';
 import { Collection } from '../../services/collections';
 import { useModalContext, MODAL_TYPES } from '../Provider';
-import { Image } from '../../styles/index.styled';
 import {
   BoxButton,
   CarouselContainer,
@@ -166,12 +166,12 @@ const CollectionsCarousel = ({
               <ButtonBack
                 onClick={onClickBackward}
                 disabled={currentSlide === 0}>
-                <Arrow />
+                <Image src={arrowIcon} />
               </ButtonBack>
               <ButtonNext
                 onClick={onClickForward}
                 disabled={currentSlide >= totalSlides - slideStep}>
-                <Arrow />
+                <Image src={arrowIcon} />
               </ButtonNext>
             </CarouselProvider>
           </CarouselContainer>

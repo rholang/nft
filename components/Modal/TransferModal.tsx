@@ -19,7 +19,8 @@ import InputField from '../InputField';
 import { useWindowSize } from '../../hooks';
 import ProtonSDK from '../../services/proton';
 import proton from '../../services/proton-rpc';
-import { ReactComponent as CloseIcon } from '../../public/close.svg';
+import closeIcon from '../../public/close.svg';
+import Image from 'next/image';
 
 export const TransferModal = (): JSX.Element => {
   const { currentUser } = useAuthContext();
@@ -82,7 +83,7 @@ export const TransferModal = (): JSX.Element => {
         <Section>
           <Title>Transfer NFT</Title>
           <CloseIconContainer role="button" onClick={closeModal}>
-            <CloseIcon />
+            <Image src={closeIcon} />
           </CloseIconContainer>
         </Section>
         <Description>

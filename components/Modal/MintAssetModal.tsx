@@ -18,7 +18,8 @@ import {
 import { RAM_AMOUNTS } from '../../utils/constants';
 import fees from '../../services/fees';
 import ProtonSDK from '../../services/proton';
-import { ReactComponent as CloseIcon } from '../../public/close.svg';
+import closeIcon from '../../public/close.svg';
+import Image from 'next/image';
 import { useWindowSize } from '../../hooks';
 
 type MintFee = {
@@ -103,7 +104,7 @@ export const MintAssetModal = (): JSX.Element => {
         <Section>
           <Title>Mint NFTs</Title>
           <CloseIconContainer role="button" onClick={closeModal}>
-            <CloseIcon />
+            <Image src={closeIcon} />
           </CloseIconContainer>
         </Section>
         <Description>

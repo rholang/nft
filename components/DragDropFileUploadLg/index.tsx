@@ -7,7 +7,7 @@ import {
   SetStateAction,
 } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Image } from '../../styles/index.styled';
+
 import {
   Container,
   FileTypeDescription,
@@ -26,8 +26,9 @@ import {
   LG_FILE_UPLOAD_TYPES,
   LG_FILE_SIZE_UPLOAD_LIMIT,
 } from '../../utils/constants';
-import { ReactComponent as UploadIcon } from '../../public/upload-icon.svg';
-import { ReactComponent as CloseIcon } from '../../public/close.svg';
+import uploadIcon from '../../public/upload-icon.svg';
+import closeIcon from '../../public/close.svg';
+import Image from 'next/image';
 import { fileReader } from '../../utils';
 
 type Props = {
@@ -114,12 +115,12 @@ const DragDropFileUploadLg = ({
               setTemplateUploadedFile(null);
               setUploadedFilePreview('');
             }}>
-            <CloseIcon />
+            <Image src={closeIcon} />
           </RemovePreviewIcon>
         </Preview>
       ) : isDragActive ? (
         <>
-          <UploadIcon />
+          <Image src={uploadIcon} />
           <FileTypeDescription>{LG_FILE_UPLOAD_TYPES_TEXT}</FileTypeDescription>
         </>
       ) : (

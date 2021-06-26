@@ -7,32 +7,12 @@ import Document, {
   DocumentContext,
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import * as gtag from '../utils/gtag';
 
 export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          {gtag.isProduction && (
-            <>
-              <script
-                async
-                src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-              />
-              <script
-                dangerouslySetInnerHTML={{
-                  __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${gtag.GA_TRACKING_ID}');
-              `,
-                }}
-              />
-            </>
-          )}
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />

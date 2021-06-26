@@ -1,7 +1,8 @@
 import { useInView } from 'react-intersection-observer';
 import { Button } from './PaginationButton.styled';
-import { ReactComponent as Arrow } from '../../public/arrow.svg';
-import { ReactComponent as Loading } from '../../public/loading.svg';
+import arrowIcon from '../../public/arrow.svg';
+import loadingIcon from '../../public/loading.svg';
+import Image from 'next/image';
 import { useEffect } from 'react';
 
 type Props = {
@@ -36,7 +37,7 @@ const PaginationButton = ({
       onClick={onClick}
       disabled={disabled || isLoading}
       isHidden={isHidden || (disabled && !isLoading)}>
-      {isLoading ? <Loading /> : <Arrow />}
+      {isLoading ? <Image src={loadingIcon} /> : <Image src={arrowIcon} />}
     </Button>
   );
 };

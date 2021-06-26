@@ -6,7 +6,8 @@ import {
   MenuItem,
   TransparentBackground,
 } from './AssetFormPopupMenu.styled';
-import { ReactComponent as Ellipsis } from '../../public/ellipsis.svg';
+import ellipsisIcon from '../../public/ellipsis.svg';
+import Image from 'next/image';
 import {
   useModalContext,
   useAuthContext,
@@ -121,7 +122,7 @@ const AssetFormPopupMenu = ({
   return (
     <MenuContainer>
       <PopupMenuButton onClick={togglePopupMenu}>
-        <Ellipsis />
+        <Image src={ellipsisIcon} />
       </PopupMenuButton>
       <Menu isOpen={isOpen}>
         {popupMenuItems.map(({ isHidden, name, onClick }) => {

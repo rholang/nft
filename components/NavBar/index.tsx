@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import Button from '../Button';
 import SearchInput from '../SearchInput';
 import { Image } from '../../styles/index.styled';
+import magnifyingIcon from '../../public/icon-light-search-24-px.svg';
+import closeIcon from '../../public/icon-light-close-16-px.svg';
+
 import {
   Background,
   Nav,
@@ -28,8 +32,7 @@ import {
 } from './NavBar.styled';
 import { useScrollLock, useEscapeKeyClose, useWindowSize } from '../../hooks';
 import { useAuthContext } from '../Provider';
-import { ReactComponent as MagnifyingIcon } from '../../public/icon-light-search-24-px.svg';
-import { ReactComponent as CloseIcon } from '../../public/icon-light-close-16-px.svg';
+
 import { TOKEN_SYMBOL } from '../../utils/constants';
 
 type DropdownProps = {
@@ -76,7 +79,7 @@ const UserAvatar = ({ isOpen, avatar, toggleNavDropdown }) => {
 
   const mobileNavbarIcon = isOpen ? (
     <CloseIconButton>
-      <CloseIcon />
+      <NextImage src={closeIcon} />
     </CloseIconButton>
   ) : (
     currentUserAvatar
@@ -217,7 +220,7 @@ const NavBar = (): JSX.Element => {
   const mobileSearchHiddenNavItems = isMobileSearchOpen ? null : (
     <>
       <OpenSearchButton onClick={() => setIsMobileSearchOpen(true)}>
-        <MagnifyingIcon />
+        <NextImage src={magnifyingIcon} />
       </OpenSearchButton>
       {currentUser && currentUser.avatar ? (
         <UserAvatar

@@ -11,8 +11,9 @@ import {
   SM_FILE_UPLOAD_TYPES,
   SM_FILE_SIZE_UPLOAD_LIMIT,
 } from '../../utils/constants';
-import { ReactComponent as CircleUploadIcon } from '../../public/upload-icon-small-circle.svg';
-import { ReactComponent as PlaceholderIcon } from '../../public/upload-icon-small-shape.svg';
+import circleUploadIcon from '../../public/upload-icon-small-circle.svg';
+import placeholderIcon from '../../public/upload-icon-small-shape.svg';
+import Image from 'next/image';
 
 type Props = {
   uploadedFile: File;
@@ -52,7 +53,7 @@ const DragDropFileUploadSm = ({
       {placeholderImage ? (
         <CollectionIcon image={placeholderImage} width="100%" />
       ) : (
-        <PlaceholderIcon />
+        <Image src={placeholderIcon} />
       )}
     </PlaceholderContainer>
   );
@@ -64,7 +65,7 @@ const DragDropFileUploadSm = ({
         accept="image/png,image/jpg,image/jpeg,image/webp,image/gif,.png,.jpg,.jpeg,.webp,.gif"
       />
       {isDragActive ? (
-        <CircleUploadIcon />
+        <Image src={circleUploadIcon} />
       ) : (
         <>
           {uploadedFile ? (

@@ -5,10 +5,11 @@ import {
   ShareLinkText,
   CopyLinkButton,
 } from './ShareOnSocial.styled';
-import { ReactComponent as TwitterIcon } from '../../public/twitter-icon.svg';
-import { ReactComponent as FacebookIcon } from '../../public/facebook-icon.svg';
-import { ReactComponent as LinkedInIcon } from '../../public/linkedin-icon.svg';
-import { ReactComponent as LinkIcon } from '../../public/link-icon.svg';
+import twitterIcon from '../../public/twitter-icon.svg';
+import facebookIcon from '../../public/facebook-icon.svg';
+import linkedInIcon from '../../public/linkedin-icon.svg';
+import linkIcon from '../../public/link-icon.svg';
+import Image from 'next/image';
 
 type ShareOnSocialProps = {
   top?: string;
@@ -60,25 +61,25 @@ const ShareOnSocial = ({
         href={`https://twitter.com/intent/tweet?url=${url}`}
         target="_blank"
         rel="noreferrer">
-        <TwitterIcon />
+        <Image src={twitterIcon} />
         <ShareLinkText>Twitter</ShareLinkText>
       </ShareLink>
       <ShareLink
         href={`http://www.facebook.com/share.php?display=page&u=${url}`}
         target="_blank"
         rel="noreferrer">
-        <FacebookIcon />
+        <Image src={facebookIcon} />
         <ShareLinkText>Facebook</ShareLinkText>
       </ShareLink>
       <ShareLink
         href={`https://www.linkedin.com/sharing/share-offsite/?url=${url}`}
         target="_blank"
         rel="noreferrer">
-        <LinkedInIcon />
+        <Image src={linkedInIcon} />
         <ShareLinkText>LinkedIn</ShareLinkText>
       </ShareLink>
       <CopyLinkButton onClick={copyLink}>
-        <LinkIcon />
+        <Image src={linkIcon} />
         <ShareLinkText>Copy link</ShareLinkText>
       </CopyLinkButton>
     </Container>

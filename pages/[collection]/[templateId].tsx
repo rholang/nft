@@ -9,7 +9,7 @@ import { useAuthContext } from '../../components/Provider';
 import { getTemplateDetails, Template } from '../../services/templates';
 import { getAllTemplateSales, SaleAsset } from '../../services/sales';
 import ProtonSDK from '../../services/proton';
-import * as gtag from '../../utils/gtag';
+
 import { TAB_TYPES, RouterQuery } from '../../utils/constants';
 
 const emptyTemplateDetails = {
@@ -137,7 +137,6 @@ const MarketplaceTemplateDetail = (): JSX.Element => {
       });
 
       if (purchaseResult.success) {
-        gtag.event({ action: 'buy_nft' });
         updateCurrentUserBalance(chainAccount);
         setTimeout(() => {
           router.push(`/user/${chainAccount}`);
