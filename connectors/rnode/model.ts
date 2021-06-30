@@ -11,6 +11,7 @@ import {
 } from './types';
 
 import { createDomain } from 'effector';
+import './update';
 
 export const domain = createDomain();
 

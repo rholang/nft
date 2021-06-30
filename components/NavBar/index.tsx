@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
@@ -7,6 +7,8 @@ import SearchInput from '../SearchInput';
 import { Image } from '../../styles/index.styled';
 import magnifyingIcon from '../../public/icon-light-search-24-px.svg';
 import closeIcon from '../../public/icon-light-close-16-px.svg';
+import { Event as E } from 'connectors/rnode';
+import { changed } from 'connectors/rnode/update';
 
 import {
   Background,
@@ -212,7 +214,26 @@ const NavBar = (): JSX.Element => {
 
   const connectWallet = async () => {
     setIsLoginDisabled(true);
-    await login();
+
+    //await login();
+    const code = `
+    new return, rl(\`rho:registry:lookup\`), RevVaultCh, vaultCh in {
+      rl!(\`rho:rchain:revVault\`, *RevVaultCh) |
+      for (@(_, RevVault) <- RevVaultCh) {
+        @RevVault!("findOrCreate", "1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ", *vaultCh) |
+        for (@maybeVault <- vaultCh) {
+          match maybeVault {
+            (true, vault) => @vault!("balance", *return)
+            (false, err)  => return!(err)
+          }
+        }
+      }
+    }
+  `;
+    if (typeof window !== 'undefined') {
+      E.exploreDeploy({ code: code });
+    }
+
     closeNavDropdown();
     setIsLoginDisabled(false);
   };
