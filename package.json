@@ -92,6 +92,10 @@
       "ts-jest": {
         "tsconfig": "tsconfig.jest.json"
       }
-    }
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "."
+    ]
   }
 }
