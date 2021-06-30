@@ -1,6 +1,7 @@
 // import { createEvent, createStore } from 'effector'
-import { domain } from 'utils/common';
+
 import { RevAccount } from '@tgrospic/rnode-http-js';
+import { localNet, testNet, mainNet, getNodeUrls } from './network';
 
 import {
   RChainNetwork,
@@ -8,6 +9,10 @@ import {
   DeployArgs,
   ExploreDeployArgs,
 } from './types';
+
+import { createDomain } from 'effector';
+
+export const domain = createDomain();
 
 export interface RNodeSt {
   /* all network urls */
@@ -34,15 +39,31 @@ const exploreDeploy = domain.event<ExploreDeployArgs>();
 
 // init store
 
-const initRnodeStore = {
-  selRevAddr: '',
-  code: '',
-  phloLimit: ' ',
-  status: '',
-  dataError: '',
-  proposeStatus: '',
-  proposeError: '',
-  samples: [],
+const nets = [localNet, testNet, mainNet].map(
+  ({ title, name, hosts, readOnlys }) => ({
+    title,
+    name,
+    hosts: hosts.map((x) => ({ ...x, title, name })),
+    readOnlys: readOnlys.map((x) => ({ ...x, title, name })),
+  })
+);
+
+const initNet = nets[1];
+
+const initRnodeStore: RNodeSt = {
+  nets: nets,
+  valNode: initNet.hosts[1],
+  readNode: initNet.readOnlys[1],
+  // Initial wallet
+  wallets: [
+    {
+      revAddr: '1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ',
+      privKey:
+        '9adef38fbc1cb97469ab54e0f362060cbd3f656a42319baf741b3ea64fcabb1d',
+      name: 'test',
+    },
+  ],
+  walletSelected: { name: '', revAddr: '' },
 };
 
 // model

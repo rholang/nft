@@ -26,12 +26,9 @@ export type DeployArgs = {
 
 export type ExploreDeployEff = {
   rnodeHttp: RNodeHttp;
-  node: () => Store<{
-    valNode: RNodeInfo;
-    readNode: RNodeInfo;
-  }>;
+  node: NodeUrls;
 };
-export type ExploreDeployArgs = { deployCode: string };
+export type ExploreDeployArgs = { code: string };
 
 export type RNodeEff = {
   exploreDeploy(args: ExploreDeployArgs): Promise<[number, string]>;

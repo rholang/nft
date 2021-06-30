@@ -7,19 +7,15 @@ import {
   DeployEff,
 } from './types';
 import { rhoExprToJson } from '@tgrospic/rnode-http-js';
-import { domain } from 'utils/common';
+import { domain } from './model';
 import { PageLogArgs, RNodeEff } from './types';
 import { makeRNodeWeb } from '@tgrospic/rnode-http-js';
 
 const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
-  async function ({
-    deployCode,
-  }: ExploreDeployArgs): Promise<[number, string]> {
-    const { readNode } = node();
-
+  async function ({ code }: ExploreDeployArgs): Promise<[number, string]> {
     const {
       expr: [e],
-    } = await rnodeHttp(node, 'explore-deploy', deployCode);
+    } = await rnodeHttp(node.httpUrl, 'explore-deploy', code);
     const dataBal = e && e.ExprInt && e.ExprInt.data;
     const dataError = e && e.ExprString && e.ExprString.data;
     return [dataBal, dataError];
@@ -106,21 +102,12 @@ export const createRnodeService = (node): RNodeEff => {
   };
 };
 
-const sendDeployFx = (code) => {
-  const { deploy } = createRnodeService(node);
-  deploy(code);
+const dispatcher = (fx, args) => {
+  fx(args);
 };
 
-const sendExploreDeployFx = (code) => {
-  const { exploreDeploy } = createRnodeService(node);
-  exploreDeploy(code);
-};
-
-const sendDeployFX = domain.effect(sendDeployFx);
-
-const sendExploreDeployFX = domain.effect(sendExploreDeployFx);
+const request = domain.effect(dispatcher);
 
 export const Effects = {
-  sendExploreDeployFX,
-  sendDeployFX,
+  request,
 };

@@ -1,4 +1,7 @@
 {
+  "test": {
+    "presets": ["@babel/env", "@babel/react"]
+  },
   "presets": ["next/babel"],
   "plugins": [
     [

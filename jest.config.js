@@ -12,5 +12,6 @@ module.exports = {
       isolatedModules: true,
     },
   },
+  moduleDirectories: ['node_modules', '.'],
   testMatch: ['**/packages/**/__tests__/*.test.ts'],
 };
