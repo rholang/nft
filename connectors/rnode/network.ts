@@ -1,25 +1,5 @@
 import * as R from 'ramda';
-
-export interface RNodeInfo {
-  readonly domain: string;
-  readonly grpc?: number;
-  readonly http?: number;
-  readonly https?: number;
-  readonly httpAdmin?: number;
-  readonly httpsAdmin?: number;
-  // Network info
-  readonly name?: NetworkName;
-  readonly title?: string;
-}
-
-export interface RChainNetwork {
-  readonly title: string;
-  readonly name: NetworkName;
-  readonly hosts: RNodeInfo[];
-  readonly readOnlys: RNodeInfo[];
-}
-
-export type NetworkName = 'localnet' | 'testnet' | 'mainnet';
+import { RNodeInfo, RChainNetwork, NetworkName, NodeUrls } from './types';
 
 const defaultPorts: Partial<RNodeInfo> = {
   grpc: 40401,
@@ -101,18 +81,6 @@ export const mainNet: RChainNetwork = {
     { domain: 'observer-eu.services.mainnet.rchain.coop', ...defaultPortsSSL },
   ],
 };
-
-export interface NodeUrls {
-  readonly network: NetworkName;
-  readonly grpcUrl: string;
-  readonly httpUrl: string;
-  readonly httpAdminUrl: string;
-  readonly statusUrl: string;
-  readonly getBlocksUrl: string;
-  // Testnet only
-  readonly logsUrl: string;
-  readonly filesUrl: string;
-}
 
 export const getNodeUrls = function ({
   name,
