@@ -84,4 +84,4 @@ export const Store = {
   $rnodeStore,
 };
 
-// register file  to worker
+//  register file  to worker
