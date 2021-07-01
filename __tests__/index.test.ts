@@ -1,7 +1,7 @@
 import { Event as E } from 'connectors/rnode';
 
 describe(`ExploreDeploy`, () => {
-  it('test explore deploy on testnet', () => {
+  /*it('test explore deploy on testnet', () => {
     const code = `
     new return, rl(\`rho:registry:lookup\`), RevVaultCh, vaultCh in {
       rl!(\`rho:rchain:revVault\`, *RevVaultCh) |
@@ -18,5 +18,5 @@ describe(`ExploreDeploy`, () => {
   `;
 
     E.exploreDeploy({ code: code });
-  });
+  });*/
 });

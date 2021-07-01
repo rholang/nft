@@ -31,10 +31,16 @@ const handler = async (
         await Promise.all(promises);
         console.log('api');
 
-        res.setHeader('Cache-Control', 's-maxage=86400');
+        res.setHeader(
+          'Cache-Control',
+          'max-age=604800, s-maxage=604800 stale-while-revalidate'
+        );
         res.status(200).send({ success: true, message: avatarsByChainAccount });
       } catch (e) {
-        res.setHeader('Cache-Control', 's-maxage=86400');
+        res.setHeader(
+          'Cache-Control',
+          'max-age=604800, s-maxage=604800 stale-while-revalidate'
+        );
         res.status(500).send({
           success: false,
           message: e.message || 'Error retrieving profile avatars',
