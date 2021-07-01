@@ -11,7 +11,6 @@ import {
 } from './types';
 
 import { createDomain } from 'effector';
-import './update';
 
 export const domain = createDomain();
 
@@ -53,8 +52,8 @@ const initNet = nets[1];
 
 const initRnodeStore: RNodeSt = {
   nets: nets,
-  valNode: initNet.hosts[1],
-  readNode: initNet.readOnlys[1],
+  valNode: initNet.hosts[0],
+  readNode: initNet.readOnlys[0],
   // Initial wallet
   wallets: [
     {

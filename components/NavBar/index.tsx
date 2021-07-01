@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
-import Button from '../Button';
+import dynamic from 'next/dynamic';
 import SearchInput from '../SearchInput';
 import { Image } from '../../styles/index.styled';
 import magnifyingIcon from '../../public/icon-light-search-24-px.svg';
 import closeIcon from '../../public/icon-light-close-16-px.svg';
-import { Event as E } from 'connectors/rnode';
-import { changed } from 'connectors/rnode/update';
+const ConnectWalletButton = dynamic(
+  () => import('components/ConnectWalletButton'),
+  { ssr: false }
+);
 
 import {
   Background,
@@ -212,32 +214,6 @@ const NavBar = (): JSX.Element => {
 
   const closeNavDropdown = () => setIsOpen(false);
 
-  const connectWallet = async () => {
-    setIsLoginDisabled(true);
-
-    //await login();
-    const code = `
-    new return, rl(\`rho:registry:lookup\`), RevVaultCh, vaultCh in {
-      rl!(\`rho:rchain:revVault\`, *RevVaultCh) |
-      for (@(_, RevVault) <- RevVaultCh) {
-        @RevVault!("findOrCreate", "1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ", *vaultCh) |
-        for (@maybeVault <- vaultCh) {
-          match maybeVault {
-            (true, vault) => @vault!("balance", *return)
-            (false, err)  => return!(err)
-          }
-        }
-      }
-    }
-  `;
-    if (typeof window !== 'undefined') {
-      E.exploreDeploy({ code: code });
-    }
-
-    closeNavDropdown();
-    setIsLoginDisabled(false);
-  };
-
   const mobileSearchHiddenNavItems = isMobileSearchOpen ? null : (
     <>
       <OpenSearchButton onClick={() => setIsMobileSearchOpen(true)}>
@@ -250,9 +226,7 @@ const NavBar = (): JSX.Element => {
           toggleNavDropdown={toggleNavDropdown}
         />
       ) : (
-        <Button disabled={isLoginDisabled} onClick={connectWallet}>
-          Connect Wallet
-        </Button>
+        <ConnectWalletButton />
       )}
     </>
   );

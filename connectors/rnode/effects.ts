@@ -13,6 +13,7 @@ import { makeRNodeWeb } from '@tgrospic/rnode-http-js';
 
 const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
   async function ({ code }: ExploreDeployArgs): Promise<[number, string]> {
+    console.log(node);
     const {
       expr: [e],
     } = await rnodeHttp(node.httpUrl, 'explore-deploy', code);
@@ -102,8 +103,9 @@ export const createRnodeService = (node): RNodeEff => {
   };
 };
 
-const dispatcher = (fx, args) => {
-  fx(args);
+const dispatcher = ({ func, args }) => {
+  const response = func(args);
+  return response;
 };
 
 const request = domain.effect(dispatcher);
