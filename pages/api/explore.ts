@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import proton from '../../services/proton-rpc';
-import { makeRNodeWeb, rhoExprToJson } from '@tgrospic/rnode-http-js';
+import { makeRNodeWeb, rhoExprToJson } from 'connectors/rnode-http-js';
 import {
   ExploreDeployArgs,
   ExploreDeployEff,
@@ -8,11 +8,12 @@ import {
   DeployEff,
   PageLogArgs,
   RNodeEff,
-} from 'connectors/rnode/types';
+} from 'connectors/rnode-client/types';
 import * as R from 'ramda';
 
 const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
   async function ({ code }: ExploreDeployArgs): Promise<[number, string]> {
+    console.log('remote');
     const {
       expr: [e],
     } = await rnodeHttp(node.httpUrl, 'explore-deploy', code);
@@ -72,9 +73,8 @@ const deploy = (effects: DeployEff) =>
   };
 
 export const createRnodeService = (node): RNodeEff => {
-  const { fetch, document } = window;
   const { log, warn } = console;
-  const rnodeWeb = makeRNodeWeb({ fetch, now: Date.now });
+  const rnodeWeb = makeRNodeWeb({ now: Date.now });
 
   const { rnodeHttp, sendDeploy, getDataForDeploy } = rnodeWeb;
 
@@ -85,24 +85,23 @@ export const createRnodeService = (node): RNodeEff => {
   };
 };
 
+const resultDeploy = async (node, code) => {
+  const { deploy } = createRnodeService(node);
+  const result = await deploy(code);
+  return result;
+};
+
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
   const { method, body } = req;
   switch (method) {
-    case 'POST':
-      break;
-    case 'PUT':
-      break;
-    case 'PATCH':
-      break;
-    default: {
+    case 'GET':
       try {
         const { node, code } = body;
-        const { deploy } = createRnodeService(node);
 
-        const result = await deploy(code);
+        const result = await resultDeploy(node, code);
 
         res.setHeader(
           'Cache-Control',
@@ -120,7 +119,11 @@ const handler = async (
         });
       }
       break;
-    }
+
+    case 'PUT':
+      break;
+    case 'PATCH':
+      break;
   }
 };
 

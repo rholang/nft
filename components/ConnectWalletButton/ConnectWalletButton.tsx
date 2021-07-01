@@ -1,4 +1,4 @@
-import { Event as E } from 'connectors/rnode';
+import { Event as E } from 'connectors/rnode-client';
 import Button from '../Button';
 
 const ConnectWalletButton = (): JSX.Element => {

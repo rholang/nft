@@ -1,4 +1,4 @@
-import { Event as E } from 'connectors/rnode';
+import { Event as E } from 'connectors/rnode-client';
 
 describe(`ExploreDeploy`, () => {
   /*it('test explore deploy on testnet', () => {
