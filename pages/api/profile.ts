@@ -29,9 +29,12 @@ const handler = async (
           }
         });
         await Promise.all(promises);
+        console.log('api');
 
+        res.setHeader('Cache-Control', 's-maxage=86400');
         res.status(200).send({ success: true, message: avatarsByChainAccount });
       } catch (e) {
+        res.setHeader('Cache-Control', 's-maxage=86400');
         res.status(500).send({
           success: false,
           message: e.message || 'Error retrieving profile avatars',
