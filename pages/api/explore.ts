@@ -24,7 +24,7 @@ const handler = async (
 
     res.setHeader(
       'Cache-Control',
-      'max-age=604800, s-maxage=604800 stale-while-revalidate'
+      'max-age=2678400, s-maxage=2678400 stale-while-revalidate'
     );
     res.status(200).send({ success: true, message: result });
   } catch (e) {

@@ -5,7 +5,7 @@ import { breakpoint } from '../../styles/Breakpoints';
 export const Main = styled.main`
   position: relative;
   min-height: calc(100vh - 88px);
-  padding-top: 110px;
+  padding-top: 70px;
   overflow: auto;
 
   ${breakpoint.tablet`

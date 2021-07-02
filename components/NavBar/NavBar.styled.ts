@@ -78,7 +78,7 @@ export const AvatarContainer = styled(FadeInImageContainer)`
 `;
 
 export const ImageLink = styled.a`
-  margin: 23px 0;
+  margin: 15px 0;
   z-index: 3;
   padding-left: 1px;
 

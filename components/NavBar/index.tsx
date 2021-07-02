@@ -49,7 +49,7 @@ const Logo = (): JSX.Element => {
         <DesktopIcon>
           <Image
             width="227px"
-            height="74px"
+            height="54px"
             alt="logo"
             src="/beta-logo.svg" // TODO: Swap back to non-beta logo: logo-colored@3x.png
           />
