@@ -49,7 +49,7 @@ export const ClearTextButton = styled(IconButton)<ClearTextButtonProps>`
 `;
 
 export const InputContainer = styled.div<InputContainerProps>`
-  border-radius: 8px;
+  border-radius: 25px;
   width: 50vw;
 
   height: 48px;
@@ -109,7 +109,7 @@ export const Input = styled.input`
   font-size: 16px;
   color: black;
   padding: 12px 28px 12px 16px;
-  border-radius: 8px;
+  border-radius: 25px;
   border: none;
   outline: none;
   line-height: 24px;
@@ -120,7 +120,7 @@ export const Input = styled.input`
   }
 
   ${breakpoint.tablet`
-    border-radius: 20px;
+    border-radius: 25px;
     padding: 8px 16px 8px 18px;
   `}
 `;
