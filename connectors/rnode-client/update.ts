@@ -3,9 +3,10 @@ import { Effects as Fx } from './effects';
 import { getNodeUrls } from './network';
 
 S.$rnodeStore
-  .on(E.exploreDeploy, (state, { code }) => {
-    const node = getNodeUrls(state.valNode);
-    Fx.exploreDeployFx({ node, code });
+  .on(E.exploreDeploy, (state, { client, code }) => {
+    const node = getNodeUrls(state.readNode);
+
+    Fx.exploreDeployFx({ client, node, code });
   })
   .on(Fx.exploreDeployFx.doneData, (state, result) => {
     console.log(result);

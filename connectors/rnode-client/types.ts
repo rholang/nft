@@ -28,11 +28,11 @@ export type ExploreDeployEff = {
   rnodeHttp: RNodeHttp;
   node: NodeUrls;
 };
-export type ExploreDeployArgs = { code: string };
+export type ExploreDeployArgs = { client?: string; code: string };
 
 export type RNodeEff = {
-  exploreDeploy(args: ExploreDeployArgs): Promise<[number, string]>;
-  deploy(args: DeployArgs): Promise<string>;
+  rnodeExploreDeploy(args: ExploreDeployArgs): Promise<[number, string]>;
+  // rnodeDeploy(args: DeployArgs): Promise<string>;
 };
 
 export interface RNodeInfo {

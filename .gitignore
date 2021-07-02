@@ -35,4 +35,4 @@ package-lock.json
 .vercel
 
 # env files
-.env
+#.env

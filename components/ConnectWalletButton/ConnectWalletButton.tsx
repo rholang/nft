@@ -20,7 +20,7 @@ const ConnectWalletButton = (): JSX.Element => {
   `;
 
     console.log('a');
-    E.exploreDeploy({ code: code });
+    E.exploreDeploy({ client: 'nextjs', code: code });
   };
 
   return <Button onClick={connectWallet}>Connect Wallet</Button>;

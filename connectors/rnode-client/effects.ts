@@ -1,45 +1,114 @@
 import { NodeUrls } from './types';
 import { domain } from './model';
+import { NextApiRequest, NextApiResponse } from 'next';
+import proton from '../../services/proton-rpc';
+import { makeRNodeWeb, rhoExprToJson } from 'connectors/rnode-http-js';
+import {
+  ExploreDeployArgs,
+  ExploreDeployEff,
+  DeployArgs,
+  DeployEff,
+  PageLogArgs,
+  RNodeEff,
+  RNodeInfo,
+} from 'connectors/rnode-client/types';
+import * as R from 'ramda';
+import { nextjsExploreDeploy } from 'connectors/nextjs-client';
 
-import { sendToApi } from '../../utils/browser-fetch';
+const rnodeExploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
+  async function ({ code }: ExploreDeployArgs): Promise<[number, string]> {
+    console.log(node);
+    console.log(node);
+    const {
+      expr: [e],
+    } = await rnodeHttp(node.httpUrl, 'explore-deploy', code);
+    const dataBal = e && e.ExprInt && e.ExprInt.data;
+    const dataError = e && e.ExprString && e.ExprString.data;
+    return [dataBal, dataError];
+  };
 
-const exploreDeploy = async ({ node, code }) => {
-  const body = new FormData();
-  body.append('node', node);
-  body.append('code', code);
+const rnodeDeploy = (effects: DeployEff) =>
+  async function ({ code, account, phloLimit, setStatus }: DeployArgs) {
+    const { node, sendDeploy, getDataForDeploy, log } = effects;
 
-  try {
-    console.log('run');
+    log('SENDING DEPLOY', {
+      account: account.name,
+      phloLimit,
+      node: node.httpUrl,
+      code,
+    });
 
-    const res = await sendToApi('GET', `/api/explore`, body);
+    setStatus(`Deploying ...`);
 
-    if (!res.success) {
-      throw new Error((res.message as unknown) as string);
+    const phloLimitNum = R.isNil(phloLimit) ? phloLimit : parseInt(phloLimit);
+
+    const { signature } = await sendDeploy(node, account, code, phloLimitNum);
+    log('DEPLOY ID (signature)', signature);
+
+    // Progress dots
+    const mkProgress = (i: number) => () => {
+      i = i > 60 ? 0 : i + 3;
+      return `Checking result ${R.repeat('.', i).join('')}`;
+    };
+    const progressStep = mkProgress(0);
+    const updateProgress = () => setStatus(progressStep());
+    updateProgress();
+
+    // Try to get result from next proposed block
+    const { data, cost } = await getDataForDeploy(
+      node,
+      signature,
+      updateProgress
+    );
+    // Extract data from response object
+    const args = data ? rhoExprToJson(data.expr) : void 0;
+
+    log('DEPLOY RETURN DATA', { args, cost, rawData: data });
+
+    const costTxt = R.isNil(cost) ? 'failed to retrive' : cost;
+    const [success, message] = R.isNil(args)
+      ? [
+          false,
+          'deploy found in the block but data is not sent on `rho:rchain:deployId` channel',
+        ]
+      : [true, R.is(Array, args) ? args.join(', ') : args];
+
+    if (!success) throw Error(`Deploy error: ${message}. // cost: ${costTxt}`);
+    return `✓ (${message}) // cost: ${costTxt}`;
+  };
+
+export const createRnodeService = (node): RNodeEff => {
+  const { log, warn } = console;
+  const rnodeWeb = makeRNodeWeb({ now: Date.now });
+
+  const { rnodeHttp, sendDeploy, getDataForDeploy } = rnodeWeb;
+
+  // App actions to process communication with RNode
+  return {
+    rnodeExploreDeploy: rnodeExploreDeploy({ rnodeHttp, node }),
+    //rnodeDeploy: rnodeDeploy({ node, sendDeploy, getDataForDeploy, log }),
+  };
+};
+
+export const exploreDeploy = async ({ client, node, code }) => {
+  const { rnodeExploreDeploy } = createRnodeService(node);
+  switch (client) {
+    case 'nextjs': {
+      const data = nextjsExploreDeploy({ node, code });
+      return data;
     }
 
-    return res.message;
-    /*const { data, error } = useSWR(
-      'https://api.github.com/repos/vercel/swr',
-      fetcher
-    );*/
-
-    /*const resultRaw = await fetch('/api/explore', {
-      method: 'GET',
-      body: formData,
-    });
-    const result = await resultRaw.json();
-    if (result.success) {
-      return result.message;
-    }*/
-  } catch (e) {
-    console.log('fail');
-    throw new Error(e);
+    case 'rnode': {
+      const data = rnodeExploreDeploy({ code });
+      return data;
+    }
   }
 };
 
-const exploreDeployFx = domain.effect<{ node: NodeUrls; code: string }, any>(
-  exploreDeploy
-);
+const exploreDeployFx = domain.effect<
+  { client: string; node: NodeUrls; code: string },
+  any
+>(exploreDeploy);
 
 export const Effects = {
   exploreDeployFx,

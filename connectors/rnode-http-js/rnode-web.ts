@@ -122,30 +122,27 @@ export interface DOMEffects {
  */
 export function makeRNodeWeb(effects: DOMEffects): any {
   // Dependencies on browser DOM
-  if (typeof window !== 'undefined') {
-    const { fetch, document } = window;
 
-    const { now } = effects;
+  const { now } = effects;
 
-    // Basic wrapper around DOM `fetch` method
-    const rnodeHttp = makeRNodeHttpInternal(fetch);
-    return {
-      rnodeHttp,
-      sendDeploy: sendDeploy(rnodeHttp, now),
-      getDataForDeploy: getDataForDeploy(rnodeHttp),
-      propose: propose(rnodeHttp),
-      // WIP - offline deploy
-      getSignedDeploy: getSignedDeploy(rnodeHttp, now),
-    };
-  }
+  // Basic wrapper around DOM `fetch` method
+  const rnodeHttp = makeRNodeHttpInternal();
+  return {
+    rnodeHttp,
+    sendDeploy: sendDeploy(rnodeHttp, now),
+    getDataForDeploy: getDataForDeploy(rnodeHttp),
+    propose: propose(rnodeHttp),
+    // WIP - offline deploy
+    getSignedDeploy: getSignedDeploy(rnodeHttp, now),
+  };
 }
 
-type MakeRNode = (f: typeof fetch) => RNodeHttp;
+type MakeRNode = () => RNodeHttp;
 
 /**
  * Helper function to create RNode wrapper to Web API.
  */
-const makeRNodeHttpInternal: MakeRNode = (domFetch) => async (
+const makeRNodeHttpInternal: MakeRNode = () => async (
   httpUrl,
   apiMethod,
   data
@@ -164,7 +161,7 @@ const makeRNodeHttpInternal: MakeRNode = (domFetch) => async (
   const body = typeof data === 'string' ? data : JSON.stringify(data);
   // Make JSON request
   const opt = { method: httpMethod, body };
-  const resp = await domFetch(url(apiMethod), opt);
+  const resp = await fetch(url(apiMethod), opt);
   const result = await resp.json();
   // Add status if server error
   if (!resp.ok) {
