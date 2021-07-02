@@ -143,8 +143,8 @@ class ProtonSDK {
   link: Link | null;
 
   constructor() {
-    this.appName = 'Proton Market';
-    this.requestAccount = 'protonmarket';
+    this.appName = 'NFTLAND';
+    this.requestAccount = 'nftland';
     this.session = null;
     this.link = null;
   }

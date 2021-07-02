@@ -68,8 +68,8 @@ export const FEATURED_HOMEPAGE_COLLECTIONS = [
 export const FIRST_PROTON_MARKET_ASSET_ID = 4398046511103;
 
 export const META = {
-  twitterHandle: '@protonxpr',
-  siteName: 'Proton Market',
+  twitterHandle: '@tobewritten',
+  siteName: 'NFTLAND',
   bannerImage: 'https://protonmarket.com/banner-rectangle.png',
   description:
     'Start creating and selling your own NFTs! The best way to monetize your talent. Free to get started.',

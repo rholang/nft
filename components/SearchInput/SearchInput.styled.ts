@@ -51,7 +51,7 @@ export const ClearTextButton = styled(IconButton)<ClearTextButtonProps>`
 export const InputContainer = styled.div<InputContainerProps>`
   border-radius: 8px;
   width: 50vw;
-  max-width: 600px;
+
   height: 48px;
   transition: 0.2s;
   display: flex;
@@ -70,7 +70,7 @@ export const InputContainer = styled.div<InputContainerProps>`
     border: solid 1px #752eeb;
   }
 
-  @media (max-width: 1450px) {
+  @media (max-width: 2450px) {
     width: 45vw;
   }
 
@@ -87,7 +87,7 @@ export const InputContainer = styled.div<InputContainerProps>`
   }
 
   @media (max-width: 1050px) {
-    width: 20vw;
+    width: 45vw;
   }
 
   ${breakpoint.tablet`

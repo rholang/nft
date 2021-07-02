@@ -21,6 +21,7 @@ export const StyledButton = styled.button<ButtonProps>`
   height: auto;
   font-size: ${({ smallSize }) => (smallSize ? '14px' : '16px')};
   line-height: 24px;
+  min-width: 150px;
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
 
   :focus {
