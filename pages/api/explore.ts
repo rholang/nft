@@ -8,19 +8,20 @@ const handler = async (
   const { method, body } = req;
 
   try {
-    const { node, code } = JSON.parse(body);
+    //const { node, code } = JSON.parse(body);
 
-    const { exploreDeploy } = createRnodeService(node);
-    const result = await exploreDeploy({
+    /*const { exploreDeploy } = createRnodeService(node);
+   const result = await exploreDeploy({
       code: code,
-    });
+    });*/
 
     res.setHeader(
       'Cache-Control',
       'max-age=604800, s-maxage=604800 stale-while-revalidate'
     );
-    res.status(200).send({ success: true, message: result });
+    res.status(200).send({ success: true, message: 'result' });
   } catch (e) {
+    console.log('fail');
     res.setHeader(
       'Cache-Control',
       'max-age=604800, s-maxage=604800 stale-while-revalidate'

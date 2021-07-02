@@ -9,6 +9,7 @@ export const nextjsExploreDeploy = async ({ node, code }) => {
     const resultRaw = await fetch('/api/explore', {
       method: 'GET',
       //body: JSON.stringify(formValues),
+      cache: 'default',
     });
     // const res = await sendToApi('POST', `/api/explore`, body);
 
