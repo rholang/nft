@@ -19,7 +19,6 @@ const ConnectWalletButton = (): JSX.Element => {
     }
   `;
 
-    console.log('a');
     E.exploreDeploy({ client: 'nextjs', code: code });
   };
 

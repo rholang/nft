@@ -1,20 +1,26 @@
+import axios from 'axios';
 export const nextjsExploreDeploy = async ({ node, code }) => {
   try {
-    const formValues: any = {
-      node: node,
-      code: code,
-    };
+    const formattedCode = code.replace(/(\r\n|\n|\r)/gm, '');
+
     //formData.append('code', code);
 
-    const resultRaw = await fetch('/api/explore', {
+    const res = await axios.get('/api/explore', {
+      params: {
+        node: node,
+        code: formattedCode,
+      },
+    });
+
+    // always executed
+    /*const resultRaw = await fetch('/api/explore', {
       method: 'POST',
       body: JSON.stringify(formValues),
-    });
+    });*/
     // const res = await sendToApi('POST', `/api/explore`, body);
 
     //const result = await resultRaw.json();
-    console.log(resultRaw);
-    return resultRaw;
+    return res;
   } catch (e) {
     throw new Error(e);
   }
