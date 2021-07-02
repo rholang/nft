@@ -35,8 +35,8 @@ export const Container = styled.section<ContainerProps>`
 export const Card = styled.article`
   width: 100%;
   height: 144px;
-  border-radius: 16px;
-  border: solid 1px #e6e6e6;
+  border-radius: 20px;
+  border: solid 3px black;
   display: flex;
   align-items: center;
 

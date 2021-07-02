@@ -71,19 +71,19 @@ export const InputContainer = styled.div<InputContainerProps>`
   }
 
   @media (max-width: 1450px) {
-    width: 40vw;
+    width: 45vw;
   }
 
   @media (max-width: 1350px) {
-    width: 35vw;
+    width: 45vw;
   }
 
   @media (max-width: 1250px) {
-    width: 30vw;
+    width: 45vw;
   }
 
   @media (max-width: 1150px) {
-    width: 25vw;
+    width: 45vw;
   }
 
   @media (max-width: 1050px) {

@@ -13,9 +13,9 @@ export const StyledButton = styled.button<ButtonProps>`
   padding: ${({ smallSize, padding }) => (smallSize ? '4px 16px' : padding)};
   margin: ${({ margin }) => margin};
   border: none;
-  border-radius: 8px;
-  background-color: ${({ cancel }) => (cancel ? '#f94e6c' : '#752eeb')};
-  color: white;
+  border-radius: 40px;
+  background-color: ${({ cancel }) => (cancel ? '#f94e6c' : '#2eebb7')};
+  color: black;
   cursor: pointer;
   transition: 0.2s;
   height: auto;

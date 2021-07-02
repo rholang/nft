@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint-jest": "eslint --fix .",
-    "test": "jest --watchAll",
+    "test-jest": "jest --watchAll",
     "format": "prettier --write './**/*.{js,jsx, ts, tsx}' --config ./.prettierrc.js",
     "typecheck": "$(npm bin)/tsc --noEmit",
     "check:all": "yarn lint && yarn format && yarn typecheck"

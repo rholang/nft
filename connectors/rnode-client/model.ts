@@ -1,6 +1,6 @@
 // import { createEvent, createStore } from 'effector'
 
-import { RevAccount } from '@tgrospic/rnode-http-js';
+import { RevAccount, RevAddress } from '@tgrospic/rnode-http-js';
 import { localNet, testNet, mainNet, getNodeUrls } from './network';
 
 import {
@@ -30,7 +30,7 @@ export interface RNodeSt {
 // action, typedefinitions state
 const changeValNode = domain.event<RNodeInfo>();
 const changeReadNode = domain.event<RNodeInfo>();
-const addWallet = domain.event<RevAccount[]>();
+const addWallet = domain.event<RevAddress>();
 const removeWallet = domain.event<RevAccount>();
 const changeWallet = domain.event<RevAccount>();
 const changeWalletSelected = domain.event<RevAccount>();

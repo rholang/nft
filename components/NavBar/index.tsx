@@ -48,14 +48,14 @@ const Logo = (): JSX.Element => {
       <ImageLink>
         <DesktopIcon>
           <Image
-            width="194px"
-            height="41px"
+            width="227px"
+            height="74px"
             alt="logo"
             src="/beta-logo.svg" // TODO: Swap back to non-beta logo: logo-colored@3x.png
           />
         </DesktopIcon>
         <MobileIcon>
-          <Image width="30px" height="33px" alt="logo" src="/logo.svg" />
+          <Image width="52px" height="52px" alt="logo" src="/logo.svg" />
         </MobileIcon>
       </ImageLink>
     </Link>
