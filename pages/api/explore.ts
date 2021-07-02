@@ -6,37 +6,29 @@ const handler = async (
   res: NextApiResponse
 ): Promise<void> => {
   const { method, body } = req;
-  switch (method) {
-    case 'POST':
-      try {
-        const { node, code } = JSON.parse(body);
 
-        const { exploreDeploy } = createRnodeService(node);
-        const result = await exploreDeploy({
-          code: code,
-        });
+  try {
+    const { node, code } = JSON.parse(body);
 
-        res.setHeader(
-          'Cache-Control',
-          'max-age=604800, s-maxage=604800 stale-while-revalidate'
-        );
-        res.status(200).send({ success: true, message: result });
-      } catch (e) {
-        res.setHeader(
-          'Cache-Control',
-          'max-age=604800, s-maxage=604800 stale-while-revalidate'
-        );
-        res.status(500).send({
-          success: false,
-          message: e.message || 'Error retrieving profile avatars',
-        });
-      }
-      break;
+    const { exploreDeploy } = createRnodeService(node);
+    const result = await exploreDeploy({
+      code: code,
+    });
 
-    case 'PUT':
-      break;
-    case 'PATCH':
-      break;
+    res.setHeader(
+      'Cache-Control',
+      'max-age=604800, s-maxage=604800 stale-while-revalidate'
+    );
+    res.status(200).send({ success: true, message: result });
+  } catch (e) {
+    res.setHeader(
+      'Cache-Control',
+      'max-age=604800, s-maxage=604800 stale-while-revalidate'
+    );
+    res.status(500).send({
+      success: false,
+      message: e.message || 'Error retrieving profile avatars',
+    });
   }
 };
 

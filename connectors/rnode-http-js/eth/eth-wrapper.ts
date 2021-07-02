@@ -6,13 +6,12 @@
 type EthRequestName = 'eth_requestAccounts' | 'personal_sign';
 
 // Ethereum object injected by Metamask
-// @ts-ignore
+
 type window = {
   ethereum: any;
 };
 
 declare const window: window;
-declare const eth_: any;
 
 const getEth = () => {
   if (typeof window !== 'undefined') {
@@ -24,7 +23,7 @@ const getEth = () => {
   }
 };
 
-export const ethDetected = !!eth_;
+export const ethDetected = !!getEth();
 
 // https://docs.metamask.io/guide/ethereum-provider.html#properties
 if (getEth()) {
@@ -46,7 +45,8 @@ const ethRequest = (eth_, method: EthRequestName, args?: any) => {
  * @returns Base 16 ETH address
  */
 export const ethereumAddress = async () => {
-  const accounts = await ethRequest(getEth(), 'eth_requestAccounts');
+  const eth_ = getEth();
+  const accounts = await ethRequest(eth_, 'eth_requestAccounts');
 
   if (!Array.isArray(accounts))
     throw Error(
