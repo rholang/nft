@@ -7,6 +7,12 @@ type EthRequestName = 'eth_requestAccounts' | 'personal_sign';
 
 // Ethereum object injected by Metamask
 // @ts-ignore
+type window = {
+  ethereum: any;
+};
+
+declare const window: window;
+declare const eth_: any;
 
 const getEth = () => {
   if (typeof window !== 'undefined') {
@@ -17,6 +23,8 @@ const getEth = () => {
     return eth_;
   }
 };
+
+export const ethDetected = !!eth_;
 
 // https://docs.metamask.io/guide/ethereum-provider.html#properties
 if (getEth()) {
@@ -62,7 +70,7 @@ export const ethereumSign = async (
   ethAddr: string
 ) => {
   // Create args, fix arrays/buffers
-  const args = { params: [[...bytes], ethAddr] };
+  const args: any = { params: [[...bytes], ethAddr] };
 
   // Returns signature in hex format
   return (await ethRequest('personal_sign', args)) as string;
