@@ -1,7 +1,5 @@
 export const nextjsExploreDeploy = async ({ node, code }) => {
   try {
-    console.log('run');
-    console.log(node);
     const formValues: any = {
       node: node,
       code: code,

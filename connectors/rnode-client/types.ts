@@ -31,7 +31,7 @@ export type ExploreDeployEff = {
 export type ExploreDeployArgs = { client?: string; code: string };
 
 export type RNodeEff = {
-  rnodeExploreDeploy(args: ExploreDeployArgs): Promise<[number, string]>;
+  exploreDeploy(args: ExploreDeployArgs): Promise<[number, string]>;
   // rnodeDeploy(args: DeployArgs): Promise<string>;
 };
 

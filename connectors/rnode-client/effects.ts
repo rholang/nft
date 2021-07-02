@@ -15,10 +15,8 @@ import {
 import * as R from 'ramda';
 import { nextjsExploreDeploy } from 'connectors/nextjs-client';
 
-const rnodeExploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
+const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
   async function ({ code }: ExploreDeployArgs): Promise<[number, string]> {
-    console.log(node);
-    console.log(node);
     const {
       expr: [e],
     } = await rnodeHttp(node.httpUrl, 'explore-deploy', code);
@@ -85,13 +83,13 @@ export const createRnodeService = (node): RNodeEff => {
 
   // App actions to process communication with RNode
   return {
-    rnodeExploreDeploy: rnodeExploreDeploy({ rnodeHttp, node }),
+    exploreDeploy: exploreDeploy({ rnodeHttp, node }),
     //rnodeDeploy: rnodeDeploy({ node, sendDeploy, getDataForDeploy, log }),
   };
 };
 
-export const exploreDeploy = async ({ client, node, code }) => {
-  const { rnodeExploreDeploy } = createRnodeService(node);
+export const exploreDeployRouter = async ({ client, node, code }) => {
+  const { exploreDeploy } = createRnodeService(node);
   switch (client) {
     case 'nextjs': {
       const data = nextjsExploreDeploy({ node, code });
@@ -99,7 +97,7 @@ export const exploreDeploy = async ({ client, node, code }) => {
     }
 
     case 'rnode': {
-      const data = rnodeExploreDeploy({ code });
+      const data = exploreDeploy({ code });
       return data;
     }
   }
@@ -108,7 +106,7 @@ export const exploreDeploy = async ({ client, node, code }) => {
 const exploreDeployFx = domain.effect<
   { client: string; node: NodeUrls; code: string },
   any
->(exploreDeploy);
+>(exploreDeployRouter);
 
 export const Effects = {
   exploreDeployFx,

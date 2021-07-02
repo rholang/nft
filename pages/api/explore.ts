@@ -11,8 +11,8 @@ const handler = async (
       try {
         const { node, code } = JSON.parse(body);
 
-        const { rnodeExploreDeploy } = createRnodeService(node);
-        const result = await rnodeExploreDeploy({
+        const { exploreDeploy } = createRnodeService(node);
+        const result = await exploreDeploy({
           code: code,
         });
 
@@ -22,7 +22,6 @@ const handler = async (
         );
         res.status(200).send({ success: true, message: result });
       } catch (e) {
-        console.log('fail');
         res.setHeader(
           'Cache-Control',
           'max-age=604800, s-maxage=604800 stale-while-revalidate'
