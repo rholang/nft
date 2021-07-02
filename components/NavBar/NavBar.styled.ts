@@ -21,7 +21,8 @@ type NavLinkProps = {
 
 export const Background = styled.section`
   width: 100%;
-  background: white;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
   border-bottom: 1px solid #e8ecfd;
   z-index: 10;
   position: fixed;
