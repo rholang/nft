@@ -6,8 +6,8 @@
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "lint-jest": "eslint --fix .",
-    "test-jest": "jest --watchAll",
+    "lint": "eslint --fix .",
+    "test": "jest --watchAll",
     "format": "prettier --write './**/*.{js,jsx, ts, tsx}' --config ./.prettierrc.js",
     "typecheck": "$(npm bin)/tsc --noEmit",
     "check:all": "yarn lint && yarn format && yarn typecheck"
@@ -87,14 +87,8 @@
     "url-loader": "^4.1.1"
   },
   "jest": {
-    "moduleNameMapper": {
-      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
-    },
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    },
     "testMatch": [
-      "**/__tests__/*.(ts|tsx)"
+      "**/__tests__/*.test.(ts|tsx)"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/jest.setup.ts"
@@ -102,15 +96,6 @@
     "testPathIgnorePatterns": [
       "./.next/",
       "./node_modules/"
-    ],
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.jest.json"
-      }
-    },
-    "moduleDirectories": [
-      "node_modules",
-      "."
     ]
   }
 }

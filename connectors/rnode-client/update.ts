@@ -16,7 +16,7 @@ S.$rnodeStore
   .on(Fx.exploreDeployFx.doneData, (state, result) => {
     console.log(result);
   });
-/*.on(E.addWallet ,(state, revAccount )=> {
+  .on(E.addWallet ,(state, revAccount )=> {
 
     return {...state, }
   }))
@@ -26,4 +26,4 @@ S.$rnodeStore
     const ethAddr = await ethereumAddress()
     const revAccount = createRevAccount(ethAddr) || {}
     E.addWallet(revAccount)
-  }*/
+  }
