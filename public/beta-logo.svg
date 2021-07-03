@@ -1,5 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="227" height="74" viewBox="0 0 227 74">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="222" height="55" viewBox="0 0 222 55">
   <defs>
+    <linearGradient id="linear-gradient" x1="0.752" y1="0.28" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#aeff21"/>
+      <stop offset="1" stop-color="#6dff99" stop-opacity="0.89"/>
+    </linearGradient>
     <filter id="Path_1" x="2" y="0" width="62" height="54.432" filterUnits="userSpaceOnUse">
       <feOffset dy="2" input="SourceAlpha"/>
       <feGaussianBlur stdDeviation="2" result="blur"/>
@@ -8,15 +12,16 @@
       <feComposite operator="in" in="color"/>
       <feComposite operator="in" in2="SourceGraphic"/>
     </filter>
-    <linearGradient id="linear-gradient" x1="0.752" y1="0.28" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#aeff21"/>
-      <stop offset="1" stop-color="#6dff99" stop-opacity="0.89"/>
-    </linearGradient>
     <clipPath id="clip-Web_1920_1">
-      <rect width="227" height="74"/>
+      <rect width="222" height="55"/>
     </clipPath>
   </defs>
   <g id="Web_1920_1" data-name="Web 1920 – 1" clip-path="url(#clip-Web_1920_1)">
+    <rect id="Rectangle_2" data-name="Rectangle 2" width="61.893" height="17.04" transform="translate(157.107 26.98)" fill="url(#linear-gradient)"/>
+    <g id="Rectangle_3" data-name="Rectangle 3" transform="translate(156 9)" fill="none" stroke="#000" stroke-width="1">
+      <rect width="63" height="36" stroke="none"/>
+      <rect x="0.5" y="0.5" width="62" height="35" fill="none"/>
+    </g>
     <g data-type="innerShadowGroup">
       <path id="Path_1-2" data-name="Path 1" d="M14,0H48c7.732,0,14,7.417,14,16.566v21.3c0,9.149-6.268,16.566-14,16.566H14c-7.732,0-14-7.417-14-16.566v-21.3C0,7.417,6.268,0,14,0Z" transform="translate(2)" fill="#b5ff6b"/>
       <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Path_1)">
@@ -24,8 +29,7 @@
       </g>
     </g>
     <text id="NFT_LAND" data-name="NFT  LAND" transform="translate(9 38)" fill="#010101" font-size="25" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">NFT</tspan><tspan y="0" xml:space="preserve" fill="#72fb7b" font-family="SegoeUI-Semilight, Segoe UI" font-weight="300">  </tspan><tspan y="0" font-family="SegoeUI-Semilight, Segoe UI" font-weight="300" fill="#000">LAND</tspan></text>
-    <rect id="Rectangle_2" data-name="Rectangle 2" width="97" height="25" transform="translate(123.716 46.011) rotate(-7)" fill="url(#linear-gradient)"/>
-    <text id="RCHAIN" transform="translate(132.353 67.116) rotate(-7)" fill="#060606" font-size="22" font-family="Arial-BoldMT, Arial" font-weight="700"><tspan x="0" y="0">RCHAIN</tspan></text>
-    <text id="runs_on_" data-name="runs on " transform="translate(144.872 40.749) rotate(-7)" fill="#670d5b" font-size="15" font-family="ArialMT, Arial" style="mix-blend-mode: luminosity;isolation: isolate"><tspan x="0" y="0" fill="#000">runs on</tspan><tspan y="0" fill="#670d5b"> </tspan></text>
+    <text id="RCHAIN" transform="translate(163 40)" fill="#060606" font-size="13" font-family="Arial-BoldMT, Arial" font-weight="700"><tspan x="0" y="0">RCHAIN</tspan></text>
+    <text id="runs_on_" data-name="runs on " transform="translate(162.745 23.316)" fill="#670d5b" font-size="15" font-family="ArialMT, Arial" style="mix-blend-mode: luminosity;isolation: isolate"><tspan x="0" y="0" fill="#000">runs on</tspan><tspan y="0" fill="#670d5b"> </tspan></text>
   </g>
 </svg>

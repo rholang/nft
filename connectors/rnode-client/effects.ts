@@ -2,7 +2,11 @@ import { NodeUrls } from './types';
 import { domain } from './model';
 import { NextApiRequest, NextApiResponse } from 'next';
 import proton from '../../services/proton-rpc';
-import { makeRNodeWeb, rhoExprToJson } from 'connectors/rnode-http-js';
+import {
+  makeRNodeWeb,
+  rhoExprToJson,
+  RevAccount,
+} from 'connectors/rnode-http-js';
 import {
   ExploreDeployArgs,
   ExploreDeployEff,
@@ -12,6 +16,12 @@ import {
   RNodeEff,
   RNodeInfo,
 } from 'connectors/rnode-client/types';
+import {
+  ethereumAddress,
+  ethDetected,
+  createRevAccount,
+  RevAddress,
+} from 'connectors/rnode-http-js';
 import * as R from 'ramda';
 import { nextjsExploreDeploy } from 'connectors/nextjs-client';
 
@@ -25,8 +35,8 @@ const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
     return [dataBal, dataError];
   };
 
-const rnodeDeploy = (effects: DeployEff) =>
-  async function ({ code, account, phloLimit, setStatus }: DeployArgs) {
+const deploy = (effects: DeployEff) =>
+  async function ({ code, account, phloLimit }: DeployArgs) {
     const { node, sendDeploy, getDataForDeploy, log } = effects;
 
     log('SENDING DEPLOY', {
@@ -35,8 +45,6 @@ const rnodeDeploy = (effects: DeployEff) =>
       node: node.httpUrl,
       code,
     });
-
-    setStatus(`Deploying ...`);
 
     const phloLimitNum = R.isNil(phloLimit) ? phloLimit : parseInt(phloLimit);
 
@@ -49,7 +57,7 @@ const rnodeDeploy = (effects: DeployEff) =>
       return `Checking result ${R.repeat('.', i).join('')}`;
     };
     const progressStep = mkProgress(0);
-    const updateProgress = () => setStatus(progressStep());
+    const updateProgress = () => true;
     updateProgress();
 
     // Try to get result from next proposed block
@@ -75,6 +83,15 @@ const rnodeDeploy = (effects: DeployEff) =>
     return `✓ (${message}) // cost: ${costTxt}`;
   };
 
+export const getMetamaskAccount = async () => {
+  const ethAddr = await ethereumAddress();
+  const revAccountAddress: RevAddress = createRevAccount(ethAddr);
+
+  const revAccountName = { name: 'revWallet' };
+  const revAccount = { ...revAccountAddress, ...revAccountName };
+  return revAccount;
+};
+
 export const createRnodeService = (node): RNodeEff => {
   const { log, warn } = console;
   const rnodeWeb = makeRNodeWeb({ now: Date.now });
@@ -84,12 +101,12 @@ export const createRnodeService = (node): RNodeEff => {
   // App actions to process communication with RNode
   return {
     exploreDeploy: exploreDeploy({ rnodeHttp, node }),
-    //rnodeDeploy: rnodeDeploy({ node, sendDeploy, getDataForDeploy, log }),
+    deploy: deploy({ node, sendDeploy, getDataForDeploy, log }),
   };
 };
 
-export const exploreDeployRouter = async ({ client, node, code }) => {
-  const { exploreDeploy } = createRnodeService(node);
+export const effectsRouter = async ({ client, node, code }) => {
+  const { exploreDeploy, deploy } = createRnodeService(node);
   switch (client) {
     case 'nextjs': {
       const data = nextjsExploreDeploy({ node, code });
@@ -106,8 +123,23 @@ export const exploreDeployRouter = async ({ client, node, code }) => {
 const exploreDeployFx = domain.effect<
   { client: string; node: NodeUrls; code: string },
   any
->(exploreDeployRouter);
+>(effectsRouter);
+
+const deployFx = domain.effect<
+  {
+    client: string;
+    node: NodeUrls;
+    code: string;
+    account: RevAccount;
+    phloLimit: string;
+  },
+  any
+>(effectsRouter);
+
+const getMetamaskAccountFx = domain.effect(getMetamaskAccount);
 
 export const Effects = {
+  deployFx,
   exploreDeployFx,
+  getMetamaskAccountFx,
 };

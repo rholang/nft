@@ -212,8 +212,8 @@ const NavBar = (): JSX.Element => {
 
   const closeNavDropdown = () => setIsOpen(false);
 
-  const connectWallet = () => {
-    E.exploreDeploy({ client: 'nextjs', code: code });
+  const addWallet = () => {
+    E.addWallet();
   };
 
   const mobileSearchHiddenNavItems = isMobileSearchOpen ? null : (
@@ -228,7 +228,9 @@ const NavBar = (): JSX.Element => {
           toggleNavDropdown={toggleNavDropdown}
         />
       ) : (
-        <Button onClick={connectWallet}>Connect Wallet</Button>
+        <>
+          <Button onClick={addWallet}>Connect Wallet</Button>
+        </>
       )}
     </>
   );

@@ -17,11 +17,10 @@ export type DeployEff = { node: NodeUrls } & SendDeployEff &
   ConsoleLog;
 
 export type DeployArgs = {
-  readonly node: NodeUrls;
-  readonly code: string;
-  readonly account: RevAccount;
-  readonly phloLimit: string;
-  setStatus(msg: string): any;
+  client?: string;
+  code: string;
+  account?: RevAccount;
+  phloLimit: string;
 };
 
 export type ExploreDeployEff = {
@@ -32,7 +31,7 @@ export type ExploreDeployArgs = { client?: string; code: string };
 
 export type RNodeEff = {
   exploreDeploy(args: ExploreDeployArgs): Promise<[number, string]>;
-  // rnodeDeploy(args: DeployArgs): Promise<string>;
+  deploy(args: DeployArgs): Promise<string>;
 };
 
 export interface RNodeInfo {

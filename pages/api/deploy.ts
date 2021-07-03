@@ -1,10 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createRnodeService } from 'connectors/rnode-client';
-import { NodeUrls } from 'connectors/rnode-client/types';
+import { NodeUrls, DeployArgs } from 'connectors/rnode-client/types';
+import { RevAccount } from '@tgrospic/rnode-http-js';
 
-export type Request = {
+export type DeployReqArgs = {
   node: string;
   code: string;
+  account: string;
+  phloLimit: string;
+  setStatus: string;
 };
 
 const handler = async (
@@ -14,13 +18,26 @@ const handler = async (
   const { method, query } = req;
   switch (method) {
     case 'GET': {
-      const { node, code } = query as Request;
+      const queryReq = query as DeployReqArgs;
 
       try {
-        const formattedNode: NodeUrls = JSON.parse(node);
-        const { exploreDeploy } = createRnodeService(formattedNode);
-        const result = await exploreDeploy({
-          code: code,
+        const pNode: NodeUrls = JSON.parse(queryReq.node);
+        const pCode: string = JSON.parse(queryReq.code);
+        const pAccount: RevAccount = JSON.parse(queryReq.code);
+        const pPhloLimit: string = JSON.parse(queryReq.phloLimit);
+
+        /*const objectMap = (obj, fn) =>
+          Object.fromEntries(
+            Object.entries(obj).map(([k, v], i) => [k, fn(v, k, i)])
+          );
+
+        objectMap(queryReq, (v) => JSON.parse(v));*/
+
+        const { deploy } = createRnodeService(pNode);
+        const result = await deploy({
+          code: pCode,
+          account: pAccount,
+          phloLimit: pPhloLimit,
         });
 
         res.setHeader(

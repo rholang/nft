@@ -30,7 +30,7 @@ export interface RNodeSt {
 // action, typedefinitions state
 const changeValNode = domain.event<RNodeInfo>();
 const changeReadNode = domain.event<RNodeInfo>();
-const addWallet = domain.event<RevAddress>();
+const addWallet = domain.event<void>();
 const removeWallet = domain.event<RevAccount>();
 const changeWallet = domain.event<RevAccount>();
 const changeWalletSelected = domain.event<RevAccount>();
@@ -57,13 +57,16 @@ const initRnodeStore: RNodeSt = {
   // Initial wallet
   wallets: [
     {
+      name: 'test',
       revAddr: '1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ',
       privKey:
         '9adef38fbc1cb97469ab54e0f362060cbd3f656a42319baf741b3ea64fcabb1d',
-      name: 'test',
     },
   ],
-  walletSelected: { name: '', revAddr: '' },
+  walletSelected: {
+    name: 'test',
+    revAddr: '1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ',
+  },
 };
 
 // model
