@@ -8,6 +8,7 @@ import {
   RNodeInfo,
   DeployArgs,
   ExploreDeployArgs,
+  Status,
 } from './types';
 
 import { createDomain } from 'effector';
@@ -25,6 +26,8 @@ export interface RNodeSt {
   wallets: RevAccount[];
   /* selected wallet */
   walletSelected: RevAccount;
+  /*result data status*/
+  status: Status;
 }
 
 // action, typedefinitions state
@@ -67,6 +70,7 @@ const initRnodeStore: RNodeSt = {
     name: 'test',
     revAddr: '1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ',
   },
+  status: { success: '', message: '' },
 };
 
 // model

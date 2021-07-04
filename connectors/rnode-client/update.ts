@@ -7,8 +7,9 @@ S.$rnodeStore
     const node = getNodeUrls(state.readNode);
     Fx.exploreDeployFx({ client, node, code });
   })
-  .on(Fx.exploreDeployFx.doneData, (_, result) => {
-    console.log(result);
+  .on(Fx.exploreDeployFx.doneData, (state, status) => {
+    //console.log(state);
+    return { ...state, status: status };
   })
   .on(E.deploy, (state, { client, code, phloLimit }) => {
     const node = getNodeUrls(state.readNode);
@@ -21,7 +22,7 @@ S.$rnodeStore
     });
   })
   .on(Fx.deployFx.doneData, (_, result) => {
-    console.log(result);
+    //console.log(result);
   })
   .on(E.addWallet, () => {
     Fx.getMetamaskAccountFx();

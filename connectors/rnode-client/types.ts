@@ -30,9 +30,11 @@ export type ExploreDeployEff = {
 export type ExploreDeployArgs = { client?: string; code: string };
 
 export type RNodeEff = {
-  exploreDeploy(args: ExploreDeployArgs): Promise<[number, string]>;
+  exploreDeploy(args: ExploreDeployArgs): Promise<Status>;
   deploy(args: DeployArgs): Promise<string>;
 };
+
+export type Status = { success: string; message: string };
 
 export interface RNodeInfo {
   readonly domain: string;

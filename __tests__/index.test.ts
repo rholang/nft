@@ -1,7 +1,10 @@
-import { Event as E } from 'connectors/rnode-client';
-
+import { Event as E, Store as S, Effects as Fx } from 'connectors/rnode-client';
+import { createEffect, attach } from 'effector';
+import 'isomorphic-fetch';
+//import { store, event } from 'connectors/test';
 describe(`ExploreDeploy`, () => {
-  it('test exploratory deploy on testnet', () => {
+  it('test exploratory deploy on testnet', async () => {
+    const fn = jest.fn();
     const checkBalance = `
     new return, rl(\`rho:registry:lookup\`), RevVaultCh, vaultCh in {
       rl!(\`rho:rchain:revVault\`, *RevVaultCh) |
@@ -17,7 +20,23 @@ describe(`ExploreDeploy`, () => {
     }
   `;
 
-    E.exploreDeploy({ client: 'nextjs', code: checkBalance });
+    /*S.$rnodeStore.watch((state) => {
+      //console.log(state.status);
+      fn();
+    });*/
+
+    Fx.exploreDeployFx.doneData.watch((state) => {
+      console.log(state);
+      fn(state);
+    });
+
+    /*Fx.exploreDeployFx.doneData.watch((e) => {
+      fn(e);
+    });*/
+
+    E.exploreDeploy({ client: 'rnode', code: checkBalance });
+
+    expect(fn).toBeCalledTimes(1);
   });
 });
 

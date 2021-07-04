@@ -1,7 +1,5 @@
-import { NodeUrls } from './types';
+import { NodeUrls, Status } from './types';
 import { domain } from './model';
-import { NextApiRequest, NextApiResponse } from 'next';
-import proton from '../../services/proton-rpc';
 import {
   makeRNodeWeb,
   rhoExprToJson,
@@ -12,7 +10,6 @@ import {
   ExploreDeployEff,
   DeployArgs,
   DeployEff,
-  PageLogArgs,
   RNodeEff,
   RNodeInfo,
 } from 'connectors/rnode-client/types';
@@ -26,13 +23,14 @@ import * as R from 'ramda';
 import { nextjsExploreDeploy } from 'connectors/nextjs-client';
 
 const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
-  async function ({ code }: ExploreDeployArgs): Promise<[number, string]> {
+  async function ({ code }: ExploreDeployArgs): Promise<Status> {
     const {
       expr: [e],
     } = await rnodeHttp(node.httpUrl, 'explore-deploy', code);
-    const dataBal = e && e.ExprInt && e.ExprInt.data;
-    const dataError = e && e.ExprString && e.ExprString.data;
-    return [dataBal, dataError];
+    const dataBal = e as string;
+    //console.log(dataBal);
+    const dataError = (e && e.ExprString && e.ExprString.data) || '';
+    return { success: dataError, message: dataBal };
   };
 
 const deploy = (effects: DeployEff) =>
@@ -107,22 +105,24 @@ export const createRnodeService = (node): RNodeEff => {
 
 export const effectsRouter = async ({ client, node, code }) => {
   const { exploreDeploy, deploy } = createRnodeService(node);
+
   switch (client) {
     case 'nextjs': {
-      const data = nextjsExploreDeploy({ node, code });
+      const data = await nextjsExploreDeploy({ node, code });
       return data;
     }
 
     case 'rnode': {
-      const data = exploreDeploy({ code });
-      return data;
+      //const data = await exploreDeploy({ code });
+
+      return { success: 'tr', message: 'te' };
     }
   }
 };
 
 const exploreDeployFx = domain.effect<
   { client: string; node: NodeUrls; code: string },
-  any
+  Status
 >(effectsRouter);
 
 const deployFx = domain.effect<

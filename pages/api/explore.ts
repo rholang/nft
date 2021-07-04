@@ -25,14 +25,14 @@ const handler = async (
 
         res.setHeader(
           'Cache-Control',
-          'max-age=2678400, s-maxage=2678400 stale-while-revalidate'
+          'public, immutable, s-maxage=31536000, max-age=31536000, stale-while-revalidate=60'
         );
-        res.status(200).send({ success: true, message: result });
+        res.status(200).send(result);
       } catch (e) {
         console.log('fail');
         res.setHeader(
           'Cache-Control',
-          'max-age=604800, s-maxage=604800 stale-while-revalidate'
+          'public, immutable, s-maxage=31536000, max-age=31536000, stale-while-revalidate=60'
         );
         res.status(500).send({
           success: false,

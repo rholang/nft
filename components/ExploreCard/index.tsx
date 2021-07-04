@@ -3,6 +3,8 @@ import Button from '../Button';
 import { Image } from '../../styles/index.styled';
 import { useWindowSize } from '../../hooks';
 import { useAuthContext } from '../Provider';
+import { Event as E } from 'connectors/rnode-client';
+import { checkAccount } from 'services/rholang';
 import {
   Container,
   Content,
@@ -17,9 +19,9 @@ const ExploreCard = (): JSX.Element => {
   const { isMobile } = useWindowSize();
   const { currentUser, login } = useAuthContext();
 
-  const handleGetStartedClick = currentUser
-    ? () => router.push('/create')
-    : login;
+  const handleGetStartedClick = () => {
+    E.exploreDeploy({ client: 'nextjs', code: checkAccount });
+  };
 
   return (
     <Container>
@@ -34,7 +36,7 @@ const ExploreCard = (): JSX.Element => {
             margin="0"
             smallSize={isMobile}
             onClick={handleGetStartedClick}>
-            Get Started
+            Explore deploy
           </Button>
         </ButtonWrapper>
       </Content>
