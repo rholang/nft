@@ -27,6 +27,6 @@ S.$rnodeStore
         name: revAccount.name,
         revAddr: revAccount.revAddr,
       };
-      return { ...state, wallets, walletSelected };
+      return { ...state, wallets, walletSelected, walletConnected: true };
     }
   });

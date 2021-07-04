@@ -1,2 +1,2 @@
-export * from './checkAccount';
-export * from './insertRegistry';
+export * from './examples/checkAccount';
+export * from './examples/insertRegistry';

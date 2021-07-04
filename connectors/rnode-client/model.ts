@@ -26,6 +26,8 @@ export interface RNodeSt {
   wallets: RevAccount[];
   /* selected wallet */
   walletSelected: RevAccount;
+  /* check if connected with browser wallet */
+  walletConnected: boolean;
   /*result data status*/
   status: Status;
 }
@@ -70,6 +72,7 @@ const initRnodeStore: RNodeSt = {
     revAddr: '1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ',
     privKey: '9adef38fbc1cb97469ab54e0f362060cbd3f656a42319baf741b3ea64fcabb1d',
   },
+  walletConnected: false,
   status: { success: '', message: '' },
 };
 
