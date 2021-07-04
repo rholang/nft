@@ -1,6 +1,6 @@
 //import { createEvent, createStore } from 'effector'
 import { domain } from 'connectors/rnode-client';
-
+import { Store as S } from 'connectors/rnode-client';
 // action, typedefinitions state
 const changeNameEvent = domain.event<void>();
 
@@ -15,6 +15,7 @@ export const Event = {
 
 export const Store = {
   $nameStore,
+  $walletStore: S.$walletStore,
 };
 
 //register file  to worker

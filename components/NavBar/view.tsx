@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import Link from 'next/link';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import SearchInput from '../SearchInput';
-import { Image } from '../../styles/index.styled';
+import { Wallet } from 'connectors/rnode-client';
 import magnifyingIcon from '../../public/icon-light-search-24-px.svg';
 import closeIcon from '../../public/icon-light-close-16-px.svg';
 import { Effects as Fx } from 'connectors/rnode-client';
 import Button from 'components/Button';
+import userUrl from 'public/user.jpg';
 
 import {
   Background,
@@ -46,7 +47,7 @@ const Logo = (): JSX.Element => {
     <Link href="/" passHref>
       <ImageLink>
         <DesktopIcon>
-          <Image
+          <NextImage
             width="227px"
             height="54px"
             alt="logo"
@@ -54,25 +55,25 @@ const Logo = (): JSX.Element => {
           />
         </DesktopIcon>
         <MobileIcon>
-          <Image width="52px" height="52px" alt="logo" src="/logo.svg" />
+          <NextImage width="52px" height="52px" alt="logo" src="/logo.svg" />
         </MobileIcon>
       </ImageLink>
     </Link>
   );
 };
 
-const UserAvatar = ({ isOpen, avatar, toggleNavDropdown }) => {
+const UserAvatar = ({ isOpen, toggleNavDropdown }) => {
   const { currentUserBalance } = useAuthContext();
 
   const currentUserAvatar = (
     <UserMenuButton>
-      <UserMenuText>{currentUserBalance}</UserMenuText>
+      <UserMenuText>{'Connected'}</UserMenuText>
       <AvatarContainer>
-        <Image
+        <NextImage
           alt="chain account avatar"
-          src={avatar}
-          width="40px"
-          height="40px"
+          src={userUrl}
+          width="60px"
+          height="60px"
         />
       </AvatarContainer>
     </UserMenuButton>
@@ -200,8 +201,15 @@ const DesktopNavRoutes = () => {
   );
 };
 
-export const View = (): JSX.Element => {
-  const { currentUser, login } = useAuthContext();
+type InputProps = {
+  wallet: Wallet;
+  onChange?: () => any;
+};
+
+export const View: FC<InputProps> = ({ wallet }): JSX.Element => {
+  const { walletConnected } = wallet;
+  console.log(walletConnected);
+  const { login } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginDisabled, setIsLoginDisabled] = useState<boolean>(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState<boolean>(false);
@@ -220,12 +228,8 @@ export const View = (): JSX.Element => {
       <OpenSearchButton onClick={() => setIsMobileSearchOpen(true)}>
         <NextImage src={magnifyingIcon} />
       </OpenSearchButton>
-      {currentUser && currentUser.avatar ? (
-        <UserAvatar
-          isOpen={isOpen}
-          avatar={currentUser.avatar}
-          toggleNavDropdown={toggleNavDropdown}
-        />
+      {walletConnected ? (
+        <UserAvatar isOpen={isOpen} toggleNavDropdown={toggleNavDropdown} />
       ) : (
         <>
           <Button onClick={addWallet}>Connect Wallet</Button>

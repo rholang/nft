@@ -27,6 +27,10 @@ S.$rnodeStore
         name: revAccount.name,
         revAddr: revAccount.revAddr,
       };
-      return { ...state, wallets, walletSelected, walletConnected: true };
+      return { ...state, wallets, walletSelected };
     }
   });
+
+S.$walletStore.on(Fx.addWalletFx.doneData, (state, _) => {
+  return { walletConnected: true };
+});
