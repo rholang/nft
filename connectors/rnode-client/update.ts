@@ -2,32 +2,17 @@ import { Store as S, Event as E } from './model';
 import { Effects as Fx } from './effects';
 import { getNodeUrls } from './network';
 
+/* reducer store */
 S.$rnodeStore
-  .on(E.exploreDeploy, (state, { client, code }) => {
-    const node = getNodeUrls(state.readNode);
-    Fx.exploreDeployFx({ client, node, code });
-  })
   .on(Fx.exploreDeployFx.doneData, (state, status) => {
     //console.log(state);
+
     return { ...state, status: status };
-  })
-  .on(E.deploy, (state, { client, code, phloLimit }) => {
-    const node = getNodeUrls(state.readNode);
-    Fx.deployFx({
-      client,
-      node,
-      code,
-      account: state.walletSelected,
-      phloLimit,
-    });
   })
   .on(Fx.deployFx.doneData, (_, result) => {
     //console.log(result);
   })
-  .on(E.addWallet, () => {
-    Fx.getMetamaskAccountFx();
-  })
-  .on(Fx.getMetamaskAccountFx.doneData, (state, revAccount) => {
+  .on(Fx.addWalletFx.doneData, (state, revAccount) => {
     const { wallets } = state;
     const filteredWallets = wallets.filter((item) => {
       return item.name == 'revWallet';

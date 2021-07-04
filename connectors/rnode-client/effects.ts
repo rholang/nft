@@ -1,10 +1,12 @@
 import { NodeUrls, Status } from './types';
-import { domain } from './model';
+import { domain, RNodeSt, Store as S } from './model';
 import {
   makeRNodeWeb,
   rhoExprToJson,
   RevAccount,
 } from 'connectors/rnode-http-js';
+import { getNodeUrls } from './network';
+import { attach } from 'effector';
 import {
   ExploreDeployArgs,
   ExploreDeployEff,
@@ -103,7 +105,9 @@ export const createRnodeService = (node): RNodeEff => {
   };
 };
 
-export const effectsRouter = async ({ client, node, code }) => {
+export const effectsRouter = async ({ params, node }) => {
+  const { client, code } = params;
+
   const { exploreDeploy, deploy } = createRnodeService(node);
 
   switch (client) {
@@ -113,33 +117,50 @@ export const effectsRouter = async ({ client, node, code }) => {
     }
 
     case 'rnode': {
-      //const data = await exploreDeploy({ code });
+      const data = await exploreDeploy({ code });
 
-      return { success: 'tr', message: 'te' };
+      return data;
     }
   }
 };
 
-const exploreDeployFx = domain.effect<
-  { client: string; node: NodeUrls; code: string },
+const exploreDeployFxOrg = domain.effect<
+  { params: any; node: NodeUrls },
   Status
 >(effectsRouter);
 
-const deployFx = domain.effect<
+const deployFxOrg = domain.effect<
   {
-    client: string;
+    params: any;
     node: NodeUrls;
-    code: string;
-    account: RevAccount;
-    phloLimit: string;
   },
   any
 >(effectsRouter);
 
-const getMetamaskAccountFx = domain.effect(getMetamaskAccount);
+const addWalletFx = domain.effect(getMetamaskAccount);
+
+const exploreDeployFx = attach({
+  effect: exploreDeployFxOrg,
+  source: S.$rnodeStore,
+  mapParams: (params, data) => {
+    //console.log('Created effect called with', params, 'and data', data);
+    const node = getNodeUrls(data.readNode);
+    return { params, node };
+  },
+});
+
+const deployFx = attach({
+  effect: deployFxOrg,
+  source: S.$rnodeStore,
+  mapParams: (params, data) => {
+    //console.log('Created effect called with', params, 'and data', data);
+    const node = getNodeUrls(data.valNode);
+    return { params, node };
+  },
+});
 
 export const Effects = {
   deployFx,
   exploreDeployFx,
-  getMetamaskAccountFx,
+  addWalletFx,
 };

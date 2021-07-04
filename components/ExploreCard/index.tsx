@@ -3,7 +3,7 @@ import Button from '../Button';
 import { Image } from '../../styles/index.styled';
 import { useWindowSize } from '../../hooks';
 import { useAuthContext } from '../Provider';
-import { Event as E } from 'connectors/rnode-client';
+import { Effects as Fx } from 'connectors/rnode-client';
 import { checkAccount } from 'services/rholang';
 import {
   Container,
@@ -20,7 +20,7 @@ const ExploreCard = (): JSX.Element => {
   const { currentUser, login } = useAuthContext();
 
   const handleGetStartedClick = () => {
-    E.exploreDeploy({ client: 'nextjs', code: checkAccount });
+    Fx.exploreDeployFx({ client: 'nextjs', code: checkAccount });
   };
 
   return (

@@ -36,9 +36,8 @@ const changeReadNode = domain.event<RNodeInfo>();
 const addWallet = domain.event<void>();
 const removeWallet = domain.event<RevAccount>();
 const changeWallet = domain.event<RevAccount>();
-const changeWalletSelected = domain.event<RevAccount>();
-const deploy = domain.event<DeployArgs>();
-const exploreDeploy = domain.event<ExploreDeployArgs>();
+const changeSelectedWallet = domain.event<RevAccount>();
+const getNode = domain.event<void>();
 
 // init store
 
@@ -51,7 +50,7 @@ const nets = [localNet, testNet, mainNet].map(
   })
 );
 
-const initNet = nets[1];
+export const initNet = nets[1];
 
 const initRnodeStore: RNodeSt = {
   nets: nets,
@@ -82,9 +81,8 @@ export const Event = {
   addWallet,
   removeWallet,
   changeWallet,
-  changeWalletSelected,
-  deploy,
-  exploreDeploy,
+  changeSelectedWallet,
+  getNode,
 };
 
 export const Store = {

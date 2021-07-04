@@ -1,7 +1,7 @@
-import { Event as E, Store as S, Effects as Fx } from 'connectors/rnode-client';
-import { createEffect, attach } from 'effector';
+import { Effects as Fx } from 'connectors/rnode-client';
+
 import 'isomorphic-fetch';
-//import { store, event } from 'connectors/test';
+
 describe(`ExploreDeploy`, () => {
   it('test exploratory deploy on testnet', async () => {
     const fn = jest.fn();
@@ -20,21 +20,12 @@ describe(`ExploreDeploy`, () => {
     }
   `;
 
-    /*S.$rnodeStore.watch((state) => {
-      //console.log(state.status);
-      fn();
-    });*/
-
-    Fx.exploreDeployFx.doneData.watch((state) => {
-      console.log(state);
-      fn(state);
+    Fx.exploreDeployFx.doneData.watch((result) => {
+      console.log(result);
+      fn(result);
     });
 
-    /*Fx.exploreDeployFx.doneData.watch((e) => {
-      fn(e);
-    });*/
-
-    E.exploreDeploy({ client: 'rnode', code: checkBalance });
+    await Fx.exploreDeployFx({ client: 'rnode', code: checkBalance });
 
     expect(fn).toBeCalledTimes(1);
   });
@@ -42,6 +33,7 @@ describe(`ExploreDeploy`, () => {
 
 describe(`Deploy`, () => {
   it('test deploy on testnet', () => {
+    const fn = jest.fn();
     const sampleInsertToRegistry = `
     new return(\`rho:rchain:deployId\`),
       insertArbitrary(\`rho:registry:insertArbitrary\`)
@@ -54,7 +46,12 @@ describe(`Deploy`, () => {
         }
       }`;
 
-    E.deploy({
+    Fx.deployFx.doneData.watch((result) => {
+      console.log(result);
+      fn(result);
+    });
+
+    Fx.deployFx({
       client: 'nextjs',
       code: sampleInsertToRegistry,
       phloLimit: '500000',
