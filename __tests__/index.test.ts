@@ -56,5 +56,5 @@ describe(`Deploy`, () => {
     });
 
     expect(fn).toBeCalledTimes(1);
-  }, 200000);
+  });
 });

@@ -51,11 +51,18 @@ const deploy = (effects: DeployEff) =>
     updateProgress();
 
     // Try to get result from next proposed block
-    const { data, cost } = await getDataForDeploy(
-      node,
-      signature,
-      updateProgress
-    );
+
+    /*const getData = async () => {
+      const { data, cost } = await getDataForDeploy(
+        node,
+        signature,
+        updateProgress
+      );
+      return { data, cost };
+    };
+
+    const { data, cost } = await getData();
+
     // Extract data from response object
     const args = data ? rhoExprToJson(data.expr) : void 0;
 
@@ -69,8 +76,9 @@ const deploy = (effects: DeployEff) =>
 
     if (!succ) throw Error(`Deploy error: ${message}. // cost: ${costTxt}`);
 
-    const success = succ.toString();
-    return { success: success, message: message };
+    const success = succ.toString();*/
+    const message = signature;
+    return { success: '', message: message };
   };
 
 export const getMetamaskAccount = async () => {

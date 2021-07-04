@@ -26,7 +26,6 @@ export const nextjsDeploy = async ({
   phloLimit,
 }): Promise<Status> => {
   try {
-    console.log(node);
     const pCode = code.replace(/(\r\n|\n|\r)/gm, '');
     const pAccount = account.replace(/(\r\n|\n|\r)/gm, '');
     const pPhloLimit = phloLimit.replace(/(\r\n|\n|\r)/gm, '');
