@@ -6,7 +6,7 @@ import NProgress from 'nprogress';
 import SimpleReactLightbox from 'simple-react-lightbox';
 import 'styles/reset.css';
 import 'styles/globals.css';
-import NavBar from 'components/NavBar';
+import { NavBar } from 'components/NavBar';
 import Footer from 'components/Footer';
 import {
   AuthProvider,
