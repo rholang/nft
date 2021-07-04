@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { breakpoint } from '../../styles/Breakpoints';
-import {
-  GradientBackgroundProps,
-  GradientBackground,
-} from '../NavBar/NavBar.styled';
+import { GradientBackgroundProps, GradientBackground } from '../NavBar/styled';
 
 type MenuProps = {
   isOpen: boolean;
