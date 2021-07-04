@@ -38,7 +38,6 @@ const deploy = (effects: DeployEff) =>
     const { node, sendDeploy, getDataForDeploy } = effects;
 
     const phloLimitNum = R.isNil(phloLimit) ? phloLimit : parseInt(phloLimit);
-    console.log(node);
     const { signature } = await sendDeploy(node, account, code, phloLimitNum);
 
     // Progress dots
@@ -82,13 +81,11 @@ const deploy = (effects: DeployEff) =>
   };
 
 export const getMetamaskAccount = async () => {
-  console.log('meta');
   const ethAddr = await ethereumAddress();
   const revAccountAddress: RevAddress = createRevAccount(ethAddr);
 
   const revAccountName = { name: 'revWallet' };
   const revAccount = { ...revAccountAddress, ...revAccountName };
-  console.log(revAccount);
   return revAccount;
 };
 
