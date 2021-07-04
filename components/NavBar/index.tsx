@@ -6,7 +6,7 @@ import SearchInput from '../SearchInput';
 import { Image } from '../../styles/index.styled';
 import magnifyingIcon from '../../public/icon-light-search-24-px.svg';
 import closeIcon from '../../public/icon-light-close-16-px.svg';
-import { Event as E } from 'connectors/rnode-client';
+import { Effects as Fx } from 'connectors/rnode-client';
 import Button from 'components/Button';
 import { checkAccount as code } from 'services/rholang';
 
@@ -213,7 +213,7 @@ const NavBar = (): JSX.Element => {
   const closeNavDropdown = () => setIsOpen(false);
 
   const addWallet = () => {
-    E.addWallet();
+    Fx.addWalletFx();
   };
 
   const mobileSearchHiddenNavItems = isMobileSearchOpen ? null : (

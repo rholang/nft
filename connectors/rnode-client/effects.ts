@@ -84,11 +84,13 @@ const deploy = (effects: DeployEff) =>
   };
 
 export const getMetamaskAccount = async () => {
+  console.log('meta');
   const ethAddr = await ethereumAddress();
   const revAccountAddress: RevAddress = createRevAccount(ethAddr);
 
   const revAccountName = { name: 'revWallet' };
   const revAccount = { ...revAccountAddress, ...revAccountName };
+  console.log(revAccount);
   return revAccount;
 };
 

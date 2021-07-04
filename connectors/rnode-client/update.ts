@@ -30,4 +30,5 @@ S.$rnodeStore
       };
       return { ...state, wallets, walletSelected };
     }
-  });
+  })
+  .watch((state) => console.log(state));
