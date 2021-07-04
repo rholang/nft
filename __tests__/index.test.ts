@@ -1,4 +1,5 @@
 import { Effects as Fx } from 'connectors/rnode-client';
+import 'smart-contract/nft/app/master';
 
 import 'isomorphic-fetch';
 

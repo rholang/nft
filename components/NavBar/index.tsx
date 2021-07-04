@@ -8,7 +8,6 @@ import magnifyingIcon from '../../public/icon-light-search-24-px.svg';
 import closeIcon from '../../public/icon-light-close-16-px.svg';
 import { Effects as Fx } from 'connectors/rnode-client';
 import Button from 'components/Button';
-import { checkAccount as code } from 'services/rholang';
 
 import {
   Background,

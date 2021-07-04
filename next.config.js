@@ -9,4 +9,12 @@ module.exports = {
       'bloks.io',
     ],
   },
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.rho$/,
+      use: 'raw-loader',
+    });
+
+    return config;
+  },
 };

@@ -4,7 +4,7 @@ import { Image } from '../../styles/index.styled';
 import { useWindowSize } from '../../hooks';
 import { useAuthContext } from '../Provider';
 import { Effects as Fx } from 'connectors/rnode-client';
-import { checkAccount, sampleInsertToRegistry } from 'services/rholang';
+import { checkAccount, sampleInsertToRegistry } from 'smart-contract';
 import {
   Container,
   Content,
@@ -24,7 +24,11 @@ const ExploreCard = (): JSX.Element => {
   };
 
   const handleDeploy = () => {
-    Fx.deployFx({ client: 'rnode', code: sampleInsertToRegistry });
+    Fx.deployFx({
+      client: 'rnode',
+      code: sampleInsertToRegistry,
+      phloLimit: '500000',
+    });
   };
 
   return (
