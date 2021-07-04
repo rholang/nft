@@ -23,7 +23,7 @@ const handler = async (
       try {
         const pNode: NodeUrls = JSON.parse(queryReq.node);
         const pCode: string = JSON.parse(queryReq.code);
-        const pAccount: RevAccount = JSON.parse(queryReq.code);
+        const pAccount: RevAccount = JSON.parse(queryReq.account);
         const pPhloLimit: string = JSON.parse(queryReq.phloLimit);
 
         /*const objectMap = (obj, fn) =>
@@ -40,17 +40,11 @@ const handler = async (
           phloLimit: pPhloLimit,
         });
 
-        res.setHeader(
-          'Cache-Control',
-          'max-age=2678400, s-maxage=2678400 stale-while-revalidate'
-        );
+        res.setHeader('Cache-Control', 'no-cache');
         res.status(200).send({ success: true, message: result });
       } catch (e) {
         console.log('fail');
-        res.setHeader(
-          'Cache-Control',
-          'max-age=604800, s-maxage=604800 stale-while-revalidate'
-        );
+        res.setHeader('Cache-Control', 'no-cache');
         res.status(500).send({
           success: false,
           message: e.message || 'Error retrieving profile avatars',

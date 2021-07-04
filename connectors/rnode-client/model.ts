@@ -68,6 +68,7 @@ const initRnodeStore: RNodeSt = {
   walletSelected: {
     name: 'test',
     revAddr: '1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ',
+    privKey: '9adef38fbc1cb97469ab54e0f362060cbd3f656a42319baf741b3ea64fcabb1d',
   },
   status: { success: '', message: '' },
 };

@@ -12,12 +12,13 @@ export type ConsoleLog = { log: typeof console.log };
 
 export type PageLogArgs = { document: Document } & ConsoleLog;
 
-export type DeployEff = { node: NodeUrls } & SendDeployEff &
-  GetDeployDataEff &
-  ConsoleLog;
+export type DeployEff = { node: NodeUrls } & SendDeployEff & GetDeployDataEff;
 
 export type DeployArgs = {
   client?: string;
+} & DeployDetailArgs;
+
+export type DeployDetailArgs = {
   code: string;
   account?: RevAccount;
   phloLimit: string;
@@ -31,7 +32,7 @@ export type ExploreDeployArgs = { client?: string; code: string };
 
 export type RNodeEff = {
   exploreDeploy(args: ExploreDeployArgs): Promise<Status>;
-  deploy(args: DeployArgs): Promise<string>;
+  deploy(args: DeployArgs): Promise<Status>;
 };
 
 export type Status = { success: string; message: string };
@@ -43,6 +44,7 @@ export interface RNodeInfo {
   readonly https?: number;
   readonly httpAdmin?: number;
   readonly httpsAdmin?: number;
+  readonly instance?: string;
   // Network info
   readonly name?: NetworkName;
   readonly title?: string;
@@ -65,6 +67,6 @@ export interface NodeUrls {
   readonly statusUrl: string;
   readonly getBlocksUrl: string;
   // Testnet only
-  readonly logsUrl: string;
-  readonly filesUrl: string;
+  readonly logsUrl?: string;
+  readonly filesUrl?: string;
 }

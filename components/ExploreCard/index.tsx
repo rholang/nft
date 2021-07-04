@@ -4,7 +4,7 @@ import { Image } from '../../styles/index.styled';
 import { useWindowSize } from '../../hooks';
 import { useAuthContext } from '../Provider';
 import { Effects as Fx } from 'connectors/rnode-client';
-import { checkAccount } from 'services/rholang';
+import { checkAccount, sampleInsertToRegistry } from 'services/rholang';
 import {
   Container,
   Content,
@@ -19,8 +19,12 @@ const ExploreCard = (): JSX.Element => {
   const { isMobile } = useWindowSize();
   const { currentUser, login } = useAuthContext();
 
-  const handleGetStartedClick = () => {
+  const handleExploreDeploy = () => {
     Fx.exploreDeployFx({ client: 'nextjs', code: checkAccount });
+  };
+
+  const handleDeploy = () => {
+    Fx.deployFx({ client: 'rnode', code: sampleInsertToRegistry });
   };
 
   return (
@@ -35,8 +39,15 @@ const ExploreCard = (): JSX.Element => {
             fullWidth
             margin="0"
             smallSize={isMobile}
-            onClick={handleGetStartedClick}>
+            onClick={handleExploreDeploy}>
             Explore deploy
+          </Button>
+          <Button
+            fullWidth
+            margin="0"
+            smallSize={isMobile}
+            onClick={handleDeploy}>
+            Deploy
           </Button>
         </ButtonWrapper>
       </Content>

@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { RNodeInfo, RChainNetwork, NetworkName, NodeUrls } from './types';
+import { RNodeInfo, RChainNetwork, NodeUrls, NetworkName } from './types';
 
 const defaultPorts: Partial<RNodeInfo> = {
   grpc: 40401,
@@ -37,10 +37,14 @@ export const localNet: RChainNetwork = {
 
 // Test network
 
-const getTestNetUrls = (n: number) => ({
-  domain: `node${n}.testnet.rchain-dev.tk`,
-  ...defaultPortsSSL,
-});
+const getTestNetUrls = (n: number) => {
+  const instance = `node${n}`;
+  return {
+    domain: `${instance}.testnet.rchain.coop`,
+    instance,
+    ...defaultPortsSSL,
+  };
+};
 
 const testnetHosts = R.range(0, 5).map(getTestNetUrls);
 
@@ -49,9 +53,13 @@ export const testNet: RChainNetwork = {
   name: 'testnet',
   hosts: testnetHosts,
   readOnlys: [
-    { domain: 'observer.testnet.rchain.coop', ...defaultPortsSSL },
+    {
+      domain: 'observer.testnet.rchain.coop',
+      instance: 'observer',
+      ...defaultPortsSSL,
+    },
     // Jim's read-only node
-    { domain: 'rnodeapi.rhobot.net', ...defaultPortsSSL },
+    { domain: 'rnode1.rhobot.net', ...defaultPortsSSL },
   ],
 };
 
@@ -90,6 +98,7 @@ export const getNodeUrls = function ({
   https,
   httpAdmin,
   httpsAdmin,
+  instance,
 }: RNodeInfo): NodeUrls {
   const scheme = https ? 'https' : http ? 'http' : '';
   const schemeAdmin = httpsAdmin ? 'https' : httpAdmin ? 'http' : '';
@@ -109,7 +118,8 @@ export const getNodeUrls = function ({
     statusUrl: `${httpUrl}/status`,
     getBlocksUrl: `${httpUrl}/api/blocks`,
     // Testnet only
-    logsUrl: `http://${domain}:8181/logs/name:rnode`,
-    filesUrl: `http://${domain}:18080`,
+    logsUrl: instance && `http://${domain}:8181/logs/name:${instance}`,
+    // TODO: what0s wrong with files?
+    // filesUrl: `http://${domain}:18080`,
   };
 };

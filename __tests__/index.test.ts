@@ -32,29 +32,29 @@ describe(`ExploreDeploy`, () => {
 });
 
 describe(`Deploy`, () => {
-  it('test deploy on testnet', () => {
+  it('test deploy on testnet', async () => {
     const fn = jest.fn();
-    const sampleInsertToRegistry = `
-    new return(\`rho:rchain:deployId\`),
-      insertArbitrary(\`rho:registry:insertArbitrary\`)
-      in {
-        new uriCh, valueCh in {
-          insertArbitrary!("My value", *uriCh) |
-          for (@uri <- uriCh) {
-            return!(("URI", uri))
-          }
-        }
-      }`;
-
+    const sampleInsertToRegistry = `new return(\`rho:rchain:deployId\`),
+    insertArbitrary(\`rho:registry:insertArbitrary\`)
+  in {
+    new uriCh, valueCh in {
+      insertArbitrary!("My value", *uriCh) |
+      for (@uri <- uriCh) {
+        return!(("URI", uri))
+      }
+    }
+  }`;
     Fx.deployFx.doneData.watch((result) => {
       console.log(result);
       fn(result);
     });
 
-    Fx.deployFx({
-      client: 'nextjs',
+    await Fx.deployFx({
+      client: 'rnode',
       code: sampleInsertToRegistry,
       phloLimit: '500000',
     });
-  });
+
+    expect(fn).toBeCalledTimes(1);
+  }, 200000);
 });

@@ -5,12 +5,11 @@ import { getNodeUrls } from './network';
 /* reducer store */
 S.$rnodeStore
   .on(Fx.exploreDeployFx.doneData, (state, status) => {
-    //console.log(state);
-
     return { ...state, status: status };
   })
-  .on(Fx.deployFx.doneData, (_, result) => {
-    //console.log(result);
+  .on(Fx.deployFx.doneData, (state, status) => {
+    console.log(status);
+    return { ...state, status: status };
   })
   .on(Fx.addWalletFx.doneData, (state, revAccount) => {
     const { wallets } = state;
@@ -30,5 +29,4 @@ S.$rnodeStore
       };
       return { ...state, wallets, walletSelected };
     }
-  })
-  .watch((state) => console.log(state));
+  });

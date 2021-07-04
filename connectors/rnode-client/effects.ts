@@ -1,5 +1,5 @@
-import { NodeUrls, Status } from './types';
-import { domain, RNodeSt, Store as S } from './model';
+import { NodeUrls, Status, DeployDetailArgs } from './types';
+import { domain, Store as S } from './model';
 import {
   makeRNodeWeb,
   rhoExprToJson,
@@ -13,16 +13,14 @@ import {
   DeployArgs,
   DeployEff,
   RNodeEff,
-  RNodeInfo,
 } from 'connectors/rnode-client/types';
 import {
   ethereumAddress,
-  ethDetected,
   createRevAccount,
   RevAddress,
 } from 'connectors/rnode-http-js';
 import * as R from 'ramda';
-import { nextjsExploreDeploy } from 'connectors/nextjs-client';
+import { nextjsExploreDeploy, nextjsDeploy } from 'connectors/nextjs-client';
 
 const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
   async function ({ code }: ExploreDeployArgs): Promise<Status> {
@@ -36,20 +34,12 @@ const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
   };
 
 const deploy = (effects: DeployEff) =>
-  async function ({ code, account, phloLimit }: DeployArgs) {
-    const { node, sendDeploy, getDataForDeploy, log } = effects;
-
-    log('SENDING DEPLOY', {
-      account: account.name,
-      phloLimit,
-      node: node.httpUrl,
-      code,
-    });
+  async function ({ code, account, phloLimit }: DeployArgs): Promise<Status> {
+    const { node, sendDeploy, getDataForDeploy } = effects;
 
     const phloLimitNum = R.isNil(phloLimit) ? phloLimit : parseInt(phloLimit);
-
+    console.log(node);
     const { signature } = await sendDeploy(node, account, code, phloLimitNum);
-    log('DEPLOY ID (signature)', signature);
 
     // Progress dots
     const mkProgress = (i: number) => () => {
@@ -69,18 +59,18 @@ const deploy = (effects: DeployEff) =>
     // Extract data from response object
     const args = data ? rhoExprToJson(data.expr) : void 0;
 
-    log('DEPLOY RETURN DATA', { args, cost, rawData: data });
-
     const costTxt = R.isNil(cost) ? 'failed to retrive' : cost;
-    const [success, message] = R.isNil(args)
+    const [succ, message] = R.isNil(args)
       ? [
           false,
           'deploy found in the block but data is not sent on `rho:rchain:deployId` channel',
         ]
       : [true, R.is(Array, args) ? args.join(', ') : args];
 
-    if (!success) throw Error(`Deploy error: ${message}. // cost: ${costTxt}`);
-    return `✓ (${message}) // cost: ${costTxt}`;
+    if (!succ) throw Error(`Deploy error: ${message}. // cost: ${costTxt}`);
+
+    const success = succ.toString();
+    return { success: success, message: message };
   };
 
 export const getMetamaskAccount = async () => {
@@ -95,7 +85,6 @@ export const getMetamaskAccount = async () => {
 };
 
 export const createRnodeService = (node): RNodeEff => {
-  const { log, warn } = console;
   const rnodeWeb = makeRNodeWeb({ now: Date.now });
 
   const { rnodeHttp, sendDeploy, getDataForDeploy } = rnodeWeb;
@@ -103,40 +92,62 @@ export const createRnodeService = (node): RNodeEff => {
   // App actions to process communication with RNode
   return {
     exploreDeploy: exploreDeploy({ rnodeHttp, node }),
-    deploy: deploy({ node, sendDeploy, getDataForDeploy, log }),
+    deploy: deploy({ node, sendDeploy, getDataForDeploy }),
   };
 };
 
-export const effectsRouter = async ({ params, node }) => {
-  const { client, code } = params;
+export const effectsRouter = async ({ fn, params, node }) => {
+  const { client, code, account, phloLimit } = params;
 
   const { exploreDeploy, deploy } = createRnodeService(node);
 
   switch (client) {
-    case 'nextjs': {
-      const data = await nextjsExploreDeploy({ node, code });
-      return data;
-    }
+    case 'nextjs':
+      {
+        switch (fn) {
+          case 'exploreDeploy': {
+            const data = await nextjsExploreDeploy({ node, code });
+            return data;
+          }
 
-    case 'rnode': {
-      const data = await exploreDeploy({ code });
+          case 'deploy': {
+            const data = await nextjsDeploy({ node, code, account, phloLimit });
+            return data;
+          }
+        }
+      }
+      break;
 
-      return data;
-    }
+    case 'rnode':
+      {
+        switch (fn) {
+          case 'exploreDeploy': {
+            const data = await exploreDeploy({ code });
+            return data;
+          }
+
+          case 'deploy': {
+            const data = await deploy({ code, account, phloLimit });
+            return data;
+          }
+        }
+      }
+      break;
   }
 };
 
 const exploreDeployFxOrg = domain.effect<
-  { params: any; node: NodeUrls },
+  { fn: string; params: any; node: NodeUrls },
   Status
 >(effectsRouter);
 
 const deployFxOrg = domain.effect<
   {
-    params: any;
+    fn: string;
+    params: DeployArgs;
     node: NodeUrls;
   },
-  any
+  Status
 >(effectsRouter);
 
 const addWalletFx = domain.effect(getMetamaskAccount);
@@ -144,20 +155,27 @@ const addWalletFx = domain.effect(getMetamaskAccount);
 const exploreDeployFx = attach({
   effect: exploreDeployFxOrg,
   source: S.$rnodeStore,
-  mapParams: (params, data) => {
+  mapParams: (paramsR, data) => {
     //console.log('Created effect called with', params, 'and data', data);
     const node = getNodeUrls(data.readNode);
-    return { params, node };
+    return { fn: 'exploreDeploy', params: paramsR, node };
   },
 });
 
 const deployFx = attach({
   effect: deployFxOrg,
   source: S.$rnodeStore,
-  mapParams: (params, data) => {
+  mapParams: (params: DeployArgs, data) => {
     //console.log('Created effect called with', params, 'and data', data);
     const node = getNodeUrls(data.valNode);
-    return { params, node };
+    const account = data.walletSelected;
+    const paramsR = {
+      client: params.client,
+      code: params.code,
+      account: account,
+      phloLimit: params.phloLimit,
+    };
+    return { fn: 'deploy', params: paramsR, node };
   },
 });
 

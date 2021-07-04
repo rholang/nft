@@ -95,7 +95,10 @@ export const ImageContainer = styled(FadeInImageContainer)`
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 148px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
   ${breakpoint.mobile`
     width: 60%;
     margin: 0 auto;
