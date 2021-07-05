@@ -6,7 +6,7 @@ export const nextjsExploreDeploy = async ({ node, code }): Promise<Status> => {
 
     const ab = async () => {
       await axios.get<void>(
-        'https://blog.cloudflare.com/content/images/2015/08/cache-hit.png',
+        'https://www.coverstyl.com/de/selbstklebenden-folie/uni-farben/o6-solid-light-blue/160',
         {
           method: 'GET',
           headers: {
