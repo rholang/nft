@@ -1,3 +1,4 @@
+export const sendPurse = `
 new basket,
   sendReturnCh,
   deletePurseReturnCh,
@@ -6,25 +7,25 @@ new basket,
   boxEntry2Ch,
   receivePursesReturnCh,
   receivePursesReturn2Ch,
-  stdout(`rho:io:stdout`),
-  deployerId(`rho:rchain:deployerId`),
-  registryLookup(`rho:registry:lookup`)
+  stdout(\`rho:io:stdout\`),
+  deployerId(\`rho:rchain:deployerId\`),
+  registryLookup(\`rho:registry:lookup\`)
 in {
 
   @(*deployerId, "rho:id:FROM_BOX_REGISTRY_URI")!(({ "type": "READ_PURSES" }, *boxCh)) |
 
   for (purses <- boxCh) {
-    match *purses.get(`rho:id:REGISTRY_URI`).get("PURSE_ID") {
+    match *purses.get(\`rho:id:REGISTRY_URI\`).get("PURSE_ID") {
       Nil => {
         basket!({ "status": "failed", "message": "purse not found" }) |
         stdout!(("failed", "purse not found"))
       }
       purse => {
-        registryLookup!(`rho:id:TO_BOX_REGISTRY_URI`, *boxEntryCh) |
+        registryLookup!(\`rho:id:TO_BOX_REGISTRY_URI\`, *boxEntryCh) |
         for (boxEntry <- boxEntryCh) {
           boxEntry!(("PUBLIC_RECEIVE_PURSE", 
             {
-              "registryUri": `rho:id:REGISTRY_URI`,
+              "registryUri": \`rho:id:REGISTRY_URI\`,
               "purse": purse,
             },
             *receivePursesReturnCh
@@ -43,7 +44,7 @@ in {
                       deleted in contract
                     */
                     @(*deployerId, "rho:id:FROM_BOX_REGISTRY_URI")!((
-                      { "type": "DELETE_PURSE", "payload": { "registryUri": `rho:id:REGISTRY_URI`, "id": "PURSE_ID" } },
+                      { "type": "DELETE_PURSE", "payload": { "registryUri": \`rho:id:REGISTRY_URI\`, "id": "PURSE_ID" } },
                       *deletePurseReturnCh
                     )) |
                     for (r2 <- deletePurseReturnCh) {
@@ -63,11 +64,11 @@ in {
                 }
               }
               _ => {
-                registryLookup!(`rho:id:FROM_BOX_REGISTRY_URI`, *boxEntry2Ch) |
+                registryLookup!(\`rho:id:FROM_BOX_REGISTRY_URI\`, *boxEntry2Ch) |
                 for (boxEntry2 <- boxEntry2Ch) {
                   boxEntry!(("PUBLIC_RECEIVE_PURSE", 
                     {
-                      "registryUri": `rho:id:REGISTRY_URI`,
+                      "registryUri": \`rho:id:REGISTRY_URI\`,
                       "purse": purse,
                     },
                     *receivePursesReturn2Ch
@@ -92,4 +93,4 @@ in {
       }
     }
   }
-}
+}`;

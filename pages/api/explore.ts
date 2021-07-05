@@ -23,17 +23,10 @@ const handler = async (
           code: code,
         });
 
-        res.setHeader(
-          'Cache-Control',
-          'public, immutable, s-maxage=31536000, max-age=31536000, stale-while-revalidate=60'
-        );
+        res.setHeader('Cache-Control', 'public, immutable, max-age=31536000');
         res.status(200).send(result);
       } catch (e) {
         console.log('fail');
-        res.setHeader(
-          'Cache-Control',
-          'public, immutable, s-maxage=31536000, max-age=31536000, stale-while-revalidate=60'
-        );
         res.status(500).send({
           success: false,
           message: e.message || 'Error retrieving profile avatars',

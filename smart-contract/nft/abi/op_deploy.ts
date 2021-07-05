@@ -1,15 +1,16 @@
+export const deploy = `
 new basket,
   masterEntryCh,
   registerContractReturnCh,
   sendReturnCh,
   deletePurseReturnCh,
   boxCh,
-  stdout(`rho:io:stdout`),
-  deployerId(`rho:rchain:deployerId`),
-  registryLookup(`rho:registry:lookup`)
+  stdout(\`rho:io:stdout\`),
+  deployerId(\`rho:rchain:deployerId\`),
+  registryLookup(\`rho:registry:lookup\`)
 in {
 
-  registryLookup!(`rho:id:MASTER_REGISTRY_URI`, *masterEntryCh) |
+  registryLookup!(\`rho:id:MASTER_REGISTRY_URI\`, *masterEntryCh) |
 
   for (boxCh <<- @(*deployerId, "rchain-token-box", "MASTER_REGISTRY_URI", "BOX_ID")) {
     boxCh!(("PUBLIC_REGISTER_CONTRACT", { "contractId": "CONTRACT_ID", "fungible": FUNGIBLE, "fee": FEE }, *registerContractReturnCh)) |
@@ -31,4 +32,4 @@ in {
       }
     }
   }
-}
+}`;

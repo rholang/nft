@@ -1,15 +1,16 @@
+export const deployBox = `
 new basket,
   masterEntryCh,
   registerBoxReturnCh,
   sendReturnCh,
   deletePurseReturnCh,
   boxCh,
-  stdout(`rho:io:stdout`),
-  deployerId(`rho:rchain:deployerId`),
-  registryLookup(`rho:registry:lookup`)
+  stdout(\`rho:io:stdout\`),
+  deployerId(\`rho:rchain:deployerId\`),
+  registryLookup(\`rho:registry:lookup\`)
 in {
 
-  registryLookup!(`rho:id:MASTER_REGISTRY_URI`, *masterEntryCh) |
+  registryLookup!(\`rho:id:MASTER_REGISTRY_URI\`, *masterEntryCh) |
 
   for (masterEntry <- masterEntryCh) {
     masterEntry!(("PUBLIC_REGISTER_BOX", { "boxId": "BOX_ID", "publicKey": "PUBLIC_KEY" }, *registerBoxReturnCh)) |
@@ -27,4 +28,4 @@ in {
       }
     }
   }
-}
+}`;

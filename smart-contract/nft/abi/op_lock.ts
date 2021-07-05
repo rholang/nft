@@ -1,8 +1,9 @@
+export const lock = `
 new basket,
   returnCh,
-  stdout(`rho:io:stdout`),
-  deployerId(`rho:rchain:deployerId`),
-  registryLookup(`rho:registry:lookup`)
+  stdout(\`rho:io:stdout\`),
+  deployerId(\`rho:rchain:deployerId\`),
+  registryLookup(\`rho:registry:lookup\`)
 in {
 
   for (superKey <<- @(*deployerId, "rchain-token-contract", "MASTER_REGISTRY_URI", "CONTRACT_ID")) {
@@ -23,4 +24,4 @@ in {
       }
     }
   }
-}
+}`;

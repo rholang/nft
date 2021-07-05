@@ -1,4 +1,4 @@
-
+export const purchase = (balance) => `
 new
   basket,
   revVaultCh,
@@ -18,10 +18,10 @@ new
   contractExistsCh,
   proceed1Ch,
   proceed2Ch,
-  registryLookup(`rho:registry:lookup`),
-  deployerId(`rho:rchain:deployerId`),
-  stdout(`rho:io:stdout`),
-  revAddress(`rho:rev:address`)
+  registryLookup(\`rho:registry:lookup\`),
+  deployerId(\`rho:rchain:deployerId\`),
+  stdout(\`rho:io:stdout\`),
+  revAddress(\`rho:rev:address\`)
 in {
 
   purseIdCh!!("PURSE_ID") |
@@ -35,12 +35,12 @@ in {
 
   for (boxCh <<- @(*deployerId, "rchain-token-box", "MASTER_REGISTRY_URI", "BOX_ID")) {
 
-    registryLookup!(`rho:id:MASTER_REGISTRY_URI`, *contractExistsCh) |
+    registryLookup!(\`rho:id:MASTER_REGISTRY_URI\`, *contractExistsCh) |
     for (_ <- contractExistsCh) {
       proceed1Ch!(Nil)
     } |
 
-    registryLookup!(`rho:rchain:revVault`, *revVaultCh) |
+    registryLookup!(\`rho:rchain:revVault\`, *revVaultCh) |
 
     /*
       Create a vault/purse that is just used once (purse)
@@ -103,7 +103,7 @@ in {
             for (_ <- proceed2Ch) {
 
               revAddress!("fromPublicKey", publicKey.hexToBytes(), *deployerRevAddressCh) |
-              registryLookup!(`rho:rchain:revVault`, *RevVaultCh) |
+              registryLookup!(\`rho:rchain:revVault\`, *RevVaultCh) |
               for (@(_, RevVault) <- RevVaultCh; @deployerRevAddress <- deployerRevAddressCh) {
                 
                 // send price * quantity dust in purse
@@ -190,4 +190,4 @@ in {
       }
     }
   }
-}
+}`;

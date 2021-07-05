@@ -1,5 +1,6 @@
-new return, entryCh, readCh, lookup(`rho:registry:lookup`) in {
-  lookup!(`rho:id:MASTER_REGISTRY_URI`, *entryCh) |
+export const readAllPurses = `
+new return, entryCh, readCh, lookup(\`rho:registry:lookup\`) in {
+  lookup!(\`rho:id:MASTER_REGISTRY_URI\`, *entryCh) |
   for(entry <- entryCh) {
     new x in {
       entry!(("PUBLIC_READ_ALL_PURSES", "CONTRACT_ID", *x)) |
@@ -8,4 +9,4 @@ new return, entryCh, readCh, lookup(`rho:registry:lookup`) in {
       }
     }
   }
-}
+}`;

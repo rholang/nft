@@ -1,9 +1,10 @@
+export const withdraw = `
 new basket,
   withdrawReturnCh,
   boxCh,
-  stdout(`rho:io:stdout`),
-  deployerId(`rho:rchain:deployerId`),
-  registryLookup(`rho:registry:lookup`)
+  stdout(\`rho:io:stdout\`),
+  deployerId(\`rho:rchain:deployerId\`),
+  registryLookup(\`rho:registry:lookup\`)
 in {
 
   for (boxCh <<- @(*deployerId, "rchain-token-box", "MASTER_REGISTRY_URI", "BOX_ID")) {
@@ -21,4 +22,4 @@ in {
       }
     }
   }
-}
+}`;
