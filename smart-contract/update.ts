@@ -1,8 +1,10 @@
-import { Store as S, Event as E } from './model';
+/*import { Store as S, Event as E } from './model';
 import { Effects as Fx } from './effects';
-import { getNodeUrls } from './network';
-
+import { getNodeUrls } from './network';*/
+export const test = 5;
 /* reducer store */
+
+/*
 S.$rnodeStore
   .on(Fx.exploreDeployFx.doneData, (state, status) => {
     return { ...state, status: status };
@@ -36,3 +38,4 @@ S.$rnodeStore
 S.$walletStore.on(Fx.addWalletFx.doneData, (state, _) => {
   return { walletConnected: true };
 });
+*/

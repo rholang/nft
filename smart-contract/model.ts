@@ -1,7 +1,6 @@
 // import { createEvent, createStore } from 'effector'
 
 import { RevAccount, RevAddress } from '@tgrospic/rnode-http-js';
-import { localNet, testNet, mainNet, getNodeUrls } from './network';
 
 import {
   RChainNetwork,
@@ -46,7 +45,7 @@ const getNode = domain.event<void>();
 
 // init store
 
-const nets = [localNet, testNet, mainNet].map(
+/*const nets = [localNet, testNet, mainNet].map(
   ({ title, name, hosts, readOnlys }) => ({
     title,
     name,
@@ -99,4 +98,4 @@ export const Store = {
   $walletStore,
 };
 
-//  register file  to worker
+//  register file  to worker*/

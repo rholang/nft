@@ -1,11 +1,11 @@
 import { NodeUrls, Status, DeployDetailArgs } from './types';
-import { domain, Store as S } from './model';
+//import { domain, Store as S } from './model';
 import {
   makeRNodeWeb,
   rhoExprToJson,
   RevAccount,
 } from 'connectors/rnode-http-js';
-import { getNodeUrls } from './network';
+//import { getNodeUrls } from './network';
 import { attach } from 'effector';
 import {
   ExploreDeployArgs,
@@ -136,7 +136,7 @@ export const effectsRouter = async ({ fn, params, node }) => {
   }
 };
 
-const exploreDeployFxOrg = domain.effect<
+/*const exploreDeployFxOrg = domain.effect<
   { fn: string; params: any; node: NodeUrls },
   Status
 >(effectsRouter);
@@ -150,37 +150,11 @@ const deployFxOrg = domain.effect<
   Status
 >(effectsRouter);
 
-const addWalletFx = domain.effect(getMetamaskAccount);
-
-const exploreDeployFx = attach({
-  effect: exploreDeployFxOrg,
-  source: S.$rnodeStore,
-  mapParams: (paramsR, data) => {
-    //console.log('Created effect called with', params, 'and data', data);
-    const node = getNodeUrls(data.readNode);
-    return { fn: 'exploreDeploy', params: paramsR, node };
-  },
-});
-
-const deployFx = attach({
-  effect: deployFxOrg,
-  source: S.$rnodeStore,
-  mapParams: (params: DeployArgs, data) => {
-    //console.log('Created effect called with', params, 'and data', data);
-    const node = getNodeUrls(data.valNode);
-    const account = data.walletSelected;
-    const paramsR = {
-      client: params.client,
-      code: params.code,
-      account: account,
-      phloLimit: params.phloLimit,
-    };
-    return { fn: 'deploy', params: paramsR, node };
-  },
-});
-
+const addWalletFx = domain.effect(getMetamaskAccount);*/
+/*
 export const Effects = {
   deployFx,
   exploreDeployFx,
   addWalletFx,
 };
+*/
