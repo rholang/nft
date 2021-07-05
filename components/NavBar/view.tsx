@@ -24,6 +24,7 @@ import {
   DropdownList,
   MobileIcon,
   DesktopIcon,
+  DesktopLogoIcon,
   DesktopNavLink,
   DesktopOnlySection,
   Name,
@@ -49,14 +50,16 @@ const Logo = (): JSX.Element => {
     <Link href="/" passHref>
       <ImageLink>
         <DesktopIcon>
-          <Image
-            width="222px"
-            height="55px"
-            alt="logo"
-            placeholder="blur"
-            src={betaIcon}
-            unoptimized // TODO: Swap back to non-beta logo: logo-colored@3x.png
-          />
+          <DesktopLogoIcon>
+            <Image
+              width="222px"
+              height="55px"
+              alt="logo"
+              placeholder="blur"
+              src={betaIcon}
+              unoptimized // TODO: Swap back to non-beta logo: logo-colored@3x.png
+            />
+          </DesktopLogoIcon>
         </DesktopIcon>
         <MobileIcon>
           <Image

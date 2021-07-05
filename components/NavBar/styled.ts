@@ -228,11 +228,14 @@ export const DesktopIcon = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  min-width: 222px;
 
   ${breakpoint.tablet`
     display: none;
   `}
+`;
+
+export const DesktopLogoIcon = styled.div`
+  min-width: 222px;
 `;
 
 export const OpenSearchButton = styled.button`
