@@ -129,6 +129,7 @@ const CollectionsCarousel = ({
                       width="40px"
                       height="40px"
                       alt="plus icon"
+                      placeholder="blur"
                       src="/plus-icon.png"
                     />
                     <span>Create</span>

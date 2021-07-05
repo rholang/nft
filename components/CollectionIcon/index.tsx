@@ -29,6 +29,7 @@ const CollectionIcon = ({ name, image, margin, width }: Props): JSX.Element => {
         src={imageSrc}
         height="100%"
         width="100%"
+        placeholder="blur"
         onError={onImageError}
       />
     </IconContainer>

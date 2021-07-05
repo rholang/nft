@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Button from '../Button';
-import { Image } from '../../styles/index.styled';
+import Image from 'next/image';
 import { useWindowSize } from '../../hooks';
 import { useAuthContext } from '../Provider';
 import { Effects as Fx } from 'connectors/rnode-client';
@@ -13,6 +13,8 @@ import {
   ImageContainer,
   ButtonWrapper,
 } from './ExploreCard.styled';
+import exploreIcon from '../../public/Explore.png';
+import exploreMobileIcon from '../../public/ExploreMobile.png';
 
 const ExploreCard = (): JSX.Element => {
   const router = useRouter();
@@ -61,14 +63,18 @@ const ExploreCard = (): JSX.Element => {
             width="875px"
             height="430px"
             alt="ExploreMobile"
-            src="/ExploreMobile.png"
+            src={exploreMobileIcon}
+            placeholder="blur"
+            unoptimized
           />
         ) : (
           <Image
             width="672px"
             height="320px"
             alt="Explore"
-            src="/Explore.png"
+            src={exploreIcon}
+            placeholder="blur"
+            unoptimized
           />
         )}
       </ImageContainer>

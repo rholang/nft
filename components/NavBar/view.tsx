@@ -1,6 +1,6 @@
 import { useState, useEffect, FC } from 'react';
 import Link from 'next/link';
-import NextImage from 'next/image';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import SearchInput from '../SearchInput';
 import { Wallet } from 'connectors/rnode-client';
@@ -8,7 +8,9 @@ import magnifyingIcon from '../../public/icon-light-search-24-px.svg';
 import closeIcon from '../../public/icon-light-close-16-px.svg';
 import { Effects as Fx } from 'connectors/rnode-client';
 import Button from 'components/Button';
-import userUrl from 'public/user.jpg';
+import userIcon from '../../public/user.png';
+import betaIcon from '../../public/beta-logo.png';
+import logoIcon from '../../public/logo.png';
 
 import {
   Background,
@@ -47,15 +49,24 @@ const Logo = (): JSX.Element => {
     <Link href="/" passHref>
       <ImageLink>
         <DesktopIcon>
-          <NextImage
-            width="227px"
-            height="54px"
+          <Image
+            width="222px"
+            height="55px"
             alt="logo"
-            src="/beta-logo.svg" // TODO: Swap back to non-beta logo: logo-colored@3x.png
+            placeholder="blur"
+            src={betaIcon}
+            unoptimized // TODO: Swap back to non-beta logo: logo-colored@3x.png
           />
         </DesktopIcon>
         <MobileIcon>
-          <NextImage width="52px" height="52px" alt="logo" src="/logo.svg" />
+          <Image
+            width="52px"
+            placeholder="blur"
+            unoptimized
+            height="52px"
+            alt="logo"
+            src={logoIcon}
+          />
         </MobileIcon>
       </ImageLink>
     </Link>
@@ -69,11 +80,13 @@ const UserAvatar = ({ isOpen, toggleNavDropdown }) => {
     <UserMenuButton>
       <UserMenuText>{'Connected'}</UserMenuText>
       <AvatarContainer>
-        <NextImage
+        <Image
           alt="chain account avatar"
-          src={userUrl}
+          src={userIcon}
           width="60px"
+          placeholder="blur"
           height="60px"
+          unoptimized
         />
       </AvatarContainer>
     </UserMenuButton>
@@ -81,7 +94,7 @@ const UserAvatar = ({ isOpen, toggleNavDropdown }) => {
 
   const mobileNavbarIcon = isOpen ? (
     <CloseIconButton>
-      <NextImage src={closeIcon} />
+      <Image src={closeIcon} />
     </CloseIconButton>
   ) : (
     currentUserAvatar
@@ -226,7 +239,7 @@ export const View: FC<InputProps> = ({ wallet }): JSX.Element => {
   const mobileSearchHiddenNavItems = isMobileSearchOpen ? null : (
     <>
       <OpenSearchButton onClick={() => setIsMobileSearchOpen(true)}>
-        <NextImage src={magnifyingIcon} />
+        <Image src={magnifyingIcon} />
       </OpenSearchButton>
       {walletConnected ? (
         <UserAvatar isOpen={isOpen} toggleNavDropdown={toggleNavDropdown} />

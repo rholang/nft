@@ -29,7 +29,13 @@ const Footer = (): JSX.Element => {
   return (
     <StyledFooter>
       <ImageContainer>
-        <Image width="143px" height="32px" alt="logo" src="/logo@3x.png" />
+        <Image
+          width="143px"
+          placeholder="blur"
+          height="32px"
+          alt="logo"
+          src="/logo@3x.png"
+        />
       </ImageContainer>
       <Section>
         {links.map(({ name, url }) => (

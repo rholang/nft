@@ -12,6 +12,7 @@ const MobileCreatePagePlaceholder = (): JSX.Element => (
       height="162px"
       alt="mobile create"
       src="/mobile-create.png"
+      placeholder="blur"
     />
     <MobileTitle>Looks like you’re on a mobile device or tablet</MobileTitle>
     <MobileSubTitle>

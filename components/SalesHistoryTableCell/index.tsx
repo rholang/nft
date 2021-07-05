@@ -34,6 +34,7 @@ const SalesHistoryTableCell = ({ id, content }: Props): JSX.Element => {
               <Image
                 width="32px"
                 height="32px"
+                placeholder="blur"
                 src={
                   avatar
                     ? `data:image/jpeg;base64,${avatar}`

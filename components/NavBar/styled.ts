@@ -228,6 +228,7 @@ export const DesktopIcon = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  min-width: 222px;
 
   ${breakpoint.tablet`
     display: none;
