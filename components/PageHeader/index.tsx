@@ -85,8 +85,8 @@ const PageHeader = ({
           width="120px"
           height="120px"
           src={displayImg}
-          placeholder="blur"
           onError={onImageError}
+          unoptimized
         />
       </ImageContainer>
       <Name>{name}</Name>

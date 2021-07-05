@@ -13,6 +13,7 @@ import {
   ButtonBack,
   TryAgainButton,
 } from './CollectionsCarousel.styled';
+import plusIcon from '../../public/plus-icon.png';
 import Spinner from '../Spinner';
 
 export type CarouselCollection = Pick<
@@ -130,7 +131,8 @@ const CollectionsCarousel = ({
                       height="40px"
                       alt="plus icon"
                       placeholder="blur"
-                      src="/plus-icon.png"
+                      src={plusIcon}
+                      unoptimized
                     />
                     <span>Create</span>
                   </BoxButton>
