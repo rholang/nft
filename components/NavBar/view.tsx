@@ -242,7 +242,7 @@ export const View: FC<InputProps> = ({ wallet }): JSX.Element => {
   const mobileSearchHiddenNavItems = isMobileSearchOpen ? null : (
     <>
       <OpenSearchButton onClick={() => setIsMobileSearchOpen(true)}>
-        <Image src={magnifyingIcon} />
+        <Image src={magnifyingIcon} placeholder="blur" unoptimized />
       </OpenSearchButton>
       {walletConnected ? (
         <UserAvatar isOpen={isOpen} toggleNavDropdown={toggleNavDropdown} />

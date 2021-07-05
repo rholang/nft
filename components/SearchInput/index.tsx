@@ -137,7 +137,13 @@ const SearchInput = ({
       isMobileSearchOpen={isMobileSearchOpen}
       isSearchInputActive={isSearchInputActive}>
       <MagnifyingIconButton onClick={() => search(input)}>
-        <Image src={magnifyingIcon} width="24" height="24" />
+        <Image
+          placeholder="blur"
+          unoptimized
+          src={magnifyingIcon}
+          width="24"
+          height="24"
+        />
       </MagnifyingIconButton>
       <Input
         ref={inputRef}
