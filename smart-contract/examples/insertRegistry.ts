@@ -1,10 +1,11 @@
-export const sampleInsertToRegistry = `new return(\`rho:rchain:deployId\`),
-insertArbitrary(\`rho:registry:insertArbitrary\`)
-in {
-new uriCh, valueCh in {
-  insertArbitrary!("My value", *uriCh) |
-  for (@uri <- uriCh) {
-    return!(("URI", uri))
-  }
-}
-}`;
+export const sampleInsertToRegistry = `
+  new return(\`rho:rchain:deployId\`),
+    insertArbitrary(\`rho:registry:insertArbitrary\`)
+    in {
+    new uriCh, valueCh in {
+      insertArbitrary!("My value", *uriCh) |
+      for (@uri <- uriCh) {
+        return!(("URI", uri))
+      }
+    }
+  }`;

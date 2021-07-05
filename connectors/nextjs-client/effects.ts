@@ -18,31 +18,3 @@ export const nextjsExploreDeploy = async ({ node, code }): Promise<Status> => {
     throw new Error(e);
   }
 };
-
-export const nextjsDeploy = async ({
-  node,
-  code,
-  account,
-  phloLimit,
-}): Promise<Status> => {
-  try {
-    const pCode = code.replace(/(\r\n|\n|\r)/gm, '');
-    const pAccount = account.replace(/(\r\n|\n|\r)/gm, '');
-    const pPhloLimit = phloLimit.replace(/(\r\n|\n|\r)/gm, '');
-
-    const res = await axios.get<Status>('/api/deploy', {
-      params: {
-        node: node,
-        code: pCode,
-        pAccount: pAccount,
-        pPhloLimit: pPhloLimit,
-      },
-    });
-
-    const responseData = res.data;
-
-    return responseData;
-  } catch (e) {
-    throw new Error(e);
-  }
-};

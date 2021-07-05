@@ -36,7 +36,7 @@ const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
 const deploy = (effects: DeployEff) =>
   async function ({ code, account, phloLimit }: DeployArgs): Promise<Status> {
     const { node, sendDeploy, getDataForDeploy } = effects;
-
+    console.log(account);
     const phloLimitNum = R.isNil(phloLimit) ? phloLimit : parseInt(phloLimit);
     const { signature } = await sendDeploy(node, account, code, phloLimitNum);
 
@@ -82,10 +82,10 @@ const deploy = (effects: DeployEff) =>
 
 export const getMetamaskAccount = async () => {
   const ethAddr = await ethereumAddress();
-  const revAccountAddress: RevAddress = createRevAccount(ethAddr);
-
+  const revAddress: RevAddress = createRevAccount(ethAddr);
+  const revAccountAddress = { ethAddr: ethAddr, ...revAddress };
   const revAccountName = { name: 'revWallet' };
-  const revAccount = { ...revAccountAddress, ...revAccountName };
+  const revAccount: RevAccount = { ...revAccountAddress, ...revAccountName };
   return revAccount;
 };
 
@@ -112,11 +112,6 @@ export const effectsRouter = async ({ fn, params, node }) => {
         switch (fn) {
           case 'exploreDeploy': {
             const data = await nextjsExploreDeploy({ node, code });
-            return data;
-          }
-
-          case 'deploy': {
-            const data = await nextjsDeploy({ node, code, account, phloLimit });
             return data;
           }
         }

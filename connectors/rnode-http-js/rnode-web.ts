@@ -248,6 +248,7 @@ const sendDeploy: SendDeployMethod = (rnodeHttp, now) => async (
   // Check if deploy can be signed
   if (!account.privKey) {
     const { ethAddr } = account;
+
     if (ethDetected && !!ethAddr) {
       // If Metamask is detected check ETH address
       const ethAddr = await ethereumAddress();
@@ -276,7 +277,7 @@ const sendDeploy: SendDeployMethod = (rnodeHttp, now) => async (
   const deploy = account.privKey
     ? signPrivKey(deployData, account.privKey)
     : await signMetamask(deployData);
-
+  console.log('rnode');
   // Send deploy / result is deploy signature (ID)
   await rnodeHttp(httpUrl, 'deploy', deploy);
 
@@ -396,7 +397,9 @@ export const signMetamask = async function (deployData: DeployData) {
   // - this will open a popup for user to confirm/review
   const data = deployDataProtobufSerialize(deployData);
   const ethAddr = await ethereumAddress();
+
   const sigHex = await ethereumSign(data, ethAddr);
+
   // Extract public key from signed message and signature
   const pubKeyHex = recoverPublicKeyEth(data, sigHex);
   // Create deploy object for signature verification

@@ -32,7 +32,7 @@ if (getEth()) {
 }
 
 // Send a request to Ethereum API (Metamask)
-const ethRequest = (eth_, method: EthRequestName, args?: any) => {
+const ethRequest = (method: EthRequestName, args?: any, eth_) => {
   if (!eth_) throw Error(`Ethereum (Metamask) not detected.`);
 
   return eth_.request({ method, ...args });
@@ -46,7 +46,8 @@ const ethRequest = (eth_, method: EthRequestName, args?: any) => {
  */
 export const ethereumAddress = async () => {
   const eth_ = getEth();
-  const accounts = await ethRequest(eth_, 'eth_requestAccounts');
+
+  const accounts = await ethRequest('eth_requestAccounts', '', eth_);
 
   if (!Array.isArray(accounts))
     throw Error(
@@ -73,5 +74,5 @@ export const ethereumSign = async (
   const args: any = { params: [[...bytes], ethAddr] };
 
   // Returns signature in hex format
-  return (await ethRequest('personal_sign', args)) as string;
+  return (await ethRequest('personal_sign', args, getEth())) as string;
 };

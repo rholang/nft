@@ -8,7 +8,7 @@ S.$rnodeStore
     return { ...state, status: status };
   })
   .on(Fx.deployFx.doneData, (state, status) => {
-    console.log(status);
+    //console.log(status);
     return { ...state, status: status };
   })
   .on(Fx.addWalletFx.doneData, (state, revAccount) => {
@@ -25,8 +25,10 @@ S.$rnodeStore
       );
       const walletSelected = {
         name: revAccount.name,
+        ethAddr: revAccount.ethAddr,
         revAddr: revAccount.revAddr,
       };
+
       return { ...state, wallets, walletSelected };
     }
   });
