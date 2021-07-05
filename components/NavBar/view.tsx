@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import SearchInput from '../SearchInput';
 import { Wallet } from 'connectors/rnode-client';
-import magnifyingIcon from '../../public/icon-light-search-24-px.svg';
+import magnifyingIcon from '../../public/icon-light-search-24-px.png';
 import closeIcon from '../../public/icon-light-close-16-px.svg';
 import { Effects as Fx } from 'connectors/rnode-client';
 import Button from 'components/Button';
