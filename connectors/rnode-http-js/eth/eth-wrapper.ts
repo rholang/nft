@@ -32,7 +32,7 @@ if (getEth()) {
 }
 
 // Send a request to Ethereum API (Metamask)
-const ethRequest = (method: EthRequestName, args?: any, eth_) => {
+const ethRequest = (method: EthRequestName, args: any, eth_: any) => {
   if (!eth_) throw Error(`Ethereum (Metamask) not detected.`);
 
   return eth_.request({ method, ...args });

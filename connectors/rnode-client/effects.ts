@@ -20,7 +20,7 @@ import {
   RevAddress,
 } from 'connectors/rnode-http-js';
 import * as R from 'ramda';
-import { nextjsExploreDeploy, nextjsDeploy } from 'connectors/nextjs-client';
+import { nextjsExploreDeploy } from 'connectors/nextjs-client';
 
 const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
   async function ({ code }: ExploreDeployArgs): Promise<Status> {
