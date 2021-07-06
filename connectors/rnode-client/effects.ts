@@ -20,7 +20,7 @@ import {
   RevAddress,
 } from 'connectors/rnode-http-js';
 import * as R from 'ramda';
-import { nextjsExploreDeploy } from 'connectors/nextjs-client';
+import { cfExploreDeploy } from 'connectors/cf-client';
 
 const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
   async function ({ code }: ExploreDeployArgs): Promise<Status> {
@@ -107,11 +107,11 @@ export const effectsRouter = async ({ fn, params, node }) => {
   const { exploreDeploy, deploy } = createRnodeService(node);
 
   switch (client) {
-    case 'nextjs':
+    case 'cf':
       {
         switch (fn) {
           case 'exploreDeploy': {
-            const data = await nextjsExploreDeploy({ node, code });
+            const data = await cfExploreDeploy({ node, code });
             return data;
           }
         }
