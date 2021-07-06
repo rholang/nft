@@ -14,7 +14,12 @@ export const cfExploreDeploy = async ({ node, code }): Promise<Status> => {
         'Content-Type': 'application/json',
       },
     };
-    const res = await axios.post<Status>('/explore', data, options);
+    const res = await axios.get('/explore', {
+      params: {
+        net: node,
+        code: formattedCode,
+      },
+    });
 
     const responseData = res.data;
 

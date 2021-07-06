@@ -111,7 +111,7 @@ export const effectsRouter = async ({ fn, params, node }) => {
       {
         switch (fn) {
           case 'exploreDeploy': {
-            const data = await nextjsExploreDeploy({ node, code });
+            const data = await cfExploreDeploy({ node, code });
             return data;
           }
         }

@@ -12,8 +12,9 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/explore',
-        destination: 'https://worker-typescript-template.nftland.workers.dev/',
+        source: '/explore/:path*',
+        destination:
+          'https://worker-typescript-template.nftland.workers.dev/:path*',
       },
     ];
   },
