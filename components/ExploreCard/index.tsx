@@ -13,6 +13,7 @@ import {
   ImageContainer,
   ButtonWrapper,
 } from './ExploreCard.styled';
+import Link from 'next/link';
 import exploreIcon from '../../public/Explore.png';
 import exploreMobileIcon from '../../public/ExploreMobile.png';
 
@@ -22,7 +23,7 @@ const ExploreCard = (): JSX.Element => {
   const { currentUser, login } = useAuthContext();
 
   const handleExploreDeploy = () => {
-    Fx.exploreDeployFx({ client: 'nextjs', code: checkAccount });
+    Fx.exploreDeployFx({ client: 'cf', code: checkAccount });
   };
 
   const handleDeploy = () => {
