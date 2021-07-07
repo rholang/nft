@@ -15,7 +15,8 @@
         "noEmit": true,
         "jsx": "react",
         "baseUrl": "src",
-        "types": ["jest"]
+        "types": ["vite/client", "jest"]
     },
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules"],
+    "include": ["./src", "vite.config.ts"]
 }
