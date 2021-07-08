@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Effects as Fx } from 'connectors/rnode-client'
-import { checkAccount, sampleInsertToRegistry } from '@nftland/app'
+import { checkAccount, sampleInsertToRegistry } from '@nftland/contracts'
 import Link from 'next/link'
 import Button from '../Button'
 import { useWindowSize } from '../../hooks'

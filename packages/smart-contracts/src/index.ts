@@ -1,1 +1,1 @@
-export * from './pages/App'
+export * from './rholang'

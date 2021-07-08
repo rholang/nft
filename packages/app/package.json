@@ -43,10 +43,10 @@
         "react-dropzone": "^11.3.2",
         "react-intersection-observer": "^8.31.1",
         "simple-react-lightbox": "latest",
-        "styled-components": "^5.2.1"
+        "styled-components": "^5.2.1",
+        "@nftland/contracts": "workspace:*"
     },
     "devDependencies": {
-        "@nftland/contracts": "1.0.0",
         "@axe-core/react": "^4.1.1",
         "@babel/core": "^7.12.10",
         "@babel/plugin-syntax-top-level-await": "^7.14.5",
