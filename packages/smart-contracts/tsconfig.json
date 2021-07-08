@@ -1,13 +1,18 @@
 {
     "compilerOptions": {
-        "strict": true,
-        "lib": ["esnext", "dom"],
-        "jsx": "preserve",
-        "moduleResolution": "node",
         "target": "esnext",
-        "baseUrl": "src"
+        "module": "esnext",
+        "moduleResolution": "node",
+        "strict": true,
+        "jsx": "preserve",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "lib": ["esnext", "dom"],
+        "types": ["node", "jest"],
+        "baseUrl": ".",
+        "paths": {}
     },
-
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js", "server.js"],
-    "exclude": ["**/dist", "node_modules"]
+    "include": ["src/index.ts", "tests/**/*.ts"],
+    "exclude": ["node_modules", "dist"]
 }
