@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import dts from 'vite-plugin-dts'
+import dts from 'vite-plugin-rholang'
 
 // https://vitejs.dev/config/
 export default defineConfig({

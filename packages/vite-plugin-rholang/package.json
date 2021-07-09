@@ -1,0 +1,73 @@
+{
+    "name": "vite-plugin-rholang",
+    "description": "File system Router for Vite & React",
+    "version": "1.1.3",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "index.d.ts",
+    "license": "MIT",
+    "author": "morelearn1990 <morelearn1990@gmail.com>",
+    "homepage": "https://github.com/morelearn1990/vite-plugin-react-router",
+    "bugs": "https://github.com/morelearn1990/vite-plugin-react-router/issues",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "dev": "pnpm run build -- --watch --ignore-watch examples",
+        "build": "tsup src/index.ts --dts --format cjs,esm",
+        "prepublishOnly": "pnpm run build",
+        "release": "pnpx git-ensure -a && pnpx bumpp --commit --tag --push",
+        "example:dev": "pnpm -C examples/demo run dev",
+        "example:build": "pnpm -C examples/demo run build",
+        "example:preview": "pnpm -C examples/demo run preview",
+        "test": "jest",
+        "lint": "eslint --fix --ext .ts ./",
+        "commitprepare": "pnpx husky add .husky/commit-msg 'pnpx commitlint --edit $1'",
+        "lintprepare": "pnpx husky add .husky/pre-commit 'pnpx lint-staged'",
+        "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+        "preinstall": "npx only-allow pnpm"
+    },
+    "dependencies": {
+        "@types/fs-extra": "^9.0.12",
+        "@vue/compiler-sfc": "^3.1.4",
+        "chalk": "^4.1.1",
+        "dree": "^2.6.1",
+        "esbuild": "^0.12.8",
+        "fast-glob": "^3.2.7",
+        "fs-extra": "^10.0.0",
+        "fsevents": "^2.3.2",
+        "ts-morph": "^11.0.2",
+        "vite-plugin-files": "^1.1.1"
+    },
+    "peerDependencies": {
+        "vite": ">=2.3.7"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^0.6.5",
+        "@commitlint/cli": "^12.1.4",
+        "@commitlint/config-conventional": "^12.1.4",
+        "@loadable/component": "^5.15.0",
+        "@types/jest": "^26.0.23",
+        "@types/node": "^14.17.3",
+        "@types/react": "^17.0.11",
+        "@types/react-router-dom": "^5.1.7",
+        "@typescript-eslint/eslint-plugin": "^4.26.1",
+        "conventional-changelog": "^3.1.24",
+        "cz-conventional-changelog": "^3.3.0",
+        "eslint": "^7.28.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "history": "^4.10.1",
+        "jest": "^26.6.3",
+        "jest-esbuild": "^0.1.6",
+        "lint-staged": "^10.5.4",
+        "prettier": "^2.3.1",
+        "react": "^17.0.2",
+        "react-router-dom": "^5.2.0",
+        "rollup": "^2.51.1",
+        "ts-node": "^9.1.1",
+        "tsup": "^4.11.2",
+        "typescript": "^4.3.2",
+        "vite": "^2.3.7"
+    }
+}
