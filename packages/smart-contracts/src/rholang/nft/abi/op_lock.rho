@@ -5,6 +5,7 @@ new basket,
   registryLookup(`rho:registry:lookup`)
 in {
 
+
   for (superKey <<- @(*deployerId, "rchain-token-contract", "MASTER_REGISTRY_URI", "CONTRACT_ID")) {
     superKey!((
       "LOCK",

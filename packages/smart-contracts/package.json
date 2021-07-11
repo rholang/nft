@@ -25,6 +25,7 @@
     "homepage": "https://github.com/flowlist/js-core#readme",
     "scripts": {
         "build": "vite build",
+        "build:w": "vite build --watch",
         "prepublishOnly": "npm run test:unit && npm run build",
         "test:unit": "vue-cli-service test:unit"
     },

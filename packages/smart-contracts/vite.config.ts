@@ -10,9 +10,5 @@ export default defineConfig({
             name: 'nft',
         },
     },
-    plugins: [
-        rholang({
-            entryUri: 'rho:id:zphjgsfy13h1k85isc8rtwtgt3t9zzt5pjd5ihykfmyapfc4wt3x5h',
-        }),
-    ],
+    plugins: [rholang()],
 })
