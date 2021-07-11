@@ -192,6 +192,7 @@ importers:
     specifiers:
       '@babel/preset-env': ^7.14.7
       '@babel/preset-typescript': ^7.14.5
+      '@rollup/pluginutils': ^4.1.0
       '@types/jest': ^26.0.24
       '@vue/cli-plugin-unit-jest': ~4.5.11
       '@vue/cli-service': ~4.5.11
@@ -206,6 +207,7 @@ importers:
     devDependencies:
       '@babel/preset-env': 7.14.7
       '@babel/preset-typescript': 7.14.5
+      '@rollup/pluginutils': 4.1.0
       '@types/jest': 26.0.24
       '@vue/cli-plugin-unit-jest': 4.5.13_@vue+cli-service@4.5.13
       '@vue/cli-service': 4.5.13_typescript@3.9.10
@@ -246,6 +248,7 @@ importers:
       jest: ^26.6.3
       jest-esbuild: ^0.1.6
       lint-staged: ^10.5.4
+      path: latest
       prettier: ^2.3.1
       react: ^17.0.2
       react-router-dom: ^5.2.0
@@ -254,7 +257,7 @@ importers:
       ts-node: ^9.1.1
       tsup: ^4.11.2
       typescript: ^4.3.2
-      vite: ^2.3.7
+      vite: latest
       vite-plugin-files: ^1.1.1
     dependencies:
       '@types/fs-extra': 9.0.12
@@ -265,6 +268,7 @@ importers:
       fast-glob: 3.2.7
       fs-extra: 10.0.0
       fsevents: 2.3.2
+      path: 0.12.7
       ts-morph: 11.0.2
       vite-plugin-files: 1.1.1_vite@2.4.1
     devDependencies:
@@ -4805,6 +4809,16 @@ packages:
       - bufferutil
       - utf-8-validate
     dev: false
+
+  /@rollup/pluginutils/4.1.0:
+    resolution: {integrity: sha512-TrBhfJkFxA+ER+ew2U2/fHbebhLT/l/2pRk0hfj9KusXUuRXd2v0R58AfaZK9VXDQ4TogOSEmICVrQAA3zFnHQ==}
+    engines: {node: '>= 8.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0
+    dependencies:
+      estree-walker: 2.0.2
+      picomatch: 2.3.0
+    dev: true
 
   /@rushstack/eslint-patch/1.0.6:
     resolution: {integrity: sha512-Myxw//kzromB9yWgS8qYGuGVf91oBUUJpNvy5eM50sqvmKLbKjwLxohJnkWGTeeI9v9IBMtPLxz5Gc60FIfvCA==}
@@ -9913,7 +9927,6 @@ packages:
 
   /estree-walker/2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
-    dev: false
 
   /esutils/2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
@@ -15487,6 +15500,13 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
     dev: true
+
+  /path/0.12.7:
+    resolution: {integrity: sha1-1NwqUGxM4hl+tIHr/NWzbAFAsQ8=}
+    dependencies:
+      process: 0.11.10
+      util: 0.10.3
+    dev: false
 
   /pbkdf2/3.1.2:
     resolution: {integrity: sha512-iuh7L6jA7JEGu2WxDwtQP1ddOpaJNC4KlDEFfdQajSGgGPNi4OyDc2R7QnbY2bR9QjBVGwgvTdNJZoE7RaxUMA==}

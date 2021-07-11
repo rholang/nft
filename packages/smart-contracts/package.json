@@ -31,6 +31,7 @@
     "devDependencies": {
         "@babel/preset-env": "^7.14.7",
         "@babel/preset-typescript": "^7.14.5",
+        "@rollup/pluginutils": "^4.1.0",
         "@types/jest": "^26.0.24",
         "@vue/cli-plugin-unit-jest": "~4.5.11",
         "@vue/cli-service": "~4.5.11",
