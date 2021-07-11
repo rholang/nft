@@ -13,6 +13,6 @@
         "baseUrl": ".",
         "paths": {}
     },
-    "include": ["src/index.ts", "tests/**/*.ts"],
+    "include": ["src/index.ts", "tests/**/*.ts", "src/types.d.ts"],
     "exclude": ["node_modules", "dist"]
 }

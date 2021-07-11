@@ -16,34 +16,29 @@ const matchArgs = async (quotedCode: string) => {
             .map((argEl) => {
                 const position = argEl.match(/arg(\d+)/);
                 const name = argEl.match(/arg\d+:(\w+)\u0060/);
+
                 if (position && name) {
-                    const p = position[1];
-                    const n = name[1];
+                    console.log(name[1]);
+                    const p = position;
+                    const n = name;
                     return { position: p, name: n };
                 }
                 return { position: "", name: "" };
             })
             .filter((value) => value.name !== "" || value.position !== "");
         if (mArgs) {
-            const sortedArgs = mArgs.sort((a, b) => (a.position > b.position ? 1 : -1));
-            console.log("sortedArgs");
-            console.log(sortedArgs);
+            const sortedmArgs = mArgs.sort((a, b) => (a.position > b.position ? 1 : -1));
+
+            const argsReplacedCode = mArgs.reduce((acc, currVal) => {
+                const templLit = `\${${currVal.name}}`;
+                return acc.replaceAll(`rho:arg${currVal.position}:${currVal.name}`, templLit);
+            }, quotedCode);
+
+            const argumentsCode = sortedmArgs.map((el) => el.name);
+            console.log(argumentsCode);
+
+            return { argumentsCode, argsReplacedCode };
         }
-
-        const argsReplacedCode = mArgs.reduce((acc, currVal) => {
-            const templLit = `\${${currVal.name}}`;
-            return acc.replaceAll(`rho:arg${currVal.position}:${currVal.name}`, templLit);
-        }, quotedCode);
-        console.log("argsReplacedCode");
-        console.log(argsReplacedCode);
-
-        const argumentsCode = mArgs.reduce((acc, curr) => {
-            const sArgs = `${curr.name}:string,`;
-            return acc + sArgs;
-        }, "");
-        console.log("argumentsCode");
-        console.log(argumentsCode);
-        return { argumentsCode, argsReplacedCode };
     }
     return { argumentsCode: "", argsReplacedCode: "" };
 };
@@ -55,11 +50,17 @@ const transform = async (code: string, id: string) => {
         console.log(code);
         const { argumentsCode, argsReplacedCode } = await matchArgs(quotedCode);
 
-        const parsedCode = `export const ${fileName} = 
-            (${argumentsCode}) => ${argsReplacedCode}`;
+        // const parsedCode = `export const test = (te) => \`\${te}\``;
 
+        /* match ` and replace with \` */
+        const backTicks = argsReplacedCode.replace(/\u0060/g, "\u005C\u0060");
+        const doubleQuotes = backTicks.replace(/\u0022/g, "\u0060");
+        const replacedBTCode = doubleQuotes.replace(/\u005C\u005C\u0060/g, "\u005C\u0060");
+        console.log(replacedBTCode);
+        const parsedCode = `export const ${fileName} = ${argumentsCode} => ${replacedBTCode}`;
+        console.log("parsedCode");
         console.log(parsedCode);
-        return JSON.stringify(parsedCode);
+        return parsedCode;
     }
     return ``;
 };
@@ -77,8 +78,11 @@ export default (options: PluginOptions = {}): Plugin => {
         async transform(code, id) {
             if (/\.rho?$/.test(id)) {
                 const parsedCode = await transform(code, id);
-                return { code: parsedCode, map: { mappings: "" } };
+                console.log("final");
+                console.log(parsedCode);
+                return { code: parsedCode };
             }
+            console.log("final");
             return code;
         }
     };
