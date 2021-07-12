@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-// import dts from 'vite-plugin-dts'
+import dts from 'vite-plugin-dts'
 import rholang from 'vite-plugin-rholang'
 
 // https://vitejs.dev/config/
@@ -10,5 +10,13 @@ export default defineConfig({
             name: 'nft',
         },
     },
-    plugins: [rholang()],
+    plugins: [
+        rholang(),
+        dts({
+            outputDir: 'dist',
+            exclude: ['src/ignore'],
+            staticImport: true,
+            insertTypesEntry: true,
+        }),
+    ],
 })

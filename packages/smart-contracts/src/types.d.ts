@@ -1,4 +1,1 @@
-declare module '*.rho' {
-    const content: any
-    export default content
-}
+declare module '@nftland/contracts'

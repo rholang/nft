@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Effects as Fx } from 'connectors/rnode-client'
-import { checkAccount, sampleInsertToRegistry } from '@nftland/contracts'
+// import * as tt from '@nftland/contracts'
+
 import Link from 'next/link'
 import Button from '../Button'
 import { useWindowSize } from '../../hooks'
 import { useAuthContext } from '../Provider'
+
 import {
     Container,
     Content,
@@ -17,19 +19,22 @@ import {
 import exploreIcon from '../../public/Explore.png'
 import exploreMobileIcon from '../../public/ExploreMobile.png'
 
+console.log('tt')
+// console.log(tt)
+
 const ExploreCard = (): JSX.Element => {
     const router = useRouter()
     const { isMobile } = useWindowSize()
     const { currentUser, login } = useAuthContext()
 
     const handleExploreDeploy = () => {
-        Fx.exploreDeployFx({ client: 'cf', code: checkAccount })
+        Fx.exploreDeployFx({ client: 'cf', code: 'checkAccount' })
     }
 
     const handleDeploy = () => {
         Fx.deployFx({
             client: 'rnode',
-            code: sampleInsertToRegistry,
+            code: 'sampleInsertToRegistry',
             phloLimit: '500000',
         })
     }

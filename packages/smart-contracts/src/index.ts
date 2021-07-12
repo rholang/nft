@@ -2,6 +2,10 @@
 // export const test = import.meta.globEager('/src/rholang/nft/**/*.rho')
 
 // import * as t from './rholang/nft/abi/read_purses.rho'
+// import './src/rholang/nft/abi/read_purses.rho'
+declare module '@nftland/contracts' {
+    export function readPurses(p: string): string
+}
 
 export * from './test'
 // const sc = import.meta.globEager('/src/rholang/nft/abi/read_purses.rho')
