@@ -1,5 +1,5 @@
 {
-    "name": "contracts",
+    "name": "@nftland/contracts",
     "version": "1.7.0",
     "main": "dist/contracts.umd.js",
     "module": "dist/contracts.es.js",

@@ -20,7 +20,7 @@ import exploreIcon from '../../public/Explore.png'
 import exploreMobileIcon from '../../public/ExploreMobile.png'
 
 console.log('tt')
-console.log(read_purses)
+console.log(read_purses('ab', 'cd'))
 
 const ExploreCard = (): JSX.Element => {
     const router = useRouter()
