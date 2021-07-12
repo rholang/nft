@@ -1,16 +1,9 @@
-// import { ENUM } from '@flowlist/js-core'
-// export const test = import.meta.globEager('/src/rholang/nft/**/*.rho')
+console.log('This file is just to test the exports 2')
 
-// import * as t from './rholang/nft/abi/read_purses.rho'
-// import './src/rholang/nft/abi/read_purses.rho'
-declare module '@nftland/contracts' {
-    export function readPurses(p: string): string
+export const myFunction = () => {
+    console.log('ok')
 }
 
-export * from './test'
-// const sc = import.meta.globEager('/src/rholang/nft/abi/read_purses.rho')
-// console.log(sc)
-// import './rholang/nft/abi/read_purses.rho'
-// export { hello1 } from './test/abc'
-// export * from './rholang'
-// console.log(hello1())
+// START_EXPORTS
+
+// END_EXPORTS

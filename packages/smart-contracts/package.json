@@ -1,5 +1,5 @@
 {
-    "name": "@nftland/contracts",
+    "name": "contracts",
     "version": "1.7.0",
     "main": "dist/contracts.umd.js",
     "module": "dist/contracts.es.js",
@@ -30,6 +30,7 @@
         "test:unit": "vue-cli-service test:unit"
     },
     "devDependencies": {
+        "rollup-plugin-typescript2": "^0.30.0",
         "@babel/preset-env": "^7.14.7",
         "@babel/preset-typescript": "^7.14.5",
         "@rollup/pluginutils": "^4.1.0",

@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import dts from 'vite-plugin-dts'
+import ts from 'rollup-plugin-typescript2'
 import rholang from 'vite-plugin-rholang'
 
 // https://vitejs.dev/config/
@@ -10,13 +10,23 @@ export default defineConfig({
             name: 'nft',
         },
     },
+    esbuild: false,
     plugins: [
-        rholang(),
-        dts({
-            outputDir: 'dist',
-            exclude: ['src/ignore'],
-            staticImport: true,
-            insertTypesEntry: true,
+        rholang({
+            patterns: [
+                {
+                    matchTokens: ['// Start_Exports', '// End_Exports'],
+                    path: 'src/rholang/nft/abi/read_purses.rho',
+                },
+            ],
         }),
+        {
+            apply: 'build',
+            ...ts({
+                tsconfig: './tsconfig.json',
+                check: false,
+                useTsconfigDeclarationDir: true,
+            }),
+        },
     ],
 })

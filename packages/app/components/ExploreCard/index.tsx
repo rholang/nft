@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Effects as Fx } from 'connectors/rnode-client'
-// import * as tt from '@nftland/contracts'
+import { read_purses } from '@nftland/contracts'
 
 import Link from 'next/link'
 import Button from '../Button'
@@ -20,7 +20,7 @@ import exploreIcon from '../../public/Explore.png'
 import exploreMobileIcon from '../../public/ExploreMobile.png'
 
 console.log('tt')
-// console.log(tt)
+console.log(read_purses)
 
 const ExploreCard = (): JSX.Element => {
     const router = useRouter()

@@ -11,8 +11,13 @@
         "lib": ["esnext", "dom"],
         "types": ["node", "jest", "vite/client"],
         "baseUrl": ".",
-        "paths": {}
+        "declaration": true,
+        "declarationDir": "./dist",
+
+        "paths": {
+            "~/*": ["src/*"]
+        }
     },
-    "include": ["src/index.ts", "tests/**/*.ts", "src/types.d.ts"],
+    "include": ["src/index.ts"],
     "exclude": ["node_modules", "dist"]
 }
