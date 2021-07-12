@@ -12,11 +12,7 @@
         "types": ["node", "jest", "vite/client"],
         "baseUrl": ".",
         "declaration": true,
-        "declarationDir": "./dist",
-
-        "paths": {
-            "~/*": ["src/*"]
-        }
+        "declarationDir": "./dist"
     },
     "include": ["src/index.ts"],
     "exclude": ["node_modules", "dist"]

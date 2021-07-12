@@ -16,7 +16,7 @@ export default defineConfig({
             patterns: [
                 {
                     matchTokens: ['// Start_Exports', '// End_Exports'],
-                    path: 'src/rholang/nft/abi/read_purses.rho',
+                    path: 'src/rholang/nft/abi/*.rho',
                 },
             ],
         }),
