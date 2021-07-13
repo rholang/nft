@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Effects as Fx } from 'connectors/rnode-router'
-import { read_purses, read_all_purses } from '@nftland/contracts'
+import { checkAccount } from '@nftland/contracts'
 
 import Link from 'next/link'
 import Button from '../Button'
@@ -19,16 +19,31 @@ import {
 import exploreIcon from '../../public/Explore.png'
 import exploreMobileIcon from '../../public/ExploreMobile.png'
 
-console.log('tt')
-console.log(read_purses())
-
 const ExploreCard = (): JSX.Element => {
     const router = useRouter()
     const { isMobile } = useWindowSize()
     const { currentUser, login } = useAuthContext()
 
+    const checkdepl = (
+        abc: string
+    ) => `new return, rl(\`rho:registry:lookup\`), RevVaultCh, vaultCh in {
+        rl!(\`rho:rchain:revVault\`, *RevVaultCh) |
+        for (@(_, RevVault) <- RevVaultCh) {
+          @RevVault!("findOrCreate", "${abc}", *vaultCh) |
+          for (@maybeVault <- vaultCh) {
+            match maybeVault {
+              (true, vault) => @vault!("balance", *return)
+              (false, err)  => return!(err)
+            }
+          }
+        }
+      }`
     const handleExploreDeploy = () => {
-        Fx.exploreDeployFx({ client: 'cf', code: 'checkAccount' })
+        Fx.exploreDeployFx({
+            client: 'cf',
+            code: checkAccount('1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ'),
+        })
+        console.log(checkAccount('1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ'))
     }
 
     const handleDeploy = () => {

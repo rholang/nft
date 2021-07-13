@@ -17,13 +17,14 @@ export type UserOptions = Partial<Options>;
 
 const matchArgs = async (quotedCode: string) => {
     /* matchedArgs = all rho:arg1:entryUri */
-    const matchedArgs = [...quotedCode.matchAll(/rho:arg(\d+:\w+)`/g)];
+    const matchedArgs = [...quotedCode.matchAll(/rho:arg(\d+:\w+)[`|\\"]/g)];
+
     if (matchedArgs) {
         /* mArgs = all position and name of args */
         const mArgs = matchedArgs
             .map((argEl) => {
                 const position = argEl[0].match(/arg(\d+)/);
-                const name = argEl[0].match(/arg\d+:(\w+)\u0060/);
+                const name = argEl[0].match(/arg\d+:(\w+)[`|\\"]/);
 
                 if (position && name) {
                     const p = position[1];
@@ -39,6 +40,7 @@ const matchArgs = async (quotedCode: string) => {
 
             const argsReplacedCode = mArgs.reduce((acc, currVal) => {
                 const templLit = `\${${currVal.name}}`;
+                /* replace all arguments of smart contract rho:arg1:entryUri -> ${entryUri} with template literal */
                 return acc.replaceAll(`rho:arg${currVal.position}:${currVal.name}`, templLit);
             }, quotedCode);
 
@@ -56,12 +58,18 @@ const transform = async (code: string, id: string) => {
         const quotedCode = JSON.stringify(code);
 
         const { argumentsCode, argsReplacedCode } = await matchArgs(quotedCode);
-
-        /* match ` and replace with \` */
+        // console.log(argsReplacedCode);
+        /*   match ` and replace with \`    */
         const backTicks = argsReplacedCode.replace(/\u0060/g, "\u005C\u0060");
-        const doubleQuotes = backTicks.replace(/\u0022/g, "\u0060");
-        const replacedBTCode = doubleQuotes.replace(/\u005C\u005C\u0060/g, "\u005C\u0060");
-        const parsedCode = `export const ${fileName} = (${argumentsCode}) => ${replacedBTCode}`;
+        // const doubleQuotes = backTicks.replace(/\u005C\u0022/g, "\u0022");
+        /*   match \\` and replace with \`  */
+        const doubleBt = backTicks.replace(/\u005C\u005C\u0060/g, "\u005C\u0060");
+        /*   match " on beginn and end and replace with `    */
+        const doubleQuotesBeginn = doubleBt.replace(/^"/g, "\u0060");
+        const doubleQuotesEnd = doubleQuotesBeginn.replace(/"$/g, "\u0060");
+        // console.log(doubleQuotesEnd);
+        const parsedCode = `export const ${fileName} = (${argumentsCode}) => ${doubleQuotesEnd}`;
+
         return parsedCode;
     }
     return ``;

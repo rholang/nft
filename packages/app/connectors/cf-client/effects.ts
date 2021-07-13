@@ -4,6 +4,7 @@ import { CfRequest } from './types'
 
 export const cfExploreDeploy = async ({ net, code }: CfRequest): Promise<Status> => {
     try {
+        console.log(net)
         const res = await axios.get('/explore', {
             params: {
                 net,
