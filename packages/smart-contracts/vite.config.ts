@@ -8,15 +8,34 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/index.ts",
-      name: "nft",
+
+      name: "@rholang/sdk",
+
+      fileName: "index",
+    },
+    rollupOptions: {
+      // make sure to externalize deps that shouldn't be bundled
+      // into your library
+      external: ["react", "@types/ethereumjs-util", "ethereumjs-util"],
+      output: {
+        // Provide global variables to use in the UMD build
+        // for externalized deps
+        globals: {
+          react: "React",
+        },
+        sourcemapExcludeSources: true,
+      },
     },
   },
   esbuild: false,
   plugins: [
-    babel({
-      include: ["./src/connectors/**"],
-      extensions: [".ts"],
-      babelHelpers: "bundled",
+    rholang({
+      patterns: [
+        {
+          matchTokens: ["// Start_Exports", "// End_Exports"],
+          path: "src/rholang/examples/*.rho",
+        },
+      ],
     }),
     {
       apply: "build",

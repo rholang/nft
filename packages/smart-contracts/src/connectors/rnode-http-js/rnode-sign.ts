@@ -1,7 +1,7 @@
 // @ts-ignore
-import blake from 'blakejs';
-import { ec } from 'elliptic';
-import jspb from 'google-protobuf';
+import blake from "blakejs";
+import { ec } from "elliptic";
+import jspb from "google-protobuf";
 
 /**
  * These deploy types are based on protobuf specification which must be
@@ -41,16 +41,11 @@ export const signDeploy = function (
   privateKey: ec.KeyPair | string,
   deployObj: DeployData
 ): DeploySignedProto {
-  const {
-    term,
-    timestamp,
-    phloPrice,
-    phloLimit,
-    validAfterBlockNumber,
-  } = deployObj;
+  const { term, timestamp, phloPrice, phloLimit, validAfterBlockNumber } =
+    deployObj;
 
   // Currently supported algorithm
-  const sigAlgorithm = 'secp256k1';
+  const sigAlgorithm = "secp256k1";
 
   // Serialize deploy data for signing
   const deploySerialized = deployDataProtobufSerialize({
@@ -64,10 +59,10 @@ export const signDeploy = function (
   // Signing key
   const crypt = new ec(sigAlgorithm);
   const key = getSignKey(crypt, privateKey);
-  const deployer = Uint8Array.from(key.getPublic('array'));
+  const deployer = Uint8Array.from(key.getPublic("array"));
   // Hash and sign serialized deploy
   const hashed = blake.blake2bHex(deploySerialized, void 666, 32);
-  const sigArray = key.sign(hashed, { canonical: true }).toDER('array');
+  const sigArray = key.sign(hashed, { canonical: true }).toDER("array");
   const sig = Uint8Array.from(sigArray);
 
   // Return deploy object / ready for sending to RNode
@@ -121,19 +116,14 @@ export const verifyDeploy = (deployObj: DeploySignedProto) => {
  * Serialization of DeployDataProto object without generated JS code.
  */
 export const deployDataProtobufSerialize = (deployData: DeployData) => {
-  const {
-    term,
-    timestamp,
-    phloPrice,
-    phloLimit,
-    validAfterBlockNumber,
-  } = deployData;
+  const { term, timestamp, phloPrice, phloLimit, validAfterBlockNumber } =
+    deployData;
 
   // Create binary stream writer
   const writer = new jspb.BinaryWriter();
   // Write fields (protobuf doesn't serialize default values)
   const writeString = (order: number, val: string) =>
-    val != '' && writer.writeString(order, val);
+    val != "" && writer.writeString(order, val);
   const writeInt64 = (order: number, val: number) =>
     val != 0 && writer.writeInt64(order, val);
 
@@ -164,6 +154,6 @@ export const deployDataProtobufSerialize = (deployData: DeployData) => {
  * - detect KeyPair if it have `sign` function
  */
 const getSignKey = (crypt: ec, pk: ec.KeyPair | string) =>
-  pk && typeof pk != 'string' && pk.sign && pk.sign.constructor == Function
+  pk && typeof pk !== "string" && pk.sign && pk.sign.constructor == Function
     ? pk
     : crypt.keyFromPrivate(pk);

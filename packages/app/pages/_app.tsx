@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <ModalProvider>
         <AuthProvider>
           <CreateAssetProvider>
-            {/* <NavBar /> */}
+            <NavBar />
             <Component {...pageProps} />
             {/* <Footer /> */}
           </CreateAssetProvider>

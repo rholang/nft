@@ -1,8 +1,8 @@
 {
   "name": "@rholang/sdk",
   "version": "1.7.0",
-  "main": "dist/sdk.umd.js",
-  "module": "dist/sdk.es.js",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "description": "flowlist frontend javascript core",
@@ -29,6 +29,12 @@
     "prepublishOnly": "npm run test:unit && npm run build",
     "test:unit": "vue-cli-service test:unit"
   },
+  "peerDependencies": {
+    "react": "latest",
+    "react-dom": "latest",
+    "@types/ethereumjs-util": "^6.1.0",
+    "ethereumjs-util": "^7.0.7"
+  },
   "devDependencies": {
     "@babel/plugin-syntax-jsx": "^7.14.5",
     "@rollup/plugin-babel": "5.3.0",
@@ -36,8 +42,6 @@
     "@types/google-protobuf": "^3.7.4",
     "google-protobuf": "^3.14.0",
     "@types/elliptic": "^6.4.12",
-    "@types/ethereumjs-util": "^6.1.0",
-    "ethereumjs-util": "^7.0.7",
     "dayjs": "^1.10.4",
     "js-sha3": "^0.8.0",
     "@types/bs58": "^4.0.1",

@@ -1,7 +1,7 @@
-import { Effects as Fx /* checkBalance, insertRegistry */ } from "@rholang/sdk";
+import { Effects as Fx, checkBalance, insertRegistry } from "@rholang/sdk";
 
 import "isomorphic-fetch";
-/*
+
 describe(`ExploreDeploy`, () => {
   it("test exploratory deploy on testnet", async () => {
     const fn = jest.fn();
@@ -40,4 +40,3 @@ describe(`Deploy`, () => {
     expect(fn).toBeCalledTimes(1);
   }, 20000);
 });
-*/

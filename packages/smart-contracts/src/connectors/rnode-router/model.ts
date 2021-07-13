@@ -1,8 +1,7 @@
 // import { createEvent, createStore } from 'effector'
 
-import { RevAccount } from "@tgrospic/rnode-http-js";
-import { createDomain } from "effector";
 import {
+  RevAccount,
   localNet,
   testNet,
   mainNet,
@@ -10,6 +9,7 @@ import {
   RNodeInfo,
   Status,
 } from "connectors/rnode-http-js";
+import { createDomain } from "effector";
 
 export const domain = createDomain();
 
