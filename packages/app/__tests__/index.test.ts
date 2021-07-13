@@ -1,11 +1,11 @@
-import { Effects as Fx } from 'connectors/rnode-client';
+import { Effects as Fx } from 'connectors/rnode-http-js'
 
-import 'isomorphic-fetch';
+import 'isomorphic-fetch'
 
 describe(`ExploreDeploy`, () => {
-  it('test exploratory deploy on testnet', async () => {
-    const fn = jest.fn();
-    const checkBalance = `
+    it('test exploratory deploy on testnet', async () => {
+        const fn = jest.fn()
+        const checkBalance = `
     new return, rl(\`rho:registry:lookup\`), RevVaultCh, vaultCh in {
       rl!(\`rho:rchain:revVault\`, *RevVaultCh) |
       for (@(_, RevVault) <- RevVaultCh) {
@@ -18,23 +18,23 @@ describe(`ExploreDeploy`, () => {
         }
       }
     }
-  `;
+  `
 
-    Fx.exploreDeployFx.doneData.watch((result) => {
-      console.log(result);
-      fn(result);
-    });
+        Fx.exploreDeployFx.doneData.watch(result => {
+            console.log(result)
+            fn(result)
+        })
 
-    await Fx.exploreDeployFx({ client: 'rnode', code: checkBalance });
+        await Fx.exploreDeployFx({ client: 'rnode', code: checkBalance })
 
-    expect(fn).toBeCalledTimes(1);
-  });
-});
+        expect(fn).toBeCalledTimes(1)
+    })
+})
 
 describe(`Deploy`, () => {
-  it('test deploy on testnet', async () => {
-    const fn = jest.fn();
-    const sampleInsertToRegistry = `new return(\`rho:rchain:deployId\`),
+    it('test deploy on testnet', async () => {
+        const fn = jest.fn()
+        const sampleInsertToRegistry = `new return(\`rho:rchain:deployId\`),
     insertArbitrary(\`rho:registry:insertArbitrary\`)
   in {
     new uriCh, valueCh in {
@@ -43,18 +43,18 @@ describe(`Deploy`, () => {
         return!(("URI", uri))
       }
     }
-  }`;
-    Fx.deployFx.doneData.watch((result) => {
-      console.log(result);
-      fn(result);
-    });
+  }`
+        Fx.deployFx.doneData.watch(result => {
+            console.log(result)
+            fn(result)
+        })
 
-    await Fx.deployFx({
-      client: 'rnode',
-      code: sampleInsertToRegistry,
-      phloLimit: '500000',
-    });
+        await Fx.deployFx({
+            client: 'rnode',
+            code: sampleInsertToRegistry,
+            phloLimit: '500000',
+        })
 
-    expect(fn).toBeCalledTimes(1);
-  });
-});
+        expect(fn).toBeCalledTimes(1)
+    })
+})

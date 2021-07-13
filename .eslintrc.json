@@ -17,6 +17,7 @@
         "warnOnUnsupportedTypeScriptVersion": false
     },
     "rules": {
+        "react/react-in-jsx-scope": "off",
         "linebreak-style": "off",
         "prettier/prettier": ["error", { "endOfLine": "auto" }],
         "import/prefer-default-export": "off",

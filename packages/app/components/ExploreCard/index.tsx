@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import { Effects as Fx } from 'connectors/rnode-client'
+import { Effects as Fx } from 'connectors/rnode-router'
 import { read_purses, read_all_purses } from '@nftland/contracts'
 
 import Link from 'next/link'

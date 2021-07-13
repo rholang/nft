@@ -1,18 +1,20 @@
-import axios, { AxiosResponse } from 'axios';
-import { Status } from 'connectors/rnode-client';
-export const cfExploreDeploy = async ({ node, code }): Promise<Status> => {
-  try {
-    const res = await axios.get('/explore', {
-      params: {
-        net: 'testnet',
-        code: code,
-      },
-    });
+import axios from 'axios'
+import { Status } from 'connectors/rnode-http-js'
+import { CfRequest } from './types'
 
-    const responseData = res.data;
+export const cfExploreDeploy = async ({ net, code }: CfRequest): Promise<Status> => {
+    try {
+        const res = await axios.get('/explore', {
+            params: {
+                net,
+                code,
+            },
+        })
 
-    return responseData;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
+        const responseData = res.data
+
+        return responseData
+    } catch (e) {
+        throw new Error(e)
+    }
+}
