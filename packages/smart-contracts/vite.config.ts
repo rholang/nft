@@ -1,32 +1,30 @@
-import { defineConfig } from 'vite'
-import ts from 'rollup-plugin-typescript2'
-import rholang from 'vite-plugin-rholang'
+import { defineConfig } from "vite";
+import ts from "rollup-plugin-typescript2";
+import rholang from "vite-plugin-rholang";
+import { babel } from "@rollup/plugin-babel";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    build: {
-        lib: {
-            entry: 'src/index.ts',
-            name: 'nft',
-        },
+  build: {
+    lib: {
+      entry: "src/index.ts",
+      name: "nft",
     },
-    esbuild: false,
-    plugins: [
-        rholang({
-            patterns: [
-                {
-                    matchTokens: ['// Start_Exports', '// End_Exports'],
-                    path: 'src/rholang/**/*.rho',
-                },
-            ],
-        }),
-        {
-            apply: 'build',
-            ...ts({
-                tsconfig: './tsconfig.json',
-                check: false,
-                useTsconfigDeclarationDir: true,
-            }),
-        },
-    ],
-})
+  },
+  esbuild: false,
+  plugins: [
+    babel({
+      include: ["./src/connectors/**"],
+      extensions: [".ts"],
+      babelHelpers: "bundled",
+    }),
+    {
+      apply: "build",
+      ...ts({
+        tsconfig: "./tsconfig.json",
+        check: false,
+        useTsconfigDeclarationDir: true,
+      }),
+    },
+  ],
+});

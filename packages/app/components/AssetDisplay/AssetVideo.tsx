@@ -1,5 +1,5 @@
-import { Video } from './AssetDisplay.styled';
-import { IPFS_RESOLVER_VIDEO } from '../../utils/constants';
+import { Video } from "./AssetDisplay.styled";
+import { IPFS_RESOLVER_VIDEO } from "../../utils/constants";
 
 const AssetVideo = ({ video }: { video: string }): JSX.Element => (
   <Video
@@ -7,7 +7,7 @@ const AssetVideo = ({ video }: { video: string }): JSX.Element => (
     loop
     autoPlay
     onLoadStart={() =>
-      (document.getElementsByTagName('video')[0].volume = 0.15)
+      (document.getElementsByTagName("video")[0].volume = 0.15)
     }
     src={`${IPFS_RESOLVER_VIDEO}${video}`}
   />

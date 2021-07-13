@@ -1,40 +1,43 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import { createRnodeService, NodeUrls } from 'connectors/rnode-http-js'
+import { NextApiRequest, NextApiResponse } from "next";
+import { createRnodeService, NodeUrls } from "@rholang/sdk";
 
 export type Request = {
-    node: string
-    code: string
-}
+  node: string;
+  code: string;
+};
 
-const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-    const { method, query } = req
-    switch (method) {
-        case 'GET': {
-            const { node, code } = query as Request
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
+  const { method, query } = req;
+  switch (method) {
+    case "GET": {
+      const { node, code } = query as Request;
 
-            try {
-                const formattedNode: NodeUrls = JSON.parse(node)
-                const { exploreDeploy } = createRnodeService(formattedNode)
-                const result = await exploreDeploy({
-                    code,
-                })
+      try {
+        const formattedNode: NodeUrls = JSON.parse(node);
+        const { exploreDeploy } = createRnodeService(formattedNode);
+        const result = await exploreDeploy({
+          code,
+        });
 
-                res.setHeader('Cache-Control', 'public, immutable, max-age=31536000')
-                res.status(200).send(result)
-            } catch (e) {
-                console.log('fail')
-                res.status(500).send({
-                    success: false,
-                    message: e.message || 'Error retrieving profile avatars',
-                })
-            }
-            break
-        }
-        case 'PUT':
-            break
-        case 'PATCH':
-            break
+        res.setHeader("Cache-Control", "public, immutable, max-age=31536000");
+        res.status(200).send(result);
+      } catch (e) {
+        console.log("fail");
+        res.status(500).send({
+          success: false,
+          message: e.message || "Error retrieving profile avatars",
+        });
+      }
+      break;
     }
-}
+    case "PUT":
+      break;
+    case "PATCH":
+      break;
+  }
+};
 
-export default handler
+export default handler;

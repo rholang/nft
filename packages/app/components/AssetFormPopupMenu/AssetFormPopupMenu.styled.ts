@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { breakpoint } from '../../styles/Breakpoints';
-import { GradientBackgroundProps, GradientBackground } from '../NavBar/styled';
+import styled from "styled-components";
+import { breakpoint } from "../../styles/Breakpoints";
+import { GradientBackgroundProps, GradientBackground } from "../NavBar/styled";
 
 type MenuProps = {
   isOpen: boolean;
@@ -31,7 +31,7 @@ export const PopupMenuButton = styled.button`
 `;
 
 export const Menu = styled.ul<MenuProps>`
-  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
   flex-direction: column;
   position: absolute;
   top: 0;

@@ -1,7 +1,7 @@
-import { SRLWrapper, useLightbox } from 'simple-react-lightbox';
-import { Image } from './AssetDisplay.styled';
-import { IPFS_RESOLVER_IMAGE, RESIZER_IMAGE } from '../../utils/constants';
-import { useState } from 'react';
+import { SRLWrapper, useLightbox } from "simple-react-lightbox";
+import { useState } from "react";
+import { Image } from "./AssetDisplay.styled";
+import { IPFS_RESOLVER_IMAGE, RESIZER_IMAGE } from "../../utils/constants";
 
 const lightboxOptions = {
   thumbnails: {
@@ -15,7 +15,7 @@ const lightboxOptions = {
     showPrevButton: false,
   },
   settings: {
-    overlayColor: 'rgba(0, 0, 0)',
+    overlayColor: "rgba(0, 0, 0)",
   },
 };
 
@@ -39,7 +39,7 @@ const AssetImage = ({
     setSrc(highResSrc);
   };
   const onImageClick = (_) => lightbox && openLightbox();
-  const lightboxElements = [{ src: highResSrc, width: 'auto', height: 'auto' }];
+  const lightboxElements = [{ src: highResSrc, width: "auto", height: "auto" }];
 
   return (
     <div>

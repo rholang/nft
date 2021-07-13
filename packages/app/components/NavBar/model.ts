@@ -1,21 +1,21 @@
 // import { createEvent, createStore } from 'effector'
-import { domain, Store as S } from 'connectors/rnode-router'
+import { domain, Store as S } from "@rholang/sdk";
 
 // action, typedefinitions state
-const changeNameEvent = domain.event<void>()
+const changeNameEvent = domain.event<void>();
 
 // init store
 
 // model
-const $nameStore = domain.store<number>(3)
+const $nameStore = domain.store<number>(3);
 
 export const Event = {
-    changeNameEvent,
-}
+  changeNameEvent,
+};
 
 export const Store = {
-    $nameStore,
-    $walletStore: S.$walletStore,
-}
+  $nameStore,
+  $walletStore: S.$walletStore,
+};
 
 // register file  to worker

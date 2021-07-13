@@ -93,7 +93,6 @@ export default (options: UserOptions = {}): Plugin => {
 
         apply: "build",
 
-        enforce: "pre",
         configResolved(_config) {
             root = _config.root;
         },
