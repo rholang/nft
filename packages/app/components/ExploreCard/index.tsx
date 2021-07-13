@@ -24,26 +24,11 @@ const ExploreCard = (): JSX.Element => {
     const { isMobile } = useWindowSize()
     const { currentUser, login } = useAuthContext()
 
-    const checkdepl = (
-        abc: string
-    ) => `new return, rl(\`rho:registry:lookup\`), RevVaultCh, vaultCh in {
-        rl!(\`rho:rchain:revVault\`, *RevVaultCh) |
-        for (@(_, RevVault) <- RevVaultCh) {
-          @RevVault!("findOrCreate", "${abc}", *vaultCh) |
-          for (@maybeVault <- vaultCh) {
-            match maybeVault {
-              (true, vault) => @vault!("balance", *return)
-              (false, err)  => return!(err)
-            }
-          }
-        }
-      }`
     const handleExploreDeploy = () => {
         Fx.exploreDeployFx({
             client: 'cf',
             code: checkAccount('1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ'),
         })
-        console.log(checkAccount('1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ'))
     }
 
     const handleDeploy = () => {
