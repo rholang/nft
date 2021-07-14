@@ -1,11 +1,18 @@
-import { Effects as Fx, checkBalance, insertRegistry } from "@rholang/sdk";
-import * as fs from "fs";
-import { getEnvPath } from "utils/env";
+import {
+  Effects as Fx,
+  checkBalance,
+  insertRegistry,
+  Status,
+} from "@rholang/sdk";
 import "isomorphic-fetch";
+import { writeEnv } from "utils/env";
 
 describe(`ExploreDeploy2`, () => {
   it("test exploratory deploy on testnet", async () => {
-    fs.appendFileSync(getEnvPath(), "NEXT_ENTRYCH1=var");
+    writeEnv(
+      "NEXT_ENTRYCH1",
+      "rho3:id:e9hmstci4oz9iw8oo7wxifhrw6kteagw3qzcy48s937armqbku6yd4"
+    );
   });
 });
 
@@ -33,8 +40,16 @@ describe(`Deploy`, () => {
   it("test deploy on testnet", async () => {
     const fn = jest.fn();
 
-    Fx.deployFx.doneData.watch((result) => {
-      console.log(result);
+    Fx.deployFx.doneData.watch((result: Status) => {
+      if (result) {
+        const uri = result.message
+          ? [...result.message.matchAll(/URI.*,.*(rho:id.*)/g)]
+          : null;
+        if (uri[0][1]) {
+          writeEnv("NEXT_ENTRYCH1", uri[0][1].toString());
+        }
+      }
+
       fn(result);
     });
 
