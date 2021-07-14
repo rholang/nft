@@ -8,6 +8,7 @@ import {
   Status,
   NodeUrls,
 } from "./types";
+import { rhoExprToJson } from "./rho-json";
 import { RevAccount, RevAddress, createRevAccount } from "./rev-address";
 import { ethereumAddress } from "./eth/eth-wrapper";
 import { makeRNodeWeb } from "./rnode-web";
@@ -25,51 +26,33 @@ const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
     return { success: dataError, message: dataBal };
   };
 
-const deploy = (effects: DeployEff) =>
-  async function ({ code, account, phloLimit }: DeployArgs): Promise<Status> {
+const deploy =
+  (effects: DeployEff) =>
+  async ({ code, account, phloLimit }: DeployArgs): Promise<Status> => {
     const { node, sendDeploy, getDataForDeploy } = effects;
     // console.log(account)
     const phloLimitNum = R.isNil(phloLimit) ? phloLimit : parseInt(phloLimit);
     const { signature } = await sendDeploy(node, account, code, phloLimitNum);
 
-    // Progress dots
-    const mkProgress = (i: number) => () => {
-      i = i > 60 ? 0 : i + 3;
-      return `Checking result ${R.repeat(".", i).join("")}`;
-    };
-    const progressStep = mkProgress(0);
     const updateProgress = () => true;
-    updateProgress();
 
     // Try to get result from next proposed block
 
-    /* const getData = async () => {
-      const { data, cost } = await getDataForDeploy(
-        node,
-        signature,
-        updateProgress
-      );
-      return { data, cost };
-    };
-
-    const { data, cost } = await getData();
+    const { data, cost } = await getDataForDeploy(node, signature, () => true);
 
     // Extract data from response object
     const args = data ? rhoExprToJson(data.expr) : void 0;
 
-    const costTxt = R.isNil(cost) ? 'failed to retrive' : cost;
-    const [succ, message] = R.isNil(args)
+    const [succ, message]: [boolean, string] = R.isNil(args)
       ? [
           false,
-          'deploy found in the block but data is not sent on `rho:rchain:deployId` channel',
+          "deploy found in the block but data is not sent on `rho:rchain:deployId` channel",
         ]
-      : [true, R.is(Array, args) ? args.join(', ') : args];
+      : [true, R.is(Array, args) ? args.join(", ") : args];
 
-    if (!succ) throw Error(`Deploy error: ${message}. // cost: ${costTxt}`);
+    const success = succ.toString();
 
-    const success = succ.toString(); */
-    const message = signature;
-    return { success: "", message };
+    return { success, message };
   };
 
 export const getMetamaskAccount = async () => {
