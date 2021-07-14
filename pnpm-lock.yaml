@@ -72,6 +72,7 @@ importers:
       cross-env: ^7.0.3
       cross-fetch: ^3.1.4
       dayjs: ^1.10.4
+      dotenv: ^10.0.0
       effector: latest
       effector-logger: ^0.9.0
       effector-react: latest
@@ -80,6 +81,7 @@ importers:
       ethereumjs-util: ^7.0.7
       firebase: ^8.4.3
       form-data: ^4.0.0
+      fs: ^0.0.1-security
       google-protobuf: ^3.14.0
       isomorphic-fetch: ^3.0.0
       jest: ^27.0.4
@@ -109,12 +111,14 @@ importers:
       '@rholang/sdk': link:../smart-contracts
       axios: 0.21.1
       dayjs: 1.10.6
+      dotenv: 10.0.0
       effector: 21.8.12
       effector-logger: 0.9.0_effector@21.8.12
       effector-react: 21.3.3_effector@21.8.12+react@17.0.1
       elliptic: 6.5.4
       firebase: 8.7.0
       form-data: 4.0.0
+      fs: 0.0.1-security
       google-protobuf: 3.17.3
       multer: 1.4.2
       next: 11.0.1_13294cec940b979d449061af86064714
@@ -4247,7 +4251,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.3
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 14.17.5
+      '@types/node': 16.3.1
       '@types/yargs': 15.0.14
       chalk: 4.1.1
     dev: true
@@ -7319,9 +7323,9 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001244
+      caniuse-lite: 1.0.30001245
       colorette: 1.2.2
-      electron-to-chromium: 1.3.774
+      electron-to-chromium: 1.3.775
       escalade: 3.1.1
       node-releases: 1.1.73
 
@@ -7574,8 +7578,8 @@ packages:
     resolution: {integrity: sha512-vNxw9mkTBtkmLFnJRv/2rhs1yufpDfCkBZexG3Y0xdOH2Z/eE/85E4Dl5j1YUN34nZVsSp6vVRFQRrez9wJMRA==}
     dev: true
 
-  /caniuse-lite/1.0.30001244:
-    resolution: {integrity: sha512-Wb4UFZPkPoJoKKVfELPWytRzpemjP/s0pe22NriANru1NoI+5bGNxzKtk7edYL8rmCWTfQO8eRiF0pn1Dqzx7Q==}
+  /caniuse-lite/1.0.30001245:
+    resolution: {integrity: sha512-768fM9j1PKXpOCKws6eTo3RHmvTUsG9UrpT4WoREFeZgJBTi4/X9g565azS/rVUGtqb8nt7FjLeF5u4kukERnA==}
 
   /capture-exit/2.0.0:
     resolution: {integrity: sha512-PiT/hQmTonHhl/HFGN+Lx3JJUznrVYJ3+AQsnthneZbvW7x+f08Tk7yLJTLEOUvBTbduLeeBkxEaYXUOUrRq6g==}
@@ -8598,7 +8602,7 @@ packages:
     peerDependencies:
       postcss: ^8.2.1
     dependencies:
-      caniuse-lite: 1.0.30001244
+      caniuse-lite: 1.0.30001245
       postcss: 8.2.13
     dev: false
 
@@ -9183,6 +9187,11 @@ packages:
     resolution: {integrity: sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==}
     dev: true
 
+  /dotenv/10.0.0:
+    resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
+    engines: {node: '>=10'}
+    dev: false
+
   /dotenv/8.6.0:
     resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
     engines: {node: '>=10'}
@@ -9307,8 +9316,8 @@ packages:
     requiresBuild: true
     dev: true
 
-  /electron-to-chromium/1.3.774:
-    resolution: {integrity: sha512-Fggh17Q1yyv1uMzq8Qn1Ci58P50qcRXMXd2MBcB9sxo6rJxjUutWcNw8uCm3gFWMdcblBO6mDT5HzX/RVRRECA==}
+  /electron-to-chromium/1.3.775:
+    resolution: {integrity: sha512-EGuiJW4yBPOTj2NtWGZcX93ZE8IGj33HJAx4d3ouE2zOfW2trbWU+t1e0yzLr1qQIw81++txbM3BH52QwSRE6Q==}
 
   /elliptic/6.5.4:
     resolution: {integrity: sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==}
@@ -10656,6 +10665,10 @@ packages:
 
   /fs.realpath/1.0.0:
     resolution: {integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=}
+
+  /fs/0.0.1-security:
+    resolution: {integrity: sha1-invTcYa23d84E/I4WLV+yq9eQdQ=}
+    dev: false
 
   /fsevents/1.2.13:
     resolution: {integrity: sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==}
@@ -13295,7 +13308,7 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.0.6
-      '@types/node': 14.17.5
+      '@types/node': 16.3.1
       chalk: 4.1.1
       graceful-fs: 4.2.6
       is-ci: 3.0.0
@@ -14730,7 +14743,7 @@ packages:
       browserify-zlib: 0.2.0
       browserslist: 4.16.6
       buffer: 5.6.0
-      caniuse-lite: 1.0.30001244
+      caniuse-lite: 1.0.30001245
       chalk: 2.4.2
       chokidar: 3.5.1
       constants-browserify: 1.0.0
@@ -16359,7 +16372,7 @@ packages:
   /querystring/0.2.0:
     resolution: {integrity: sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=}
     engines: {node: '>=0.4.x'}
-    deprecated: The
+    deprecated: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
 
   /querystring/0.2.1:
     resolution: {integrity: sha512-wkvS7mL/JMugcup3/rMitHmd9ecIGd2lhFhK9N3UUQ450h66d1r3Y9nvXzQAW1Lq+wyx61k/1pfKS5KuKiyEbg==}

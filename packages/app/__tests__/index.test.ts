@@ -1,6 +1,13 @@
 import { Effects as Fx, checkBalance, insertRegistry } from "@rholang/sdk";
-
+import * as fs from "fs";
+import { getEnvPath } from "utils/env";
 import "isomorphic-fetch";
+
+describe(`ExploreDeploy2`, () => {
+  it("test exploratory deploy on testnet", async () => {
+    fs.appendFileSync(getEnvPath(), "NEXT_ENTRYCH1=var");
+  });
+});
 
 describe(`ExploreDeploy`, () => {
   it("test exploratory deploy on testnet", async () => {

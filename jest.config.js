@@ -13,4 +13,6 @@ module.exports = {
     },
   },
   testMatch: ["**/packages/**/__tests__/*.test.ts"],
+  testPathIgnorePatterns: ["./.next/", "./node_modules/"],
+  moduleDirectories: ["node_modules", "."],
 };
