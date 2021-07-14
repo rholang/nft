@@ -26,7 +26,7 @@ const ExploreCard = (): JSX.Element => {
 
   const handleExploreDeploy = () => {
     Fx.exploreDeployFx({
-      client: "cf",
+      client: "rnode",
       code: checkBalance(
         "1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ"
       ),

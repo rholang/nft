@@ -223,7 +223,7 @@ type InputProps = {
 
 export const View: FC<InputProps> = ({ wallet }): JSX.Element => {
   const { walletConnected } = wallet;
-  console.log(walletConnected);
+
   const { login } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginDisabled, setIsLoginDisabled] = useState<boolean>(false);
