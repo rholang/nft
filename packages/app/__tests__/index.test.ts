@@ -44,7 +44,7 @@ describe(`Deploy NFT contract`, () => {
     Fx.deployFx.doneData.watch((result: Status) => {
       if (result) {
         const uri = result.message
-          ? [...result.message.matchAll(/URI.*,.*(rho:id.*)/g)]
+          ? [...result.message.matchAll(/URI.*,.*(rho:id.*)[`|\\"]/g)]
           : null;
         if (uri[0][1]) {
           writeEnv("NEXT_ENTRYCH1", uri[0][1].toString());
@@ -56,8 +56,8 @@ describe(`Deploy NFT contract`, () => {
 
     await Fx.deployFx({
       client: "rnode",
-      code: master({ version: "6.0.1", depth: "3", depthcontract: "2" }),
-      phloLimit: "500000",
+      code: master({ version: "6", depth: "3", depthcontract: "2", n: "10" }),
+      phloLimit: "1000000000",
     });
 
     expect(fn).toBeCalledTimes(1);

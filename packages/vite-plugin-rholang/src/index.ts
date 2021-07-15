@@ -1,4 +1,4 @@
-import path from "path";
+import path, { parse } from "path";
 import fs from "fs-extra";
 import type { Plugin } from "vite";
 import { normalizePath } from "vite";
@@ -73,8 +73,6 @@ export default (options: UserOptions = {}): Plugin => {
     let root: string;
     return {
         name: "vite:rholang",
-
-        apply: "build",
 
         configResolved(_config) {
             root = _config.root;

@@ -354,7 +354,7 @@ in {
             for (_ <- @(*vault, "contractConfig", contractId)) {
               @(*vault, "contractConfig", contractId)!(contractConfig.set("counter", contractConfig.get("counter") + 1))
             } |
-            idAndQuantityCh!({ "id": "${n}" %% { "n": contractConfig.get("counter") }, "quantity": properties.get("quantity") })
+            idAndQuantityCh!({ "id": "rho:arg:n" %% { "n": contractConfig.get("counter") }, "quantity": properties.get("quantity") })
           } else {
             for (@pursesThm <<- @(*vault, "purses", contractId)) {
               TreeHashMap!("get", pursesThm, properties.get("id"), *ch1) |
