@@ -22,6 +22,7 @@ export default defineConfig({
         // for externalized deps
         globals: {
           react: "React",
+          "ethereumjs-util": "ethereumjs-util",
         },
         sourcemapExcludeSources: true,
       },

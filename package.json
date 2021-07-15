@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "pnpm run --filter=@nftland/app --parallel start",
-    "build": "pnpm run --filter={demo1,@vitecase/demo2} --parallel build"
+    "dev": "pnpm run --filter=@nftland/app --parallel dev",
+    "build": "pnpm run --filter=@rholang/sdk --parallel build",
+    "build:b": "pnpm run --filter={demo1,@vitecase/demo2} --parallel build",
+    "build:w": "pnpm run --filter=@rholang/sdk --parallel build:w"
   },
   "author": "",
   "license": "ISC",

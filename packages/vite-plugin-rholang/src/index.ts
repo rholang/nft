@@ -17,37 +17,20 @@ export type UserOptions = Partial<Options>;
 
 const matchArgs = async (quotedCode: string) => {
     /* matchedArgs = all rho:arg1:entryUri */
-    const matchedArgs = [...quotedCode.matchAll(/rho:arg(\d+:\w+)[`|\\"]/g)];
+    const matchedArgs = [...quotedCode.matchAll(/rho:arg:(\w+)[`|\\"]/g)];
+    const nameArgsList = matchedArgs ? matchedArgs.map((el) => el[1]) : [];
+    const remDuplArgs = nameArgsList.filter((value, index) => nameArgsList.indexOf(value) === index);
 
-    if (matchedArgs) {
-        /* mArgs = all position and name of args */
-        const mArgs = matchedArgs
-            .map((argEl) => {
-                const position = argEl[0].match(/arg(\d+)/);
-                const name = argEl[0].match(/arg\d+:(\w+)[`|\\"]/);
+    if (remDuplArgs) {
+        const argsReplacedCode = remDuplArgs.reduce((acc, currVal) => {
+            const templLit = `\${${currVal}}`;
+            /* replace all arguments of smart contract rho:arg1:entryUri -> ${entryUri} with template literal */
+            return acc.replaceAll(`rho:arg:${currVal}`, templLit);
+        }, quotedCode);
 
-                if (position && name) {
-                    const p = position[1];
-                    const n = name[1];
-                    return { position: p, name: n };
-                }
-                return { position: "", name: "" };
-            })
-            .filter((value) => value.name !== "" || value.position !== "");
+        const argumentsCode = remDuplArgs;
 
-        if (mArgs) {
-            const sortedmArgs = mArgs.sort((a, b) => (a.position > b.position ? 1 : -1));
-
-            const argsReplacedCode = mArgs.reduce((acc, currVal) => {
-                const templLit = `\${${currVal.name}}`;
-                /* replace all arguments of smart contract rho:arg1:entryUri -> ${entryUri} with template literal */
-                return acc.replaceAll(`rho:arg${currVal.position}:${currVal.name}`, templLit);
-            }, quotedCode);
-
-            const argumentsCode = sortedmArgs.map((el) => el.name).flat();
-
-            return { argumentsCode, argsReplacedCode };
-        }
+        return { argumentsCode, argsReplacedCode };
     }
     return { argumentsCode: "", argsReplacedCode: "" };
 };
@@ -68,7 +51,7 @@ const transform = async (code: string, id: string) => {
         const doubleQuotesBeginn = doubleBt.replace(/^"/g, "\u0060");
         const doubleQuotesEnd = doubleQuotesBeginn.replace(/"$/g, "\u0060");
         // console.log(doubleQuotesEnd);
-        const parsedCode = `export const ${fileName} = (${argumentsCode}) => ${doubleQuotesEnd}`;
+        const parsedCode = `export const ${fileName} = ({${argumentsCode}}) => ${doubleQuotesEnd}`;
 
         return parsedCode;
     }
@@ -97,7 +80,7 @@ export default (options: UserOptions = {}): Plugin => {
             root = _config.root;
         },
         async transform(code: string, id: string) {
-            const fileRegex = /index\.ts$/;
+            const fileRegex = /src\/index\.ts$/;
 
             // Check if file is a vue file
             if (fileRegex.test(id)) {
