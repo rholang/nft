@@ -2,6 +2,7 @@ import {
   Effects as Fx,
   checkBalance,
   insertRegistry,
+  master,
   Status,
 } from "@rholang/sdk";
 import "isomorphic-fetch";
@@ -27,16 +28,16 @@ describe(`ExploreDeploy`, () => {
 
     await Fx.exploreDeployFx({
       client: "rnode",
-      code: checkBalance(
-        "1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ"
-      ),
+      code: checkBalance({
+        account: "1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ",
+      }),
     });
 
     expect(fn).toBeCalledTimes(1);
   });
 });
 
-describe(`Deploy`, () => {
+describe(`Deploy NFT contract`, () => {
   it("test deploy on testnet", async () => {
     const fn = jest.fn();
 
@@ -55,7 +56,7 @@ describe(`Deploy`, () => {
 
     await Fx.deployFx({
       client: "rnode",
-      code: insertRegistry(),
+      code: master({ version: "6.0.1", depth: "3", depthcontract: "2" }),
       phloLimit: "500000",
     });
 
