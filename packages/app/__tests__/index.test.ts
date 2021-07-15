@@ -17,6 +17,14 @@ describe(`ExploreDeploy2`, () => {
   });
 });
 
+describe(`ExploreDeploy3`, () => {
+  it("test exploratory deploy on testnet", async () => {
+    console.log(
+      master({ version: "6.0.1", depth: "1", depthcontract: "1", n: "1" })
+    );
+  });
+});
+
 describe(`ExploreDeploy`, () => {
   it("test exploratory deploy on testnet", async () => {
     const fn = jest.fn();
@@ -44,22 +52,23 @@ describe(`Deploy NFT contract`, () => {
     Fx.deployFx.doneData.watch((result: Status) => {
       if (result) {
         const uri = result.message
-          ? [...result.message.matchAll(/URI.*,.*(rho:id.*)[`|\\"]/g)]
+          ? [...result.message.matchAll(/URI.*,.*(rho:id.*)/g)]
           : null;
         if (uri[0][1]) {
           writeEnv("NEXT_ENTRYCH1", uri[0][1].toString());
         }
       }
+      console.log(result);
 
       fn(result);
     });
 
     await Fx.deployFx({
       client: "rnode",
-      code: master({ version: "6", depth: "3", depthcontract: "2", n: "10" }),
+      code: master({ version: "6", depth: "3", depthcontract: "2", n: "1" }),
       phloLimit: "1000000000",
     });
 
     expect(fn).toBeCalledTimes(1);
-  }, 400000);
+  }, 1000000);
 });
