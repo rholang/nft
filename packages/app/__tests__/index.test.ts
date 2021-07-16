@@ -1,29 +1,6 @@
-import {
-  Effects as Fx,
-  checkBalance,
-  insertRegistry,
-  master,
-  Status,
-} from "@rholang/sdk";
+import { Effects as Fx, checkBalance, master, Status } from "@rholang/sdk";
 import "isomorphic-fetch";
 import { writeEnv } from "utils/env";
-
-describe(`ExploreDeploy2`, () => {
-  it("test exploratory deploy on testnet", async () => {
-    writeEnv(
-      "NEXT_ENTRYCH1",
-      "rho3:id:e9hmstci4oz9iw8oo7wxifhrw6kteagw3qzcy48s937armqbku6yd4"
-    );
-  });
-});
-
-describe(`ExploreDeploy3`, () => {
-  it("test exploratory deploy on testnet", async () => {
-    console.log(
-      master({ version: "6.0.1", depth: "1", depthcontract: "1", n: "1" })
-    );
-  });
-});
 
 describe(`ExploreDeploy`, () => {
   it("test exploratory deploy on testnet", async () => {
