@@ -14,7 +14,7 @@ describe(`ExploreDeploy`, () => {
     await Fx.exploreDeployFx({
       client: "rnode",
       code: checkBalance({
-        account: "1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ",
+        account: "11113y7AfYj7hShN49oAHHd3KiWxZRsodesdBi8QwSrPR5Veyh77S",
       }),
     });
 
