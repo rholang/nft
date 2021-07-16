@@ -34,7 +34,7 @@ export default defineConfig({
       patterns: [
         {
           matchTokens: ["// Start_Exports", "// End_Exports"],
-          path: "src/rholang/nft/app/master.rho",
+          path: "src/rholang/**/*.rho",
         },
       ],
     }),
