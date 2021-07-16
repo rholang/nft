@@ -7,7 +7,6 @@ export const cfExploreDeploy = async ({
   code,
 }: CfRequest): Promise<Status> => {
   try {
-    console.log(net);
     const res = await axios.get("/explore", {
       params: {
         net,

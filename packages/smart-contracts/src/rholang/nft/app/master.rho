@@ -27,11 +27,11 @@ new
     // // contract's configs
     // config <- @(*vault, "contractConfig", "contract03")
 
-    // // box's configs
-    // config <- @(*vault, "boxConfig", "box01")
-
     // // boxes
     // box <- @(*vault, "boxes", "box01")
+    
+    // // box's configs
+    // config <- @(*vault, "boxConfig", "box01")
 
     // // super keys of a given box
     // superKeys <- @(*vault, "boxesSuperKeys", "box01")'
