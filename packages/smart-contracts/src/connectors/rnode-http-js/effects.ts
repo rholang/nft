@@ -7,6 +7,7 @@ import {
   RNodeEff,
   Status,
   NodeUrls,
+  AppProposeEff,
 } from "./types";
 import { rhoExprToJson } from "./rho-json";
 import { RevAccount, RevAddress, createRevAccount } from "./rev-address";
@@ -29,11 +30,11 @@ const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
 const deploy =
   (effects: DeployEff) =>
   async ({ code, account, phloLimit }: DeployArgs): Promise<Status> => {
-    const { node, sendDeploy, getDataForDeploy } = effects;
+    const { node, sendDeploy, getDataForDeploy, propose } = effects;
     // console.log(account)
     const phloLimitNum = R.isNil(phloLimit) ? phloLimit : parseInt(phloLimit);
     const { signature } = await sendDeploy(node, account, code, phloLimitNum);
-
+    const pData = await propose(node);
     const updateProgress = () => true;
 
     // Try to get result from next proposed block
@@ -43,14 +44,14 @@ const deploy =
     // Extract data from response object
     const args = data ? rhoExprToJson(data.expr) : void 0;
 
-    const [succ, message]: [boolean, string] = R.isNil(args)
+    const [sArgs, message]: [boolean, string] = R.isNil(args)
       ? [
           false,
           "deploy found in the block but data is not sent on `rho:rchain:deployId` channel",
         ]
       : [true, R.is(Array, args) ? args.join(", ") : args];
 
-    const success = succ.toString();
+    const success = pData ? sArgs.toString() : sArgs.toString() + pData;
 
     return { success, message };
   };
@@ -67,11 +68,11 @@ export const getMetamaskAccount = async () => {
 export const createRnodeService = (node: NodeUrls): RNodeEff => {
   const rnodeWeb = makeRNodeWeb({ now: Date.now });
 
-  const { rnodeHttp, sendDeploy, getDataForDeploy } = rnodeWeb;
+  const { rnodeHttp, sendDeploy, getDataForDeploy, propose } = rnodeWeb;
 
   // App actions to process communication with RNode
   return {
     exploreDeploy: exploreDeploy({ rnodeHttp, node }),
-    deploy: deploy({ node, sendDeploy, getDataForDeploy }),
+    deploy: deploy({ node, sendDeploy, getDataForDeploy, propose }),
   };
 };

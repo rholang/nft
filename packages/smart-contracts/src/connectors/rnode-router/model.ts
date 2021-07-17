@@ -67,11 +67,17 @@ const initRnodeStore: RNodeSt = {
       privKey:
         "bb6f30056d1981b98e729cef72a82920e6242a4395e500bd24bd6c6e6a65c36c",
     },
+    {
+      name: "test",
+      revAddr: "1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ",
+      privKey:
+        "9adef38fbc1cb97469ab54e0f362060cbd3f656a42319baf741b3ea64fcabb1d",
+    },
   ],
   walletSelected: {
-    name: "test",
-    revAddr: "1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ",
-    privKey: "9adef38fbc1cb97469ab54e0f362060cbd3f656a42319baf741b3ea64fcabb1d",
+    name: "localWallet",
+    revAddr: "11113y7AfYj7hShN49oAHHd3KiWxZRsodesdBi8QwSrPR5Veyh77S",
+    privKey: "bb6f30056d1981b98e729cef72a82920e6242a4395e500bd24bd6c6e6a65c36c",
   },
   status: { success: "", message: "" },
 };

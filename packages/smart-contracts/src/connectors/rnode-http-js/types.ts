@@ -3,13 +3,16 @@ import {
   RNodeHttp,
   SendDeployEff,
   RevAccount,
+  ProposeEff,
 } from "@tgrospic/rnode-http-js";
 
 export type ConsoleEff = ConsoleLog & ConsoleWarn;
 export type ConsoleWarn = { warn: typeof console.warn };
 export type ConsoleLog = { log: typeof console.log };
 
-export type DeployEff = { node: NodeUrls } & SendDeployEff & GetDeployDataEff;
+export type DeployEff = { node: NodeUrls } & SendDeployEff &
+  GetDeployDataEff &
+  AppProposeEff;
 
 export type DeployArgs = {
   code: string;
@@ -22,6 +25,8 @@ export type ExploreDeployEff = {
   node: NodeUrls;
 };
 export type ExploreDeployArgs = { client?: string; code: string };
+
+export type AppProposeEff = ProposeEff;
 
 export type RNodeEff = {
   exploreDeploy(args: ExploreDeployArgs): Promise<Status>;
