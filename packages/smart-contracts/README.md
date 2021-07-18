@@ -16,6 +16,69 @@ OCAP = Box
 
 ---
 
+Factory {
+adminContract: Admin
+storeContract: Store
+
+memberContract: Member
+collectionContract: Collection
+auctionContract: Auction
+purseContract: Purse
+tokenContract: Token
+erc20Contract: ERC20
+erc721Contract: ERC721
+
+}
+
+Store {
+members : Arry<Member>
+
+addMember()
+removeMember()
+}
+
+Member {
+collections: Array<Collection>
+
+addCollection()
+removeCollection()
+}
+
+Collection {
+name: String
+tokens: Array<ERC20>
+
+}
+
+Auction {
+bid: String
+ask: String
+
+setBid()
+setAsk()
+}
+
+Purse {
+tokens: Array<Token>
+
+withdraw()
+purchase()
+}
+
+Token = ERC20 | ERC721
+
+ERC721 {
+name : String
+collection: String
+quantity: String
+ressource : ByteCode
+auction: Auction
+
+lock()
+addAuction()
+removeAuction
+}
+
 Master contract
 
 ro PUBLIC_READ_ALL_PURSES: (contractId: String) => String | Map(all purses encoded)
