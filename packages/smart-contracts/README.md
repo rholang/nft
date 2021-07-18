@@ -50,14 +50,6 @@ tokens: Array<ERC20>
 
 }
 
-Auction {
-bid: String
-ask: String
-
-setBid()
-setAsk()
-}
-
 Purse {
 tokens: Array<Token>
 
