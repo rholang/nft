@@ -10,9 +10,9 @@ export const detectEnvironement = () => {
   };
 
   const getNodeEnv = () => {
-    console.log(process.env.NODE_ENV);
     const nodeEnv =
       process.env.NODE_ENV === "production" ? prodConfig : devConfig;
+    console.log(nodeEnv);
     return nodeEnv;
   };
 
