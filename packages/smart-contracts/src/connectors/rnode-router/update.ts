@@ -41,7 +41,6 @@ S.$rnodeStore
       return { ...state, wallets, walletSelected };
     }
     return state;
-  })
-  .watch((state) => console.log(state));
+  });
 
 S.$walletStore.on(Fx.addWalletFx.doneData, () => ({ walletConnected: true }));

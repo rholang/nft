@@ -40,7 +40,7 @@ const deploy =
     // Try to get result from next proposed block
 
     const { data, cost } = await getDataForDeploy(node, signature, () => true);
-
+    console.log("wait");
     // Extract data from response object
     const args = data ? rhoExprToJson(data.expr) : void 0;
 

@@ -388,7 +388,13 @@ type ProposeMethod = (
 const propose: ProposeMethod =
   (rnodeHttp) =>
   ({ httpAdminUrl }) =>
-    rnodeHttp(httpAdminUrl, "propose", {});
+    rnodeHttp(httpAdminUrl, "propose", {}).catch((ex) => {
+      // Handle response code 400 / deploy not found
+
+      if (ex.status == 400) {
+        throw ex;
+      }
+    });
 
 /**
  * Creates deploy signature with Metamask.
