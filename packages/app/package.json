@@ -13,6 +13,7 @@
     "check:all": "yarn lint && yarn format && yarn typecheck"
   },
   "dependencies": {
+    "@proton/link": "2.5.38",
     "@effector/reflect": "latest",
     "@google/model-viewer": "^1.6.0",
     "@netlify/plugin-nextjs": "3.2.2",

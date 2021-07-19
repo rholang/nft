@@ -1,4 +1,5 @@
 import { ConnectWallet } from "@proton/web-sdk";
+import { LinkSession, Link } from "@proton/link";
 import logoUrl from "../public/logo.svg";
 import proton from "./proton-rpc";
 import { DEFAULT_SCHEMA } from "../utils/constants";
@@ -140,9 +141,9 @@ class ProtonSDK {
 
   requestAccount: string;
 
-  session: null;
+  session: LinkSession | null;
 
-  link: null;
+  link: Link | null;
 
   constructor() {
     this.appName = "NFTLAND";
