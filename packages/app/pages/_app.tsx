@@ -25,6 +25,7 @@ NProgress.configure({
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   useEffect(() => {
+    console.log("useeffect");
     detectEnvironement();
   }, []);
   return (
