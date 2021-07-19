@@ -17,6 +17,6 @@ export const detectEnvironement = () => {
   };
 
   const { selectedWallet } = getNodeEnv();
-
+  console.log(selectedWallet);
   E.changeSelectedWallet(selectedWallet);
 };
