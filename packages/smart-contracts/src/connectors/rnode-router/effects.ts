@@ -15,7 +15,12 @@ import { Router, DeployFX, ExploreDeployFX } from "./types";
 
 import { domain, Store as S } from "./model";
 
-export const effectsRouter = async ({ fn, client, params, node }: Router) => {
+export const effectsRouter = async ({
+  fn,
+  client,
+  params,
+  node,
+}: Router): Promise<Status> => {
   const { code, account, phloLimit } = params;
 
   const { exploreDeploy, deploy } = createRnodeService(node);
@@ -25,8 +30,8 @@ export const effectsRouter = async ({ fn, client, params, node }: Router) => {
     case "cf": {
       switch (fn) {
         case "exploreDeploy": {
-          const data = await cfExploreDeploy({ net, code });
-          return data;
+          const status = await cfExploreDeploy({ net, code });
+          return status;
         }
         default: {
           const status = { success: "", message: "" };
@@ -38,13 +43,13 @@ export const effectsRouter = async ({ fn, client, params, node }: Router) => {
     case "rnode": {
       switch (fn) {
         case "exploreDeploy": {
-          const data = await exploreDeploy({ code });
-          return data;
+          const status = await exploreDeploy({ code });
+          return status;
         }
 
         case "deploy": {
-          const data = await deploy({ code, account, phloLimit });
-          return data;
+          const status = await deploy({ code, account, phloLimit });
+          return status;
         }
         default: {
           const status = { success: "", message: "" };
@@ -59,9 +64,9 @@ export const effectsRouter = async ({ fn, client, params, node }: Router) => {
   }
 };
 
-const exploreDeployFxOrg = domain.effect<any, Status>(effectsRouter);
+const exploreDeployFxOrg = domain.effect<Router, Status, Error>(effectsRouter);
 
-const deployFxOrg = domain.effect<any, Status>(effectsRouter);
+const deployFxOrg = domain.effect<Router, Status, Error>(effectsRouter);
 
 const addWalletFx = domain.effect(getMetamaskAccount);
 

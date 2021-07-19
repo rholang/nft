@@ -1,4 +1,4 @@
-import { Store as S } from "./model";
+import { Store as S, Event as E } from "./model";
 import { Effects as Fx } from "./effects";
 
 /* reducer store */
@@ -8,11 +8,21 @@ S.$rnodeStore
     // console.log(status);
     ({ ...state, status })
   )
+  .on(E.changeSelectedWallet, (state, newSelectedWallet) => {
+    const filteredWallet = state.wallets.filter(
+      (item) => item.name === newSelectedWallet
+    );
+    if (filteredWallet) {
+      return { ...state, walletSelected: filteredWallet[0] };
+    }
+
+    return state;
+  })
   .on(Fx.addWalletFx.doneData, (state, revAccount) => {
     const { wallets } = state;
-    const filteredWallets = wallets.filter((item) => item.name == "revWallet");
+    const filteredWallets = wallets.filter((item) => item.name === "revWallet");
 
-    if (filteredWallets.length == 0) {
+    if (filteredWallets.length === 0) {
       wallets.splice(
         wallets.length, // We want add at the END of our array
         0, // We do NOT want to remove any item
@@ -26,6 +36,7 @@ S.$rnodeStore
 
       return { ...state, wallets, walletSelected };
     }
+    return state;
   });
 
 S.$walletStore.on(Fx.addWalletFx.doneData, () => ({ walletConnected: true }));

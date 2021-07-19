@@ -1,52 +1,53 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import PageLayout from '../components/PageLayout';
-import MobileCreatePagePlaceholder from '../components/MobileCreatePagePlaceholder';
-import { useAuthContext } from '../components/Provider';
-import { Collection } from '../services/collections';
-import ProtonSDK from '../services/proton';
-import uploadToIPFS from '../services/upload';
-import { useNavigatorUserAgent } from '../hooks';
-import { fileReader } from '../utils';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+
+import PageLayout from "../components/PageLayout";
+import MobileCreatePagePlaceholder from "../components/MobileCreatePagePlaceholder";
+import { useAuthContext, useCreateAssetContext } from "../components/Provider";
+import { Collection } from "../services/collections";
+import ProtonSDK from "../services/proton";
+import uploadToIPFS from "../services/upload";
+import { useNavigatorUserAgent } from "../hooks";
+import { fileReader } from "../utils";
 import {
   CarouselCollection,
   NewCollection,
-} from '../components/CollectionsCarousel';
-import NftCreateSuccess from '../components/NftCreateSuccess';
-import CreatePageLayout from '../components/CreatePageLayout';
-import ChooseCollection from '../components/ChooseCollection';
-import CreateTemplate from '../components/CreateTemplate';
-import InitialMint from '../components/InitialMint';
-import { SHORTENED_TOKEN_PRECISION } from '../utils/constants';
-import { useCreateAssetContext } from '../components/Provider';
-import fees, { MintFee } from '../services/fees';
+} from "../components/CollectionsCarousel";
+import NftCreateSuccess from "../components/NftCreateSuccess";
+import CreatePageLayout from "../components/CreatePageLayout";
+import ChooseCollection from "../components/ChooseCollection";
+import CreateTemplate from "../components/CreateTemplate";
+import InitialMint from "../components/InitialMint";
+import { SHORTENED_TOKEN_PRECISION } from "../utils/constants";
+
+import fees, { MintFee } from "../services/fees";
 
 const MintFeeInitial = {
   specialMintFee: {
-    display: Number('0').toFixed(SHORTENED_TOKEN_PRECISION).toString(),
+    display: Number("0").toFixed(SHORTENED_TOKEN_PRECISION).toString(),
     raw: 0,
   },
   accountRamFee: {
-    display: Number('0').toFixed(SHORTENED_TOKEN_PRECISION).toString(),
+    display: Number("0").toFixed(SHORTENED_TOKEN_PRECISION).toString(),
     raw: 0,
   },
   userSpecialMintContractRam: 0,
   userAccountRam: 0,
-  totalFee: Number('0').toFixed(SHORTENED_TOKEN_PRECISION).toString(),
+  totalFee: Number("0").toFixed(SHORTENED_TOKEN_PRECISION).toString(),
 };
 
 export const CREATE_PAGE_STATES = {
-  CHOOSE_COLLECTION: 'CHOOSE_COLLECTION',
-  CREATE_TEMPLATE: 'CREATE_TEMPLATE',
-  MINT_ASSETS: 'MINT_ASSETS',
-  SUCCESS: 'SUCCESS',
+  CHOOSE_COLLECTION: "CHOOSE_COLLECTION",
+  CREATE_TEMPLATE: "CREATE_TEMPLATE",
+  MINT_ASSETS: "MINT_ASSETS",
+  SUCCESS: "SUCCESS",
 };
 
 const placeholderCollection = {
-  collection_name: '',
-  name: '',
-  img: '',
+  collection_name: "",
+  name: "",
+  img: "",
 };
 
 const Create = (): JSX.Element => {
@@ -54,28 +55,24 @@ const Create = (): JSX.Element => {
   const router = useRouter();
   const { currentUser, isLoadingUser } = useAuthContext();
   const { isDesktop } = useNavigatorUserAgent();
-  const [
-    selectedCollection,
-    setSelectedCollection,
-  ] = useState<CarouselCollection>(placeholderCollection);
+  const [selectedCollection, setSelectedCollection] =
+    useState<CarouselCollection>(placeholderCollection);
   const [newCollection, setNewCollection] = useState<NewCollection>();
-  const [templateName, setTemplateName] = useState<string>('');
-  const [templateDescription, setTemplateDescription] = useState<string>('');
-  const [templateImage, setTemplateImage] = useState<string>('');
-  const [templateVideo, setTemplateVideo] = useState<string>('');
+  const [templateName, setTemplateName] = useState<string>("");
+  const [templateDescription, setTemplateDescription] = useState<string>("");
+  const [templateImage, setTemplateImage] = useState<string>("");
+  const [templateVideo, setTemplateVideo] = useState<string>("");
   const [maxSupply, setMaxSupply] = useState<string>();
   const [mintAmount, setMintAmount] = useState<string>();
   const [templateUploadedFile, setTemplateUploadedFile] = useState<File | null>(
     null
   );
-  const [uploadedFilePreview, setUploadedFilePreview] = useState<string>('');
+  const [uploadedFilePreview, setUploadedFilePreview] = useState<string>("");
   const [collectionsList, setCollectionsList] = useState<Collection[]>([]);
-  const [createNftError, setCreateNftError] = useState<string>('');
+  const [createNftError, setCreateNftError] = useState<string>("");
   const [mintFee, setMintFee] = useState<MintFee>(MintFeeInitial);
-  const [
-    isUncreatedCollectionSelected,
-    setIsUncreatedCollectionSelected,
-  ] = useState<boolean>(false);
+  const [isUncreatedCollectionSelected, setIsUncreatedCollectionSelected] =
+    useState<boolean>(false);
   const [pageState, setPageState] = useState<string>(
     CREATE_PAGE_STATES.CHOOSE_COLLECTION
   );
@@ -83,28 +80,28 @@ const Create = (): JSX.Element => {
   useEffect(() => {
     if (templateUploadedFile && window) {
       const filetype = templateUploadedFile.type;
-      if (filetype.includes('video')) {
+      if (filetype.includes("video")) {
         const readerSetTemplateVideo = (result) => {
-          setTemplateImage('');
+          setTemplateImage("");
           setTemplateVideo(result);
         };
         fileReader(readerSetTemplateVideo, templateUploadedFile);
       } else {
         const readerSetTemplateImage = (result) => {
-          setTemplateVideo('');
+          setTemplateVideo("");
           setTemplateImage(result);
         };
         fileReader(readerSetTemplateImage, templateUploadedFile);
       }
     } else {
-      setTemplateImage('');
-      setTemplateVideo('');
+      setTemplateImage("");
+      setTemplateVideo("");
     }
   }, [templateUploadedFile]);
 
   useEffect(() => {
     if (!currentUser && !isLoadingUser) {
-      router.push('/');
+      router.push("/");
     }
     (async () => {
       if (currentUser && currentUser.actor) {
@@ -114,7 +111,7 @@ const Create = (): JSX.Element => {
   }, [currentUser, isLoadingUser]);
 
   const createNft = async () => {
-    setCreateNftError('');
+    setCreateNftError("");
 
     try {
       const templateIpfsImage = await uploadToIPFS(templateUploadedFile);
@@ -123,14 +120,14 @@ const Create = (): JSX.Element => {
       });
 
       let isVideo = false;
-      if (templateUploadedFile.type.includes('mp4')) {
+      if (templateUploadedFile.type.includes("mp4")) {
         isVideo = true;
       }
 
       await fees.refreshRamInfoForUser(currentUser.actor);
       const finalMintFees = fees.calculateCreateFlowFees({
         numAssets: parseInt(mintAmount),
-        actor: currentUser ? currentUser.actor : '',
+        actor: currentUser ? currentUser.actor : "",
       });
 
       const result = isUncreatedCollectionSelected
@@ -170,7 +167,7 @@ const Create = (): JSX.Element => {
       setPageState(CREATE_PAGE_STATES.SUCCESS);
       resetCreatePage();
     } catch (err) {
-      setCreateNftError('Unable to create the NFT. Please try again.');
+      setCreateNftError("Unable to create the NFT. Please try again.");
     }
   };
 
@@ -178,15 +175,15 @@ const Create = (): JSX.Element => {
     // Needed to clean up page in case user comes back to Create from success screen
     setTemplateUploadedFile(null);
     setCollectionsList([]);
-    setCreateNftError('');
+    setCreateNftError("");
     setIsUncreatedCollectionSelected(false);
     setNewCollection(null);
-    setTemplateName('');
-    setTemplateDescription('');
-    setTemplateImage('');
-    setTemplateVideo('');
-    setMaxSupply('');
-    setMintAmount('');
+    setTemplateName("");
+    setTemplateDescription("");
+    setTemplateImage("");
+    setTemplateVideo("");
+    setMaxSupply("");
+    setMintAmount("");
     setSelectedCollection(placeholderCollection);
   };
 
@@ -215,7 +212,8 @@ const Create = (): JSX.Element => {
             templateImage={templateImage}
             templateName={templateName}
             selectedCollection={selectedCollection}
-            maxSupply={maxSupply}>
+            maxSupply={maxSupply}
+          >
             <CreateTemplate
               setTemplateUploadedFile={setTemplateUploadedFile}
               templateUploadedFile={templateUploadedFile}
@@ -239,7 +237,8 @@ const Create = (): JSX.Element => {
             templateImage={templateImage}
             templateName={templateName}
             selectedCollection={selectedCollection}
-            maxSupply={maxSupply}>
+            maxSupply={maxSupply}
+          >
             <InitialMint
               mintAmount={mintAmount}
               setMintFee={setMintFee}
@@ -259,7 +258,8 @@ const Create = (): JSX.Element => {
             templateImage={templateImage}
             templateName={templateName}
             selectedCollection={selectedCollection}
-            maxSupply={maxSupply}>
+            maxSupply={maxSupply}
+          >
             <ChooseCollection
               collectionsList={collectionsList}
               selectedCollection={selectedCollection}

@@ -43,7 +43,7 @@ export declare const Event: {
     addWallet: import("effector").Event<void>;
     removeWallet: import("effector").Event<RevAccount>;
     changeWallet: import("effector").Event<RevAccount>;
-    changeSelectedWallet: import("effector").Event<RevAccount>;
+    changeSelectedWallet: import("effector").Event<string>;
     getNode: import("effector").Event<void>;
 };
 export declare const Store: {

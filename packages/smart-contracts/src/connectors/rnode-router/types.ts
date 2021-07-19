@@ -1,9 +1,13 @@
-import { DeployArgs, NodeUrls } from "connectors/rnode-http-js";
+import {
+  DeployArgs,
+  ExploreDeployArgs,
+  NodeUrls,
+} from "connectors/rnode-http-js";
 
 export type Router = {
   fn: string;
   client: string;
-  params: DeployArgs;
+  params: DeployArgs | ExploreDeployArgs;
   node: NodeUrls;
 };
 

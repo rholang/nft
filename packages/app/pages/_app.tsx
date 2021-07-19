@@ -14,6 +14,7 @@ import {
   CreateAssetProvider,
 } from "components/Provider";
 import "styles/customprogress.css";
+import { detectEnvironement } from "utils/node";
 
 NProgress.configure({
   minimum: 0.3,
@@ -23,6 +24,9 @@ NProgress.configure({
 });
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+  useEffect(() => {
+    detectEnvironement();
+  }, []);
   return (
     <SimpleReactLightbox>
       <ModalProvider>

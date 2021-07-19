@@ -39,7 +39,7 @@ const changeReadNode = domain.event<RNodeInfo>();
 const addWallet = domain.event<void>();
 const removeWallet = domain.event<RevAccount>();
 const changeWallet = domain.event<RevAccount>();
-const changeSelectedWallet = domain.event<RevAccount>();
+const changeSelectedWallet = domain.event<string>();
 const getNode = domain.event<void>();
 
 // init store
@@ -68,7 +68,7 @@ const initRnodeStore: RNodeSt = {
         "bb6f30056d1981b98e729cef72a82920e6242a4395e500bd24bd6c6e6a65c36c",
     },
     {
-      name: "test",
+      name: "testnetWallet",
       revAddr: "1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ",
       privKey:
         "9adef38fbc1cb97469ab54e0f362060cbd3f656a42319baf741b3ea64fcabb1d",

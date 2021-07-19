@@ -1,26 +1,26 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import PageLayout from '../components/PageLayout';
-import Grid from '../components/Grid';
-import PaginationButton from '../components/PaginationButton';
-import ErrorComponent from '../components/Error';
-import LoadingPage from '../components/LoadingPage';
-import { Title, PurpleSpan } from '../styles/Title.styled';
-import { useAuthContext } from '../components/Provider';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import PageLayout from "../components/PageLayout";
+import Grid from "../components/Grid";
+import PaginationButton from "../components/PaginationButton";
+import ErrorComponent from "../components/Error";
+import LoadingPage from "../components/LoadingPage";
+import { Title, PurpleSpan } from "../styles/Title.styled";
+import { useAuthContext } from "../components/Provider";
 import {
   Template,
   getTemplatesByCollection,
   formatTemplatesWithPriceData,
   getLowestPricesForAllCollectionTemplates,
-} from '../services/templates';
-import { PAGINATION_LIMIT } from '../utils/constants';
+} from "../services/templates";
+import { PAGINATION_LIMIT } from "../utils/constants";
 
 const Search = (): JSX.Element => {
   const router = useRouter();
   const { isLoadingUser } = useAuthContext();
   const searchTerm = router.query.keywords
     ? (router.query.keywords as string).toLowerCase()
-    : '';
+    : "";
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [lowestPrices, setLowestPrices] = useState<{ [id: string]: string }>(
     {}
@@ -31,7 +31,7 @@ const Search = (): JSX.Element => {
   );
   const [prefetchPageNumber, setPrefetchPageNumber] = useState<number>(2);
   const [isLoadingNextPage, setIsLoadingNextPage] = useState<boolean>(true);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const prefetchNextPage = async () => {
     const prefetchedResult = await getTemplatesByCollection({
@@ -68,11 +68,10 @@ const Search = (): JSX.Element => {
             type: searchTerm,
           });
 
-          const lowestPricesResult = await getLowestPricesForAllCollectionTemplates(
-            {
+          const lowestPricesResult =
+            await getLowestPricesForAllCollectionTemplates({
               type: searchTerm,
-            }
-          );
+            });
           setLowestPrices(lowestPricesResult);
 
           const templatesWithLowestPrice = formatTemplatesWithPriceData(
@@ -116,7 +115,7 @@ const Search = (): JSX.Element => {
         Search results for “<PurpleSpan>{searchTerm}</PurpleSpan>”
       </>
     ) : (
-      'No results found'
+      "No results found"
     );
 
     return (

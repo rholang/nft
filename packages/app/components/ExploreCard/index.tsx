@@ -2,8 +2,6 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { Effects as Fx, checkBalance, insertRegistry } from "@rholang/sdk";
 
-import Link from "next/link";
-
 import Button from "../Button";
 import { useWindowSize } from "../../hooks";
 import { useAuthContext } from "../Provider";
@@ -28,7 +26,7 @@ const ExploreCard = (): JSX.Element => {
     Fx.exploreDeployFx({
       client: "rnode",
       code: checkBalance({
-        account: "1111yNahhR8CYJ7ijaJsyDU4zzZ1CrJgdLZtK4fve7zifpDK3crzZ",
+        account: "11113y7AfYj7hShN49oAHHd3KiWxZRsodesdBi8QwSrPR5Veyh77S",
       }),
     });
   };
@@ -37,7 +35,7 @@ const ExploreCard = (): JSX.Element => {
     Fx.deployFx({
       client: "rnode",
       code: insertRegistry({}),
-      phloLimit: "500000",
+      phloLimit: "5000000",
     });
   };
 
