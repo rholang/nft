@@ -12,11 +12,11 @@ export const detectEnvironement = () => {
   const getNodeEnv = () => {
     const nodeEnv =
       process.env.NODE_ENV === "production" ? prodConfig : devConfig;
-    console.log(nodeEnv);
+
     return nodeEnv;
   };
 
   const { selectedWallet } = getNodeEnv();
-  console.log(selectedWallet);
+
   E.changeSelectedWallet(selectedWallet);
 };

@@ -13,7 +13,7 @@ S.$rnodeStore
       (item) => item.name === newSelectedWallet
     );
     if (filteredWallet) {
-      console.log(state);
+      console.log(filteredWallet[0]);
       return { ...state, walletSelected: filteredWallet[0] };
     }
 
@@ -38,6 +38,7 @@ S.$rnodeStore
       return { ...state, wallets, walletSelected };
     }
     return state;
-  });
+  })
+  .watch(() => console.log("update"));
 
 S.$walletStore.on(Fx.addWalletFx.doneData, () => ({ walletConnected: true }));
