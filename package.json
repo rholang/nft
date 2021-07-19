@@ -7,7 +7,8 @@
     "dev": "pnpm run --filter=@nftland/app --parallel dev",
     "build": "pnpm run --filter=@rholang/sdk --parallel build",
     "build:b": "pnpm run --filter={demo1,@vitecase/demo2} --parallel build",
-    "build:w": "pnpm run --filter=@rholang/sdk --parallel build:w"
+    "build:w": "pnpm run --filter=@rholang/sdk --parallel build:w",
+    "deploy": "pnpm run --filter=@nftland/app --parallel build"
   },
   "author": "",
   "license": "ISC",
