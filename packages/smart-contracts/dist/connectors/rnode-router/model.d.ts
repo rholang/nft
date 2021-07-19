@@ -11,6 +11,32 @@ export interface RNodeSt {
 export interface Wallet {
     walletConnected: boolean;
 }
+export declare const nets: {
+    title: string;
+    name: import("../rnode-http-js").NetworkName;
+    hosts: {
+        title: string;
+        name: import("../rnode-http-js").NetworkName;
+        domain: string;
+        grpc?: number | undefined;
+        http?: number | undefined;
+        https?: number | undefined;
+        httpAdmin?: number | undefined;
+        httpsAdmin?: number | undefined;
+        instance?: string | undefined;
+    }[];
+    readOnlys: {
+        title: string;
+        name: import("../rnode-http-js").NetworkName;
+        domain: string;
+        grpc?: number | undefined;
+        http?: number | undefined;
+        https?: number | undefined;
+        httpAdmin?: number | undefined;
+        httpsAdmin?: number | undefined;
+        instance?: string | undefined;
+    }[];
+}[];
 export declare const initNet: {
     title: string;
     name: import("../rnode-http-js").NetworkName;
@@ -38,8 +64,7 @@ export declare const initNet: {
     }[];
 };
 export declare const Event: {
-    changeValNode: import("effector").Event<RNodeInfo>;
-    changeReadNode: import("effector").Event<RNodeInfo>;
+    changeNode: import("effector").Event<string>;
     addWallet: import("effector").Event<void>;
     removeWallet: import("effector").Event<RevAccount>;
     changeWallet: import("effector").Event<RevAccount>;

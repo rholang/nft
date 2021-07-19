@@ -1,4 +1,4 @@
-import { Store as S, Event as E } from "./model";
+import { Store as S, Event as E, nets } from "./model";
 import { Effects as Fx } from "./effects";
 
 /* reducer store */
@@ -18,6 +18,10 @@ S.$rnodeStore
     }
 
     return state;
+  })
+  .on(E.changeNode, (state, newNode) => {
+    const node = newNode === "localnet" ? nets[0] : nets[1];
+    return { ...state, valNode: node.hosts[0], readNode: node.readOnlys[0] };
   })
   .on(Fx.addWalletFx.doneData, (state, revAccount) => {
     const { wallets } = state;

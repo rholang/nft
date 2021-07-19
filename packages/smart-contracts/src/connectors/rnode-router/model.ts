@@ -34,8 +34,7 @@ export interface Wallet {
 }
 
 // action, typedefinitions state
-const changeValNode = domain.event<RNodeInfo>();
-const changeReadNode = domain.event<RNodeInfo>();
+const changeNode = domain.event<string>();
 const addWallet = domain.event<void>();
 const removeWallet = domain.event<RevAccount>();
 const changeWallet = domain.event<RevAccount>();
@@ -44,7 +43,7 @@ const getNode = domain.event<void>();
 
 // init store
 
-const nets = [localNet, testNet, mainNet].map(
+export const nets = [localNet, testNet, mainNet].map(
   ({ title, name, hosts, readOnlys }) => ({
     title,
     name,
@@ -89,8 +88,7 @@ const $rnodeStore = domain.store<RNodeSt>(initRnodeStore);
 const $walletStore = domain.store<Wallet>(initWalletStore);
 
 export const Event = {
-  changeValNode,
-  changeReadNode,
+  changeNode,
   addWallet,
   removeWallet,
   changeWallet,

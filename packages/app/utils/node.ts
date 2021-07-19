@@ -3,10 +3,12 @@ import { Event as E } from "@rholang/sdk";
 export const detectEnvironement = () => {
   const prodConfig = {
     selectedWallet: "testnetWallet",
+    net: "testnet",
   };
 
   const devConfig = {
     selectedWallet: "localWallet",
+    net: "localnet",
   };
 
   const getNodeEnv = () => {
@@ -16,7 +18,8 @@ export const detectEnvironement = () => {
     return nodeEnv;
   };
 
-  const { selectedWallet } = getNodeEnv();
+  const { selectedWallet, net } = getNodeEnv();
 
   E.changeSelectedWallet(selectedWallet);
+  E.changeNode(net);
 };
