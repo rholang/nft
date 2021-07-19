@@ -23,11 +23,4 @@ export declare const checkBalance: ({ account }: {
     account: any;
 }) => string;
 export declare const insertRegistry: ({}: {}) => string;
-export declare const factory: ({ n, version, depthcontract }: {
-    n: any;
-    version: any;
-    depthcontract: any;
-}) => string;
-export declare const store: ({ depth }: {
-    depth: any;
-}) => string;
+export declare const tree_hash_map: ({}: {}) => string;
