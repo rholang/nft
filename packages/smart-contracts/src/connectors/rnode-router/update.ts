@@ -13,6 +13,7 @@ S.$rnodeStore
       (item) => item.name === newSelectedWallet
     );
     if (filteredWallet) {
+      console.log(state);
       return { ...state, walletSelected: filteredWallet[0] };
     }
 
