@@ -1,9 +1,8 @@
-import { ConnectWallet } from '@proton/web-sdk';
-import { LinkSession, Link } from '@proton/link';
-import logoUrl from '../public/logo.svg';
-import proton from './proton-rpc';
-import { DEFAULT_SCHEMA } from '../utils/constants';
-import fees, { MintFee } from '../services/fees';
+import { ConnectWallet } from "@proton/web-sdk";
+import logoUrl from "../public/logo.svg";
+import proton from "./proton-rpc";
+import { DEFAULT_SCHEMA } from "../utils/constants";
+import fees, { MintFee } from "./fees";
 
 export interface User {
   actor: string;
@@ -85,7 +84,7 @@ interface CreateSaleOptions {
 }
 
 interface CreateMultipleSalesOptions
-  extends Omit<CreateSaleOptions, 'asset_id'> {
+  extends Omit<CreateSaleOptions, "asset_id"> {
   assetIds: string[];
 }
 
@@ -138,13 +137,16 @@ interface Action {
 
 class ProtonSDK {
   appName: string;
+
   requestAccount: string;
-  session: LinkSession | null;
-  link: Link | null;
+
+  session: null;
+
+  link: null;
 
   constructor() {
-    this.appName = 'NFTLAND';
-    this.requestAccount = 'nftland';
+    this.appName = "NFTLAND";
+    this.requestAccount = "nftland";
     this.session = null;
     this.link = null;
   }
@@ -172,13 +174,13 @@ class ProtonSDK {
     try {
       await this.connect({ restoreSession: false });
       if (!this.session || !this.session.auth || !this.session.accountData) {
-        throw new Error('An error has occurred while logging in');
+        throw new Error("An error has occurred while logging in");
       }
       const { auth, accountData } = this.session;
       const { avatar, isLightKYCVerified, name } = accountData[0];
       const chainAccountAvatar = avatar
         ? `data:image/jpeg;base64,${avatar}`
-        : '/default-avatar.png';
+        : "/default-avatar.png";
 
       return {
         user: {
@@ -188,12 +190,12 @@ class ProtonSDK {
           name,
           permission: auth.permission,
         },
-        error: '',
+        error: "",
       };
     } catch (e) {
       return {
         user: null,
-        error: e.message || 'An error has occurred while logging in',
+        error: e.message || "An error has occurred while logging in",
       };
     }
   };
@@ -206,14 +208,14 @@ class ProtonSDK {
     try {
       await this.connect({ restoreSession: true });
       if (!this.session || !this.session.auth || !this.session.accountData) {
-        throw new Error('An error has occurred while restoring a session');
+        throw new Error("An error has occurred while restoring a session");
       }
 
       const { auth, accountData } = this.session;
       const { avatar, isLightKYCVerified, name } = accountData[0];
       const chainAccountAvatar = avatar
         ? `data:image/jpeg;base64,${avatar}`
-        : '/default-avatar.png';
+        : "/default-avatar.png";
 
       return {
         user: {
@@ -223,12 +225,12 @@ class ProtonSDK {
           name,
           permission: auth.permission,
         },
-        error: '',
+        error: "",
       };
     } catch (e) {
       return {
         user: null,
-        error: e.message || 'An error has occurred while restoring a session',
+        error: e.message || "An error has occurred while restoring a session",
       };
     }
   };
@@ -251,25 +253,25 @@ class ProtonSDK {
   }: TransferOptions): Promise<Response> => {
     const action = [
       {
-        account: 'atomicassets',
-        name: 'transfer',
+        account: "atomicassets",
+        name: "transfer",
         authorization: [
           {
             actor: sender,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           from: sender,
           to: recipient,
           asset_ids: [asset_id],
-          memo: memo || '',
+          memo: memo || "",
         },
       },
     ];
     try {
       if (!this.session) {
-        throw new Error('Must be logged in to transfer an asset');
+        throw new Error("Must be logged in to transfer an asset");
       }
 
       const result = await this.session.transact(
@@ -286,7 +288,7 @@ class ProtonSDK {
         success: false,
         error:
           e.message ||
-          'An error has occured while attempting to transfer the asset',
+          "An error has occured while attempting to transfer the asset",
       };
     }
   };
@@ -302,12 +304,12 @@ class ProtonSDK {
   burn = async ({ owner, asset_id }: BurnOptions): Promise<Response> => {
     const action = [
       {
-        account: 'atomicassets',
-        name: 'burnasset',
+        account: "atomicassets",
+        name: "burnasset",
         authorization: [
           {
             actor: owner,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
@@ -318,7 +320,7 @@ class ProtonSDK {
     ];
     try {
       if (!this.session) {
-        throw new Error('Must be logged in to burn an asset');
+        throw new Error("Must be logged in to burn an asset");
       }
 
       const result = await this.session.transact(
@@ -337,7 +339,7 @@ class ProtonSDK {
         success: false,
         error:
           e.message ||
-          'An error has occurred while attempting to burn the asset',
+          "An error has occurred while attempting to burn the asset",
       };
     }
   };
@@ -356,12 +358,12 @@ class ProtonSDK {
   }: DepositWithdrawOptions): Promise<Response> => {
     const action = [
       {
-        account: 'atomicmarket',
-        name: 'withdraw',
+        account: "atomicmarket",
+        name: "withdraw",
         authorization: [
           {
-            actor: actor,
-            permission: 'active',
+            actor,
+            permission: "active",
           },
         ],
         data: {
@@ -372,7 +374,7 @@ class ProtonSDK {
     ];
     try {
       if (!this.session) {
-        throw new Error('Must be logged in to withdraw from the market');
+        throw new Error("Must be logged in to withdraw from the market");
       }
 
       const result = await this.session.transact(
@@ -389,7 +391,7 @@ class ProtonSDK {
         success: false,
         error:
           e.message ||
-          'An error has occured while attempting to withdraw from the market',
+          "An error has occured while attempting to withdraw from the market",
       };
     }
   };
@@ -408,28 +410,27 @@ class ProtonSDK {
   }: {
     listing_fee: number;
     seller: string;
-  }): Action[] => {
-    return listing_fee === 0
+  }): Action[] =>
+    listing_fee === 0
       ? []
       : [
           {
-            account: 'xtokens',
-            name: 'transfer',
+            account: "xtokens",
+            name: "transfer",
             authorization: [
               {
                 actor: seller,
-                permission: 'active',
+                permission: "active",
               },
             ],
             data: {
               from: seller,
-              to: 'specialmint',
+              to: "specialmint",
               quantity: `${listing_fee.toFixed(6)} XUSDC`,
-              memo: 'account',
+              memo: "account",
             },
           },
         ];
-  };
 
   /**
    * Generate transaction actions for initializing a user's storage in the
@@ -454,12 +455,12 @@ class ProtonSDK {
       hasInitializedStorage
         ? undefined
         : {
-            account: 'specialmint',
-            name: 'initstorage',
+            account: "specialmint",
+            name: "initstorage",
             authorization: [
               {
                 actor: author,
-                permission: 'active',
+                permission: "active",
               },
             ],
             data: {
@@ -469,37 +470,37 @@ class ProtonSDK {
       hasEnoughAccountRam
         ? undefined
         : {
-            account: 'xtokens',
-            name: 'transfer',
+            account: "xtokens",
+            name: "transfer",
             authorization: [
               {
                 actor: author,
-                permission: 'active',
+                permission: "active",
               },
             ],
             data: {
               from: author,
-              to: 'specialmint',
+              to: "specialmint",
               quantity: `${mintFee.accountRamFee.raw.toFixed(6)} XUSDC`,
-              memo: 'account',
+              memo: "account",
             },
           },
       hasEnoughContractRam
         ? undefined
         : {
-            account: 'xtokens',
-            name: 'transfer',
+            account: "xtokens",
+            name: "transfer",
             authorization: [
               {
                 actor: author,
-                permission: 'active',
+                permission: "active",
               },
             ],
             data: {
               from: author,
-              to: 'specialmint',
+              to: "specialmint",
               quantity: `${mintFee.specialMintFee.raw.toFixed(6)} XUSDC`,
-              memo: 'contract',
+              memo: "contract",
             },
           },
     ].filter((action) => action !== undefined);
@@ -545,11 +546,11 @@ class ProtonSDK {
     });
 
     const default_template = {
-      series: '1',
+      series: "1",
       name: template_name,
       desc: template_description,
-      video: template_video || '',
-      image: template_image || '',
+      video: template_video || "",
+      image: template_image || "",
     };
 
     const schema_format = Object.entries(DEFAULT_SCHEMA).map(([key, type]) => ({
@@ -560,71 +561,71 @@ class ProtonSDK {
     const immutable_data = Object.entries(DEFAULT_SCHEMA).map(
       ([key, type]) => ({
         key,
-        value: [type, default_template[key] || ''],
+        value: [type, default_template[key] || ""],
       })
     );
 
     const actions = [
       {
-        account: 'atomicassets',
-        name: 'createcol',
+        account: "atomicassets",
+        name: "createcol",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           author,
           collection_name: collection_name_or_author,
           allow_notify: true,
-          authorized_accounts: [author, 'specialmint'],
+          authorized_accounts: [author, "specialmint"],
           notify_accounts: [],
-          market_fee: collection_market_fee || '0.000000',
+          market_fee: collection_market_fee || "0.000000",
           data: [
             {
-              key: 'description',
-              value: ['string', collection_description],
+              key: "description",
+              value: ["string", collection_description],
             },
             {
-              key: 'name',
-              value: ['string', collection_display_name],
+              key: "name",
+              value: ["string", collection_display_name],
             },
             {
-              key: 'img',
-              value: ['string', collection_image || ''],
+              key: "img",
+              value: ["string", collection_image || ""],
             },
           ],
         },
       },
       {
-        account: 'atomicassets',
-        name: 'createschema',
+        account: "atomicassets",
+        name: "createschema",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           authorized_creator: author,
-          collection_name: collection_name,
+          collection_name,
           schema_name: collection_name,
           schema_format,
         },
       },
       {
-        account: 'atomicassets',
-        name: 'createtempl',
+        account: "atomicassets",
+        name: "createtempl",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           authorized_creator: author,
-          collection_name: collection_name,
+          collection_name,
           schema_name: collection_name,
           transferable: true,
           burnable: true,
@@ -633,12 +634,12 @@ class ProtonSDK {
         },
       },
       {
-        account: 'specialmint',
-        name: 'mintlasttemp',
+        account: "specialmint",
+        name: "mintlasttemp",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
@@ -652,17 +653,17 @@ class ProtonSDK {
         },
       },
       {
-        account: 'atomicassets',
-        name: 'remcolauth',
+        account: "atomicassets",
+        name: "remcolauth",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           collection_name: collection_name_or_author,
-          account_to_remove: 'specialmint',
+          account_to_remove: "specialmint",
         },
       },
     ];
@@ -670,7 +671,7 @@ class ProtonSDK {
     try {
       if (!this.session) {
         throw new Error(
-          'Unable to create and mint a collection, schema, template, and assets without logging in.'
+          "Unable to create and mint a collection, schema, template, and assets without logging in."
         );
       }
 
@@ -692,7 +693,7 @@ class ProtonSDK {
         success: false,
         error:
           e.message ||
-          'An error has occurred while creating and minting the collection, schema, template, and assets.',
+          "An error has occurred while creating and minting the collection, schema, template, and assets.",
       };
     }
   };
@@ -719,12 +720,12 @@ class ProtonSDK {
   }: UpdateCollectionOptions): Promise<Response> => {
     const actions: Action[] = [
       {
-        account: 'atomicassets',
-        name: 'setcoldata',
+        account: "atomicassets",
+        name: "setcoldata",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
@@ -732,16 +733,16 @@ class ProtonSDK {
           collection_name,
           data: [
             {
-              key: 'description',
-              value: ['string', description],
+              key: "description",
+              value: ["string", description],
             },
             {
-              key: 'name',
-              value: ['string', display_name],
+              key: "name",
+              value: ["string", display_name],
             },
             {
-              key: 'img',
-              value: ['string', image || ''],
+              key: "img",
+              value: ["string", image || ""],
             },
           ],
         },
@@ -750,12 +751,12 @@ class ProtonSDK {
 
     if (market_fee) {
       actions.push({
-        account: 'atomicassets',
-        name: 'setmarketfee',
+        account: "atomicassets",
+        name: "setmarketfee",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
@@ -768,10 +769,10 @@ class ProtonSDK {
 
     try {
       if (!this.session) {
-        throw new Error('Unable to update a collection without logging in.');
+        throw new Error("Unable to update a collection without logging in.");
       }
       const result = await this.session.transact(
-        { actions: actions },
+        { actions },
         { broadcast: true }
       );
       return {
@@ -782,7 +783,7 @@ class ProtonSDK {
       return {
         success: false,
         error:
-          e.message || 'An error has occurred while updating the collection.',
+          e.message || "An error has occurred while updating the collection.",
       };
     }
   };
@@ -802,12 +803,12 @@ class ProtonSDK {
   }: SetMarketFeeOptions): Promise<Response> => {
     const actions = [
       {
-        account: 'atomicassets',
-        name: 'setmarketfee',
+        account: "atomicassets",
+        name: "setmarketfee",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
@@ -819,10 +820,10 @@ class ProtonSDK {
     ];
     try {
       if (!this.session) {
-        throw new Error('Unable to set a market fee without logging in.');
+        throw new Error("Unable to set a market fee without logging in.");
       }
       const result = await this.session.transact(
-        { actions: actions },
+        { actions },
         { broadcast: true }
       );
       return {
@@ -833,7 +834,7 @@ class ProtonSDK {
       return {
         success: false,
         error:
-          e.message || 'An error has occurred while setting the market fee.',
+          e.message || "An error has occurred while setting the market fee.",
       };
     }
   };
@@ -868,47 +869,47 @@ class ProtonSDK {
     });
 
     const default_template = {
-      series: '1',
+      series: "1",
       name: template_name,
       desc: template_description,
-      video: template_video || '',
-      image: template_image || '',
+      video: template_video || "",
+      image: template_image || "",
     };
 
     const immutable_data = Object.entries(DEFAULT_SCHEMA).map(
       ([key, type]) => ({
         key,
-        value: [type, default_template[key] || ''],
+        value: [type, default_template[key] || ""],
       })
     );
 
     const actions = [
       {
-        account: 'atomicassets',
-        name: 'addcolauth',
+        account: "atomicassets",
+        name: "addcolauth",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           collection_name,
-          account_to_add: 'specialmint',
+          account_to_add: "specialmint",
         },
       },
       {
-        account: 'atomicassets',
-        name: 'createtempl',
+        account: "atomicassets",
+        name: "createtempl",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           authorized_creator: author,
-          collection_name: collection_name,
+          collection_name,
           schema_name: collection_name,
           transferable: true,
           burnable: true,
@@ -917,18 +918,18 @@ class ProtonSDK {
         },
       },
       {
-        account: 'specialmint',
-        name: 'mintlasttemp',
+        account: "specialmint",
+        name: "mintlasttemp",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           count: initial_mint_amount,
           creator: author,
-          collection_name: collection_name,
+          collection_name,
           schema_name: collection_name,
           new_asset_owner: author,
           immutable_data: [],
@@ -936,17 +937,17 @@ class ProtonSDK {
         },
       },
       {
-        account: 'atomicassets',
-        name: 'remcolauth',
+        account: "atomicassets",
+        name: "remcolauth",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
-          collection_name: collection_name,
-          account_to_remove: 'specialmint',
+          collection_name,
+          account_to_remove: "specialmint",
         },
       },
     ];
@@ -954,7 +955,7 @@ class ProtonSDK {
     try {
       if (!this.session) {
         throw new Error(
-          'Unable to create a template and mint assets without logging in.'
+          "Unable to create a template and mint assets without logging in."
         );
       }
       const result = await this.session.transact(
@@ -973,7 +974,7 @@ class ProtonSDK {
         success: false,
         error:
           e.message ||
-          'An error has occurred while creating the template and minting assets.',
+          "An error has occurred while creating the template and minting assets.",
       };
     }
   };
@@ -996,17 +997,17 @@ class ProtonSDK {
     mint_fee,
   }: MintAssetsOptions): Promise<Response> => {
     const generateMintAssetAction = (): Action => ({
-      account: 'atomicassets',
-      name: 'mintasset',
+      account: "atomicassets",
+      name: "mintasset",
       authorization: [
         {
           actor: author,
-          permission: 'active',
+          permission: "active",
         },
       ],
       data: {
         authorized_minter: author,
-        collection_name: collection_name,
+        collection_name,
         schema_name: collection_name,
         template_id,
         new_asset_owner: author,
@@ -1022,26 +1023,26 @@ class ProtonSDK {
 
     if (mint_fee > 0) {
       actions.unshift({
-        account: 'xtokens',
-        name: 'transfer',
+        account: "xtokens",
+        name: "transfer",
         authorization: [
           {
             actor: author,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           from: author,
-          to: 'specialmint',
+          to: "specialmint",
           quantity: `${mint_fee.toFixed(6)} XUSDC`,
-          memo: 'account',
+          memo: "account",
         },
       });
     }
 
     try {
       if (!this.session) {
-        throw new Error('Unable to mint assets without logging in.');
+        throw new Error("Unable to mint assets without logging in.");
       }
       const result = await this.session.transact(
         { actions },
@@ -1057,7 +1058,7 @@ class ProtonSDK {
     } catch (e) {
       return {
         success: false,
-        error: e.message || 'An error has occurred while minting the assets.',
+        error: e.message || "An error has occurred while minting the assets.",
       };
     }
   };
@@ -1088,48 +1089,48 @@ class ProtonSDK {
     const actions = [
       ...ramActions,
       {
-        account: 'atomicmarket',
-        name: 'announcesale',
+        account: "atomicmarket",
+        name: "announcesale",
         authorization: [
           {
             actor: seller,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           seller,
           asset_ids: [asset_id],
-          maker_marketplace: 'fees.market',
+          maker_marketplace: "fees.market",
           listing_price: price,
           settlement_symbol: currency,
         },
       },
       {
-        account: 'atomicassets',
-        name: 'createoffer',
+        account: "atomicassets",
+        name: "createoffer",
         authorization: [
           {
             actor: seller,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           sender: seller,
-          recipient: 'atomicmarket',
+          recipient: "atomicmarket",
           sender_asset_ids: [asset_id],
           recipient_asset_ids: [],
-          memo: 'sale',
+          memo: "sale",
         },
       },
     ];
 
     try {
       if (!this.session) {
-        throw new Error('Unable to create a sale offer without logging in.');
+        throw new Error("Unable to create a sale offer without logging in.");
       }
 
       const result = await this.session.transact(
-        { actions: actions },
+        { actions },
         { broadcast: true }
       );
 
@@ -1143,7 +1144,7 @@ class ProtonSDK {
       return {
         success: false,
         error:
-          e.message || 'An error has occurred while creating the sale offer.',
+          e.message || "An error has occurred while creating the sale offer.",
       };
     }
   };
@@ -1173,38 +1174,38 @@ class ProtonSDK {
     });
 
     const announceSaleActions = assetIds.map((asset_id) => ({
-      account: 'atomicmarket',
-      name: 'announcesale',
+      account: "atomicmarket",
+      name: "announcesale",
       authorization: [
         {
           actor: seller,
-          permission: 'active',
+          permission: "active",
         },
       ],
       data: {
         seller,
         asset_ids: [asset_id],
-        maker_marketplace: 'fees.market',
+        maker_marketplace: "fees.market",
         listing_price: price,
         settlement_symbol: currency,
       },
     }));
 
     const createOfferActions = assetIds.map((asset_id) => ({
-      account: 'atomicassets',
-      name: 'createoffer',
+      account: "atomicassets",
+      name: "createoffer",
       authorization: [
         {
           actor: seller,
-          permission: 'active',
+          permission: "active",
         },
       ],
       data: {
         sender: seller,
-        recipient: 'atomicmarket',
+        recipient: "atomicmarket",
         sender_asset_ids: [asset_id],
         recipient_asset_ids: [],
-        memo: 'sale',
+        memo: "sale",
       },
     }));
 
@@ -1216,11 +1217,11 @@ class ProtonSDK {
 
     try {
       if (!this.session) {
-        throw new Error('Unable to create a sale offer without logging in.');
+        throw new Error("Unable to create a sale offer without logging in.");
       }
 
       const result = await this.session.transact(
-        { actions: actions },
+        { actions },
         { broadcast: true }
       );
 
@@ -1234,7 +1235,7 @@ class ProtonSDK {
       return {
         success: false,
         error:
-          e.message || 'An error has occurred while creating the sale offer.',
+          e.message || "An error has occurred while creating the sale offer.",
       };
     }
   };
@@ -1250,12 +1251,12 @@ class ProtonSDK {
   cancelSale = async ({ actor, sale_id }: SaleOptions): Promise<Response> => {
     const actions = [
       {
-        account: 'atomicmarket',
-        name: 'cancelsale',
+        account: "atomicmarket",
+        name: "cancelsale",
         authorization: [
           {
             actor,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
@@ -1266,11 +1267,11 @@ class ProtonSDK {
 
     try {
       if (!this.session) {
-        throw new Error('Unable to cancel a sale without logging in.');
+        throw new Error("Unable to cancel a sale without logging in.");
       }
 
       const result = await this.session.transact(
-        { actions: actions },
+        { actions },
         { broadcast: true }
       );
 
@@ -1283,7 +1284,7 @@ class ProtonSDK {
     } catch (e) {
       return {
         success: false,
-        error: e.message || 'An error has occurred while cancelling the sale.',
+        error: e.message || "An error has occurred while cancelling the sale.",
       };
     }
   };
@@ -1301,12 +1302,12 @@ class ProtonSDK {
     saleIds,
   }: CancelMultipleSalesOptions): Promise<Response> => {
     const actions = saleIds.map((sale_id) => ({
-      account: 'atomicmarket',
-      name: 'cancelsale',
+      account: "atomicmarket",
+      name: "cancelsale",
       authorization: [
         {
           actor,
-          permission: 'active',
+          permission: "active",
         },
       ],
       data: {
@@ -1316,11 +1317,11 @@ class ProtonSDK {
 
     try {
       if (!this.session) {
-        throw new Error('Unable to cancel a sale without logging in.');
+        throw new Error("Unable to cancel a sale without logging in.");
       }
 
       const result = await this.session.transact(
-        { actions: actions },
+        { actions },
         { broadcast: true }
       );
 
@@ -1333,7 +1334,7 @@ class ProtonSDK {
     } catch (e) {
       return {
         success: false,
-        error: e.message || 'An error has occurred while cancelling the sale.',
+        error: e.message || "An error has occurred while cancelling the sale.",
       };
     }
   };
@@ -1345,45 +1346,45 @@ class ProtonSDK {
   }: PurchaseSaleOptions): Promise<Response> => {
     const actions = [
       {
-        account: 'xtokens',
-        name: 'transfer',
+        account: "xtokens",
+        name: "transfer",
         authorization: [
           {
             actor: buyer,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           from: buyer,
-          to: 'atomicmarket',
+          to: "atomicmarket",
           quantity: amount,
-          memo: 'deposit',
+          memo: "deposit",
         },
       },
       {
-        account: 'atomicmarket',
-        name: 'purchasesale',
+        account: "atomicmarket",
+        name: "purchasesale",
         authorization: [
           {
             actor: buyer,
-            permission: 'active',
+            permission: "active",
           },
         ],
         data: {
           sale_id,
           buyer,
           intended_delphi_median: 0,
-          taker_marketplace: 'fees.market',
+          taker_marketplace: "fees.market",
         },
       },
     ];
     try {
       if (!this.session) {
-        throw new Error('Unable to purchase a sale without logging in.');
+        throw new Error("Unable to purchase a sale without logging in.");
       }
 
       const result = await this.session.transact(
-        { actions: actions },
+        { actions },
         { broadcast: true }
       );
 
@@ -1398,7 +1399,7 @@ class ProtonSDK {
       return {
         success: false,
         error:
-          message || 'An error has occurred while trying to purchase an item.',
+          message || "An error has occurred while trying to purchase an item.",
       };
     }
   };
