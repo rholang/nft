@@ -26,7 +26,7 @@ const ExploreCard = (): JSX.Element => {
     Fx.exploreDeployFx({
       client: "cf",
       code: checkBalance({
-        account: "11113y7AfYj7hShN49oAHHd3KiWxZRsodesdBi8QwSrPR5Veyh77S",
+        account: "111125rrPWgw5tGQWEHFW9ByFeLvHTkTSWFcvfsPVFxZnCgMZ4crL1",
       }),
     });
   };
