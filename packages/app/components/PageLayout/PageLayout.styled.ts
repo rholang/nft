@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { MaxWidth } from '../../styles/MaxWidth.styled';
-import { breakpoint } from '../../styles/Breakpoints';
+import styled from "styled-components";
+import { MaxWidth } from "../../styles/MaxWidth.styled";
+import { breakpoint } from "../../styles/Breakpoints";
 
 export const Main = styled.main`
   position: relative;
   min-height: calc(100vh - 88px);
-  padding-top: 70px;
+  padding-top: 90px;
   overflow: auto;
 
   ${breakpoint.tablet`
