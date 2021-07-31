@@ -1,4 +1,4 @@
-new compose  in {
+new compose, entryCh, entryUriCh, insertArbitrary(`rho:registry:insertArbitrary`), stdout(`rho:rchain:deployId`) in {
   contract compose(input ...@sends) = {
     for(...@inp <= input) {
       new apply in {
@@ -25,7 +25,7 @@ new compose  in {
     }
   } |
 
-  new name, location, hash, print, stdout(`rho:rchain:deployId`) in {
+  new name, location, hash, print in {
     contract name     (@[a,    ret]) = { @ret!("Name: " ++ a) } |
     contract location (@[a, b, ret]) = { @ret!([a, b]) } |
     contract hash     (@[a, b, ret]) = { @ret!({"Hash": a, "Data": b}) } |
@@ -40,10 +40,17 @@ new compose  in {
         [*name],
         [*location, 666],
         [*hash, "SHA256"],
-        [*print]
+       
       ) |
       nameLocHash!("Rick") |
       nameLocHash!("Morty")
     }
+  } |
+
+  insertArbitrary!(bundle+{*entryCh}, *entryUriCh) |
+
+  for (entryUri <- entryUriCh) {
+      stdout!({"uri": *entryUri})
   }
-}
+} 
+

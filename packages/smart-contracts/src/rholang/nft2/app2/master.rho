@@ -1217,7 +1217,7 @@ in {
         "status": "completed",
         "registryUri": *entryUri
       }) |
-      stdout!(("URI", *entryUri))
+        stdout!({"uri": *entryUri})
     }
   } |
 
