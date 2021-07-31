@@ -22,5 +22,6 @@ export declare const master: ({ n, version, depthcontract, depth }: {
 export declare const checkBalance: ({ account }: {
     account: any;
 }) => string;
+export declare const compose: ({}: {}) => string;
 export declare const insertRegistry: ({}: {}) => string;
 export declare const tree_hash_map: ({}: {}) => string;

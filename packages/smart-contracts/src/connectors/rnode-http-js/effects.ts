@@ -40,7 +40,6 @@ const deploy =
     // Try to get result from next proposed block
 
     const { data, cost } = await getDataForDeploy(node, signature, () => true);
-    console.log("wait");
     // Extract data from response object
     const args = data ? rhoExprToJson(data.expr) : void 0;
 
@@ -49,10 +48,9 @@ const deploy =
           false,
           "deploy found in the block but data is not sent on `rho:rchain:deployId` channel",
         ]
-      : [true, R.is(Array, args) ? args.join(", ") : args];
+      : [true, R.is(Array, args) ? args : args];
 
     const success = pData ? sArgs.toString() : sArgs.toString() + pData;
-
     return { success, message };
   };
 

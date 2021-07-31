@@ -1,4 +1,4 @@
-import { RNodeInfo, RChainNetwork, NodeUrls } from './types';
+import { RNodeInfo, RChainNetwork, NodeUrls } from "./types";
 export declare const localNet: RChainNetwork;
 export declare const testNet: RChainNetwork;
 export declare const mainNet: RChainNetwork;

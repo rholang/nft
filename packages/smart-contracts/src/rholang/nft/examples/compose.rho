@@ -1,0 +1,49 @@
+new compose  in {
+  contract compose(input ...@sends) = {
+    for(...@inp <= input) {
+      new apply in {
+        apply!(inp, sends) |
+        contract apply(argsc, @[send ...rest]) = {
+          match rest {
+            [] => {
+              // the last contract is the end of composition and it's called with suplied args
+              // and args returned from previous contract (without return channel)
+              match send { [s ...args] => @s!(args ++ *argsc) }
+            }
+            _ => {
+              new ret in {
+                // each contract is called with arguments combined from: suplied args,
+                // args returned from previous contract and a new return channel
+                match send { [s ...args] => @s!(args ++ *argsc ++ [*ret]) } |
+                // match send { {@s!(...args)} => @s!(...args ...*argsc, *ret) } |
+                for(...@inp' <- ret) { apply!(inp', rest) }
+              }
+            }
+          }
+        }
+      }
+    }
+  } |
+
+  new name, location, hash, print, stdout(`rho:rchain:deployId`) in {
+    contract name     (@[a,    ret]) = { @ret!("Name: " ++ a) } |
+    contract location (@[a, b, ret]) = { @ret!([a, b]) } |
+    contract hash     (@[a, b, ret]) = { @ret!({"Hash": a, "Data": b}) } |
+    contract print    (@[a        ]) = { stdout!(a) } |
+
+      new nameLocHash in {
+      // - version with compose without creating intermediate channels
+      // nameLocHash contract is a composition (sequence in this case)
+      // of name, location, hash and print contracts
+      compose!(
+        *nameLocHash,
+        [*name],
+        [*location, 666],
+        [*hash, "SHA256"],
+        [*print]
+      ) |
+      nameLocHash!("Rick") |
+      nameLocHash!("Morty")
+    }
+  }
+}

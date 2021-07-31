@@ -268,7 +268,7 @@ const sendDeploy: SendDeployMethod =
     const deploy = account.privKey
       ? signPrivKey(deployData, account.privKey)
       : await signMetamask(deployData);
-    console.log("rnode");
+
     // Send deploy / result is deploy signature (ID)
     await rnodeHttp(httpUrl, "deploy", deploy);
 
