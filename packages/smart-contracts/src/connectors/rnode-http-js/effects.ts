@@ -21,10 +21,11 @@ const exploreDeploy = ({ rnodeHttp, node }: ExploreDeployEff) =>
     const {
       expr: [e],
     } = await rnodeHttp(node.httpUrl, "explore-deploy", code);
-    const dataBal = e as string;
+    console.log(e);
+    const message = rhoExprToJson(e);
     // console.log(dataBal);
     const dataError = (e && e.ExprString && e.ExprString.data) || "";
-    return { success: dataError, message: dataBal };
+    return { success: "true", message };
   };
 
 const deploy =

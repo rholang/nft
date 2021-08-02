@@ -4,25 +4,13 @@ import {
   master,
   compose,
   Status,
+  op_test,
 } from "@rholang/sdk";
+
 import "isomorphic-fetch";
-import { writeEnv } from "utils/env";
+import { writeUriEnv, readKeyEnv } from "utils/env";
 
-const writeUriToEnv = (result: Status, envVar: string) => {
-  if (result) {
-    type MessageUri = { uri: string };
-    const parsedUri: MessageUri = JSON.parse(JSON.stringify(result.message));
-    const uri = parsedUri.uri
-      ? [...parsedUri.uri.matchAll(/.*(rho:id.*)/g)]
-      : null;
-
-    if (uri) {
-      writeEnv(envVar, uri[0][1].toString());
-    }
-  }
-  console.log(result);
-};
-
+/* explore deploy -> return channel, deploy -> return(`rho:rchain:deployId`) channel */
 describe(`ExploreDeploy`, () => {
   it("nft explore-deploy", async () => {
     const fn = jest.fn();
@@ -41,6 +29,22 @@ describe(`ExploreDeploy`, () => {
 
     expect(fn).toBeCalledTimes(1);
   });
+
+  it("test explore-deploy", async () => {
+    const fn = jest.fn();
+
+    Fx.exploreDeployFx.doneData.watch((result) => {
+      console.log(result);
+      fn(result);
+    });
+
+    await Fx.exploreDeployFx({
+      client: "rnode",
+      code: op_test({ composeEntryUri: readKeyEnv("NEXT_ENTRY_COMPOSE") }),
+    });
+
+    expect(fn).toBeCalledTimes(1);
+  });
 });
 
 describe(`Deploy`, () => {
@@ -48,7 +52,7 @@ describe(`Deploy`, () => {
     const fn = jest.fn();
 
     Fx.deployFx.doneData.watch((result: Status) => {
-      writeUriToEnv(result, "NEXT_ENTRY_NFT");
+      writeUriEnv(result, "NEXT_ENTRY_NFT");
       fn(result);
     });
 
@@ -65,13 +69,30 @@ describe(`Deploy`, () => {
     const fn = jest.fn();
 
     Fx.deployFx.doneData.watch((result: Status) => {
-      writeUriToEnv(result, "NEXT_ENTRY_COMPOSE");
+      writeUriEnv(result, "NEXT_ENTRY_COMPOSE");
       fn(result);
     });
 
     await Fx.deployFx({
       client: "rnode",
       code: compose({}),
+      phloLimit: "1000000000",
+    });
+
+    expect(fn).toBeCalledTimes(1);
+  }, 1000000);
+
+  it("test deploy", async () => {
+    const fn = jest.fn();
+
+    Fx.deployFx.doneData.watch((result) => {
+      console.log(result);
+      fn(result);
+    });
+
+    await Fx.deployFx({
+      client: "rnode",
+      code: op_test({ composeEntryUri: readKeyEnv("NEXT_ENTRY_COMPOSE") }),
       phloLimit: "1000000000",
     });
 

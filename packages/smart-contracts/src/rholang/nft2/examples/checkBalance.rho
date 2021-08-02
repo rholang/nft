@@ -1,4 +1,4 @@
- new return, rl(`rho:registry:lookup`), RevVaultCh, vaultCh in {
+ new  rl(`rho:registry:lookup`),return, RevVaultCh, vaultCh in {
       rl!(`rho:rchain:revVault`, *RevVaultCh) |
       for (@(_, RevVault) <- RevVaultCh) {
         @RevVault!("findOrCreate", "rho:arg:account", *vaultCh) |

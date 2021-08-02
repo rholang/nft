@@ -1,0 +1,36 @@
+
+new
+  return(`rho:rchain:deployId`),
+  basket,
+  revVaultCh,
+  boxCh,
+
+  returnCh,
+  quantityCh,
+  mergeCh,
+  publicKeyCh,
+  priceCh,
+  newIdCh,
+  dataCh,
+  purseIdCh,
+  contractIdCh,
+
+  revAddressCh,
+  contractExistsCh,
+  proceed1Ch,
+  proceed2Ch,
+  registryLookup(`rho:registry:lookup`),
+  deployerId(`rho:rchain:deployerId`),
+
+  revAddress(`rho:rev:address`)
+  
+in {
+  registryLookup!(`rho:arg:composeEntryUri`, *contractExistsCh) |
+  
+  return!("testa") |
+  for (_ <- contractExistsCh) {
+    return!("test")
+  } 
+
+   
+}
