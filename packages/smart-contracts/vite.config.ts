@@ -41,9 +41,7 @@ export default defineConfig({
     {
       apply: "build",
       ...ts({
-        tsconfig: "./tsconfig.json",
         check: false,
-        useTsconfigDeclarationDir: true,
       }),
     },
   ],

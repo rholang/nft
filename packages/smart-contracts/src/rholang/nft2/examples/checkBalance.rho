@@ -1,7 +1,7 @@
  new  rl(`rho:registry:lookup`),return, RevVaultCh, vaultCh in {
       rl!(`rho:rchain:revVault`, *RevVaultCh) |
       for (@(_, RevVault) <- RevVaultCh) {
-        @RevVault!("findOrCreate", "rho:arg:account", *vaultCh) |
+        @RevVault!("findOrCreate", "rho:arg:account234345ddjdkd", *vaultCh) |
         for (@maybeVault <- vaultCh) {
           match maybeVault {
             (true, vault) => @vault!("balance", *return)

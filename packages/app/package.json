@@ -19,7 +19,7 @@
     "@netlify/plugin-nextjs": "3.2.2",
     "@proton/js": "^22.0.64",
     "@proton/web-sdk": "^2.7.23",
-    "@rholang/sdk": "workspace:*",
+    "@rholang/sdk": "^1.7.0",
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",
     "dotenv": "^10.0.0",
@@ -76,7 +76,7 @@
     "ramda": "^0.27.1",
     "ts-jest": "latest",
     "typedoc": "^0.19.2",
-    "typescript": "latest",
+    "typescript": "next",
     "url-loader": "^4.1.1"
   },
   "jest": {
