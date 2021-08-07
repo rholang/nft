@@ -13,13 +13,15 @@
     "check:all": "yarn lint && yarn format && yarn typecheck"
   },
   "dependencies": {
+    "@types/node": "16.4.13",
     "@proton/link": "2.5.38",
     "@effector/reflect": "latest",
     "@google/model-viewer": "^1.6.0",
     "@netlify/plugin-nextjs": "3.2.2",
     "@proton/js": "^22.0.64",
     "@proton/web-sdk": "^2.7.23",
-    "@rholang/sdk": "^1.7.0",
+    "@rholang/sdk": "workspace:*",
+    "@rholang/connectors": "workspace:*",
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",
     "dotenv": "^10.0.0",
@@ -76,7 +78,7 @@
     "ramda": "^0.27.1",
     "ts-jest": "latest",
     "typedoc": "^0.19.2",
-    "typescript": "next",
+    "typescript": "^4.3.5",
     "url-loader": "^4.1.1"
   },
   "jest": {

@@ -1,5 +1,5 @@
 // import { createEvent, createStore } from 'effector'
-import { domain, Store as S } from "@rholang/sdk";
+import { domain, Store as S } from "@rholang/connectors";
 
 // action, typedefinitions state
 const changeNameEvent = domain.event<void>();

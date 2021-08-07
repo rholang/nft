@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import ts from "rollup-plugin-typescript2";
-import rholang from "vite-plugin-rholang";
+import rholang from "@rholang/vite-plugin-rholang";
 import { babel } from "@rollup/plugin-babel";
 
 // https://vitejs.dev/config/
@@ -41,7 +41,9 @@ export default defineConfig({
     {
       apply: "build",
       ...ts({
+        tsconfig: "./tsconfig.json",
         check: false,
+        useTsconfigDeclarationDir: true,
       }),
     },
   ],

@@ -3,16 +3,13 @@
   "version": "1.7.0",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
-  "types": "dist/src/index.d.ts",
-  "sideEffects": false,
-  "description": "flowlist frontend javascript core",
-  "files": [
-    "dist"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/flowlist/js-core.git"
+  "typings": "src/types/index.d.ts",
+  "publishConfig": {
+    "main": "dist/index.umd.js",
+    "module": "dist/index.es.js",
+    "typings": "dist/index.d.ts"
   },
+  "sideEffects": false,
   "keywords": [
     "flowlist",
     "listview"
@@ -65,10 +62,10 @@
     "faker": "^5.4.0",
     "jest-localstorage-mock": "^2.4.8",
     "ts-babel": "^6.1.7",
-    "typescript": "next",
+    "typescript": "^4.3.5",
     "vite": "^2.3.8",
     "vite-plugin-dts": "^0.5.2",
-    "vite-plugin-rholang": "workspace:*",
+    "@rholang/vite-plugin-rholang": "workspace:*",
     "@tgrospic/rnode-http-js": "^0.1.6",
     "axios": "^0.21.1"
   }

@@ -7,6 +7,7 @@
     "dev": "pnpm run --filter=@nftland/app --parallel dev",
     "build": "pnpm run --filter=@rholang/sdk --parallel build",
     "build:w": "pnpm run --filter=@rholang/sdk --parallel build:w",
+    "build:conn": "pnpm run --filter=@rholang/connectors --parallel build",
     "build:app": "pnpm run --filter=@nftland/app --parallel build"
   },
   "author": "",
@@ -27,7 +28,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.2.1",
-    "typescript": "next"
+    "typescript": "^4.3.5"
   },
   "dependencies": {
     "@rholang/sdk": "^1.7.0",

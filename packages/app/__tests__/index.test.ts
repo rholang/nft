@@ -1,15 +1,14 @@
-import {
-  Effects as Fx,
-  checkBalance,
-  master,
-  compose,
-  Status,
-  op_test,
-} from "@rholang/sdk";
+import { checkBalance, master, compose, op_test } from "@rholang/sdk";
+import { Effects as Fx, Status } from "@rholang/connectors";
 
 import "isomorphic-fetch";
 import { writeUriEnv, readKeyEnv } from "utils/env";
 
+describe(`ExploreDeploy2`, () => {
+  it("nft explore-deploy2", async () => {
+    console.log(result);
+  });
+});
 /* explore deploy -> return channel, deploy -> return(`rho:rchain:deployId`) channel */
 describe(`ExploreDeploy`, () => {
   it("nft explore-deploy", async () => {

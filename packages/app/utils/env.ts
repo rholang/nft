@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as os from "os";
-import { Status } from "@rholang/sdk";
+import { Status } from "@rholang/connectors";
 
 export const getEnvPath = () => {
   const dir = __dirname;

@@ -16,11 +16,7 @@
     "downlevelIteration": true,
     "baseUrl": "."
   },
-  "references": [
-    {
-      "path": "../smart-contracts"
-    }
-  ],
+
   "types": ["jest"],
   "include": [
     "next-env.d.ts",

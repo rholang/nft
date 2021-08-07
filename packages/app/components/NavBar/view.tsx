@@ -2,7 +2,7 @@ import { useState, useEffect, FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Wallet, Effects as Fx } from "@rholang/sdk";
+import { Wallet, Effects as Fx } from "@rholang/connectors";
 import Button from "components/Button";
 import SearchInput from "../SearchInput";
 import magnifyingIcon from "../../public/icon-light-search-24-px.png";

@@ -1,4 +1,4 @@
-import { Event as E } from "@rholang/sdk";
+import { Event as E } from "@rholang/connectors";
 
 export const detectEnvironement = () => {
   const prodConfig = {

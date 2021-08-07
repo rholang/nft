@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { Effects as Fx, checkBalance, insertRegistry } from "@rholang/sdk";
+import { Effects as Fx } from "@rholang/connectors";
+import { checkBalance, insertRegistry } from "@rholang/sdk";
 
 import Button from "../Button";
 import { useWindowSize } from "../../hooks";
