@@ -6,7 +6,7 @@ import { writeUriEnv, readKeyEnv } from "utils/env";
 
 describe(`ExploreDeploy2`, () => {
   it("nft explore-deploy2", async () => {
-    console.log(result);
+    console.log(compose({}));
   });
 });
 /* explore deploy -> return channel, deploy -> return(`rho:rchain:deployId`) channel */
