@@ -2,8 +2,8 @@
     "name": "@rholang/connectors",
     "description": "File system Router for Vite & React",
     "version": "1.1.3",
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
+    "main": "dist/index.umd.js",
+    "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
     "license": "MIT",
     "author": "morelearn1990 <morelearn1990@gmail.com>",
@@ -22,7 +22,8 @@
     },
     "scripts": {
         "dev": "pnpm run build -- --watch --ignore-watch examples",
-        "build": "tsup src/index.ts --dts --format cjs,esm",
+        "build:tsup": "tsup src/index.ts --dts-resolve --format cjs,esm",
+        "build": "vite build",
         "prepublishOnly": "pnpm run build",
         "release": "pnpx git-ensure -a && pnpx bumpp --commit --tag --push",
         "example:dev": "pnpm -C examples/demo run dev",
@@ -36,6 +37,7 @@
         "preinstall": "npx only-allow pnpm"
     },
     "devDependencies": {
+        "buffer": "^6.0.3",
         "axios": "^0.21.1",
         "@types/node": "^16.4.13",
         "@types/ethereumjs-util": "^6.1.0",
@@ -65,7 +67,10 @@
         "jest-localstorage-mock": "^2.4.8",
         "ts-babel": "^6.1.7",
         "typescript": "^4.3.5",
+        "vite": "^2.3.8",
+        "vite-plugin-dts": "^0.5.2",
         "@rholang/vite-plugin-rholang": "workspace:*",
-        "@tgrospic/rnode-http-js": "^0.1.6"
+        "@tgrospic/rnode-http-js": "^0.1.6",
+        "rollup-plugin-typescript2": "0.30.0"
     }
 }
