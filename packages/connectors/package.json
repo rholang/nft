@@ -22,7 +22,6 @@
     },
     "scripts": {
         "dev": "pnpm run build -- --watch --ignore-watch examples",
-        "build:tsup": "tsup src/index.ts --dts-resolve --format cjs,esm",
         "build": "vite build",
         "prepublishOnly": "pnpm run build",
         "release": "pnpx git-ensure -a && pnpx bumpp --commit --tag --push",

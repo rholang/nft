@@ -14,7 +14,7 @@
     ],
     "scripts": {
         "dev": "pnpm run build -- --watch --ignore-watch examples",
-        "build": "tsup src/index.ts --dts --format cjs,esm",
+        "build": "tsup src/index.ts --dts-resolve --format cjs,esm",
         "prepublishOnly": "pnpm run build",
         "release": "pnpx git-ensure -a && pnpx bumpp --commit --tag --push",
         "example:dev": "pnpm -C examples/demo run dev",

@@ -10,5 +10,4 @@ interface Options {
 declare type UserOptions = Partial<Options>;
 declare const _default: (options?: UserOptions) => Plugin;
 
-export default _default;
-export { GenerationPattern, Options, UserOptions };
+export { GenerationPattern, Options, UserOptions, _default as default };
