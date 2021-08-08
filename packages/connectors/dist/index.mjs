@@ -1421,9 +1421,9 @@ var require_src = __commonJS({
   }
 });
 
-// ../../node_modules/.pnpm/follow-redirects@1.14.1_debug@4.3.2/node_modules/follow-redirects/debug.js
+// ../../node_modules/.pnpm/follow-redirects@1.14.1/node_modules/follow-redirects/debug.js
 var require_debug = __commonJS({
-  "../../node_modules/.pnpm/follow-redirects@1.14.1_debug@4.3.2/node_modules/follow-redirects/debug.js"(exports2, module2) {
+  "../../node_modules/.pnpm/follow-redirects@1.14.1/node_modules/follow-redirects/debug.js"(exports2, module2) {
     var debug;
     module2.exports = function() {
       if (!debug) {
@@ -1439,9 +1439,9 @@ var require_debug = __commonJS({
   }
 });
 
-// ../../node_modules/.pnpm/follow-redirects@1.14.1_debug@4.3.2/node_modules/follow-redirects/index.js
+// ../../node_modules/.pnpm/follow-redirects@1.14.1/node_modules/follow-redirects/index.js
 var require_follow_redirects = __commonJS({
-  "../../node_modules/.pnpm/follow-redirects@1.14.1_debug@4.3.2/node_modules/follow-redirects/index.js"(exports2, module2) {
+  "../../node_modules/.pnpm/follow-redirects@1.14.1/node_modules/follow-redirects/index.js"(exports2, module2) {
     var url = __require("url");
     var URL = url.URL;
     var http = __require("http");
@@ -32022,3 +32022,4 @@ export {
  * @copyright Chen, Yi-Cyuan 2015-2018
  * @license MIT
  */
+//# sourceMappingURL=index.mjs.map

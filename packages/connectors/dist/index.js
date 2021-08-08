@@ -1,4 +1,4 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true});var __create = Object.create;
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -22,13 +22,13 @@ var __spreadValues = (a2, b) => {
 };
 var __spreadProps = (a2, b) => __defProps(a2, __getOwnPropDescs(b));
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
-var __require = (x) => {
-  if (typeof require !== "undefined")
-    return require(x);
-  throw new Error('Dynamic require of "' + x + '" is not supported');
-};
-var __commonJS = (cb, mod) => function __require2() {
+var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var __export = (target, all) => {
+  __markAsModule(target);
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __reExport = (target, module2, desc) => {
   if (module2 && typeof module2 === "object" || typeof module2 === "function") {
@@ -1141,8 +1141,8 @@ var require_has_flag = __commonJS({
 var require_supports_color = __commonJS({
   "../../node_modules/.pnpm/supports-color@7.2.0/node_modules/supports-color/index.js"(exports2, module2) {
     "use strict";
-    var os = __require("os");
-    var tty = __require("tty");
+    var os = require("os");
+    var tty = require("tty");
     var hasFlag = require_has_flag();
     var { env } = process;
     var forceColor;
@@ -1242,8 +1242,8 @@ var require_supports_color = __commonJS({
 // ../../node_modules/.pnpm/debug@4.3.2/node_modules/debug/src/node.js
 var require_node = __commonJS({
   "../../node_modules/.pnpm/debug@4.3.2/node_modules/debug/src/node.js"(exports2, module2) {
-    var tty = __require("tty");
-    var util = __require("util");
+    var tty = require("tty");
+    var util = require("util");
     exports2.init = init;
     exports2.log = log;
     exports2.formatArgs = formatArgs;
@@ -1421,9 +1421,9 @@ var require_src = __commonJS({
   }
 });
 
-// ../../node_modules/.pnpm/follow-redirects@1.14.1_debug@4.3.2/node_modules/follow-redirects/debug.js
+// ../../node_modules/.pnpm/follow-redirects@1.14.1/node_modules/follow-redirects/debug.js
 var require_debug = __commonJS({
-  "../../node_modules/.pnpm/follow-redirects@1.14.1_debug@4.3.2/node_modules/follow-redirects/debug.js"(exports2, module2) {
+  "../../node_modules/.pnpm/follow-redirects@1.14.1/node_modules/follow-redirects/debug.js"(exports2, module2) {
     var debug;
     module2.exports = function() {
       if (!debug) {
@@ -1439,15 +1439,15 @@ var require_debug = __commonJS({
   }
 });
 
-// ../../node_modules/.pnpm/follow-redirects@1.14.1_debug@4.3.2/node_modules/follow-redirects/index.js
+// ../../node_modules/.pnpm/follow-redirects@1.14.1/node_modules/follow-redirects/index.js
 var require_follow_redirects = __commonJS({
-  "../../node_modules/.pnpm/follow-redirects@1.14.1_debug@4.3.2/node_modules/follow-redirects/index.js"(exports2, module2) {
-    var url = __require("url");
+  "../../node_modules/.pnpm/follow-redirects@1.14.1/node_modules/follow-redirects/index.js"(exports2, module2) {
+    var url = require("url");
     var URL = url.URL;
-    var http = __require("http");
-    var https = __require("https");
-    var Writable = __require("stream").Writable;
-    var assert = __require("assert");
+    var http = require("http");
+    var https = require("https");
+    var Writable = require("stream").Writable;
+    var assert = require("assert");
     var debug = require_debug();
     var events = ["abort", "aborted", "connect", "error", "socket", "timeout"];
     var eventHandlers = Object.create(null);
@@ -1907,12 +1907,12 @@ var require_http = __commonJS({
     var settle = require_settle();
     var buildFullPath = require_buildFullPath();
     var buildURL = require_buildURL();
-    var http = __require("http");
-    var https = __require("https");
+    var http = require("http");
+    var https = require("https");
     var httpFollow = require_follow_redirects().http;
     var httpsFollow = require_follow_redirects().https;
-    var url = __require("url");
-    var zlib = __require("zlib");
+    var url = require("url");
+    var zlib = require("zlib");
     var pkg = require_package();
     var createError = require_createError();
     var enhanceError = require_enhanceError();
@@ -8861,7 +8861,7 @@ var require_bn = __commonJS({
         if (typeof window !== "undefined" && typeof window.Buffer !== "undefined") {
           Buffer2 = window.Buffer;
         } else {
-          Buffer2 = __require("buffer").Buffer;
+          Buffer2 = require("buffer").Buffer;
         }
       } catch (e2) {
       }
@@ -11871,7 +11871,7 @@ var require_brorand = __commonJS({
       }
     } else {
       try {
-        crypto = __require("crypto");
+        crypto = require("crypto");
         if (typeof crypto.randomBytes !== "function")
           throw new Error("Not supported");
         Rand.prototype._rand = function _rand(n2) {
@@ -12226,7 +12226,7 @@ var require_inherits_browser = __commonJS({
 var require_inherits = __commonJS({
   "../../node_modules/.pnpm/inherits@2.0.4/node_modules/inherits/inherits.js"(exports2, module2) {
     try {
-      util = __require("util");
+      util = require("util");
       if (typeof util.inherits !== "function")
         throw "";
       module2.exports = util.inherits;
@@ -16634,7 +16634,7 @@ var require_elliptic = __commonJS({
 // ../../node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js
 var require_safe_buffer = __commonJS({
   "../../node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports2, module2) {
-    var buffer = __require("buffer");
+    var buffer = require("buffer");
     var Buffer2 = buffer.Buffer;
     function copyProps(src, dst) {
       for (var key in src) {
@@ -16880,7 +16880,7 @@ var require_bn2 = __commonJS({
         if (typeof window !== "undefined" && typeof window.Buffer !== "undefined") {
           Buffer2 = window.Buffer;
         } else {
-          Buffer2 = __require("buffer").Buffer;
+          Buffer2 = require("buffer").Buffer;
         }
       } catch (e2) {
       }
@@ -19761,7 +19761,7 @@ var require_constants = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.KECCAK256_RLP = exports2.KECCAK256_RLP_S = exports2.KECCAK256_RLP_ARRAY = exports2.KECCAK256_RLP_ARRAY_S = exports2.KECCAK256_NULL = exports2.KECCAK256_NULL_S = exports2.TWO_POW256 = exports2.MAX_INTEGER = void 0;
-    var Buffer2 = __require("buffer").Buffer;
+    var Buffer2 = require("buffer").Buffer;
     var bn_js_1 = __importDefault(require_bn2());
     exports2.MAX_INTEGER = new bn_js_1.default("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16);
     exports2.TWO_POW256 = new bn_js_1.default("10000000000000000000000000000000000000000000000000000000000000000", 16);
@@ -19979,10 +19979,10 @@ var require_dist = __commonJS({
 // ../../node_modules/.pnpm/node-gyp-build@4.2.3/node_modules/node-gyp-build/index.js
 var require_node_gyp_build = __commonJS({
   "../../node_modules/.pnpm/node-gyp-build@4.2.3/node_modules/node-gyp-build/index.js"(exports2, module2) {
-    var fs = __require("fs");
-    var path2 = __require("path");
-    var os = __require("os");
-    var runtimeRequire = typeof __webpack_require__ === "function" ? __non_webpack_require__ : __require;
+    var fs = require("fs");
+    var path2 = require("path");
+    var os = require("os");
+    var runtimeRequire = typeof __webpack_require__ === "function" ? __non_webpack_require__ : require;
     var vars = process.config && process.config.variables || {};
     var prebuildsOnly = !!process.env.PREBUILDS_ONLY;
     var abi = process.versions.modules;
@@ -20813,7 +20813,7 @@ var require_secp256k12 = __commonJS({
 // ../../node_modules/.pnpm/randombytes@2.1.0/node_modules/randombytes/index.js
 var require_randombytes = __commonJS({
   "../../node_modules/.pnpm/randombytes@2.1.0/node_modules/randombytes/index.js"(exports2, module2) {
-    module2.exports = __require("crypto").randomBytes;
+    module2.exports = require("crypto").randomBytes;
   }
 });
 
@@ -20949,7 +20949,7 @@ var require_secp256k13 = __commonJS({
         return { value: op[0] ? op[1] : void 0, done: true };
       }
     };
-    function __export(m2) {
+    function __export2(m2) {
       for (var p2 in m2)
         if (!exports2.hasOwnProperty(p2))
           exports2[p2] = m2[p2];
@@ -20989,7 +20989,7 @@ var require_secp256k13 = __commonJS({
       }
     }
     exports2.createPrivateKeySync = createPrivateKeySync;
-    __export(require_secp256k12());
+    __export2(require_secp256k12());
   }
 });
 
@@ -21310,7 +21310,7 @@ var require_hash_utils = __commonJS({
 // ../../node_modules/.pnpm/keccak@3.0.1/node_modules/keccak/lib/api/keccak.js
 var require_keccak = __commonJS({
   "../../node_modules/.pnpm/keccak@3.0.1/node_modules/keccak/lib/api/keccak.js"(exports2, module2) {
-    var { Transform } = __require("stream");
+    var { Transform } = require("stream");
     module2.exports = (KeccakState) => class Keccak extends Transform {
       constructor(rate, capacity, delimitedSuffix, hashBitLength, options) {
         super(options);
@@ -21380,7 +21380,7 @@ var require_keccak = __commonJS({
 // ../../node_modules/.pnpm/keccak@3.0.1/node_modules/keccak/lib/api/shake.js
 var require_shake = __commonJS({
   "../../node_modules/.pnpm/keccak@3.0.1/node_modules/keccak/lib/api/shake.js"(exports2, module2) {
-    var { Transform } = __require("stream");
+    var { Transform } = require("stream");
     module2.exports = (KeccakState) => class Shake extends Transform {
       constructor(rate, capacity, delimitedSuffix, options) {
         super(options);
@@ -21799,7 +21799,7 @@ var require_keccak4 = __commonJS({
 // ../../node_modules/.pnpm/create-hash@1.2.0/node_modules/create-hash/index.js
 var require_create_hash = __commonJS({
   "../../node_modules/.pnpm/create-hash@1.2.0/node_modules/create-hash/index.js"(exports2, module2) {
-    module2.exports = __require("crypto").createHash;
+    module2.exports = require("crypto").createHash;
   }
 });
 
@@ -22015,7 +22015,7 @@ var require_account = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.isZeroAddress = exports2.zeroAddress = exports2.importPublic = exports2.privateToAddress = exports2.privateToPublic = exports2.publicToAddress = exports2.pubToAddress = exports2.isValidPublic = exports2.isValidPrivate = exports2.generateAddress2 = exports2.generateAddress = exports2.isValidChecksumAddress = exports2.toChecksumAddress = exports2.isValidAddress = exports2.Account = void 0;
-    var assert_1 = __importDefault(__require("assert"));
+    var assert_1 = __importDefault(require("assert"));
     var bn_js_1 = __importDefault(require_bn2());
     var rlp = __importStar(require_dist());
     var secp256k1_1 = require_secp256k13();
@@ -22191,7 +22191,7 @@ var require_address = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.Address = void 0;
-    var assert_1 = __importDefault(__require("assert"));
+    var assert_1 = __importDefault(require("assert"));
     var bn_js_1 = __importDefault(require_bn2());
     var bytes_1 = require_bytes();
     var account_1 = require_account();
@@ -22412,7 +22412,7 @@ var require_object = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.defineProperties = void 0;
-    var assert_1 = __importDefault(__require("assert"));
+    var assert_1 = __importDefault(require("assert"));
     var ethjsUtil = __importStar(require_lib2());
     var rlp = __importStar(require_dist());
     var bytes_1 = require_bytes();
@@ -30680,6 +30680,48 @@ var require_sha3 = __commonJS({
   }
 });
 
+// src/index.ts
+__export(exports, {
+  Effects: () => Effects,
+  Event: () => Event,
+  Store: () => Store,
+  cfExploreDeploy: () => cfExploreDeploy,
+  createRevAccount: () => createRevAccount,
+  createRnodeService: () => createRnodeService,
+  decodeAscii: () => decodeAscii,
+  decodeBase16: () => decodeBase16,
+  decodeBase58safe: () => decodeBase58safe,
+  deployDataProtobufSerialize: () => deployDataProtobufSerialize,
+  domain: () => domain,
+  effectsRouter: () => effectsRouter,
+  encodeBase16: () => encodeBase16,
+  encodeBase58: () => encodeBase58,
+  ethDetected: () => ethDetected,
+  ethereumAddress: () => ethereumAddress,
+  ethereumSign: () => ethereumSign,
+  getAddrFromEth: () => getAddrFromEth,
+  getAddrFromPrivateKey: () => getAddrFromPrivateKey,
+  getAddrFromPublicKey: () => getAddrFromPublicKey,
+  getMetamaskAccount: () => getMetamaskAccount,
+  getNodeUrls: () => getNodeUrls,
+  initNet: () => initNet,
+  localNet: () => localNet,
+  mainNet: () => mainNet,
+  makeRNodeWeb: () => makeRNodeWeb,
+  nets: () => nets,
+  newRevAccount: () => newRevAccount,
+  recoverPublicKeyEth: () => recoverPublicKeyEth,
+  rhoExprToJson: () => rhoExprToJson,
+  signDeploy: () => signDeploy,
+  signMetamask: () => signMetamask,
+  signPrivKey: () => signPrivKey,
+  testNet: () => testNet,
+  toWebDeploy: () => toWebDeploy,
+  verifyDeploy: () => verifyDeploy,
+  verifyDeployEth: () => verifyDeployEth,
+  verifyRevAddr: () => verifyRevAddr
+});
+
 // src/connectors/cf-client/effects.ts
 var import_axios = __toModule(require_axios2());
 var cfExploreDeploy = async ({ net, code }) => {
@@ -30717,7 +30759,7 @@ var encodeBase58 = (hexStr) => {
 var decodeBase58safe = (str) => {
   try {
     return import_bs58.default.decode(str);
-  } catch (e5) {
+  } catch {
     return void 0;
   }
 };
@@ -31973,46 +32015,47 @@ Store.$rnodeStore.on(Effects.exploreDeployFx.doneData, (state, status) => __spre
   return state;
 });
 Store.$walletStore.on(Effects.addWalletFx.doneData, () => ({ walletConnected: true }));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-exports.Effects = Effects; exports.Event = Event; exports.Store = Store; exports.cfExploreDeploy = cfExploreDeploy; exports.createRevAccount = createRevAccount; exports.createRnodeService = createRnodeService; exports.decodeAscii = decodeAscii; exports.decodeBase16 = decodeBase16; exports.decodeBase58safe = decodeBase58safe; exports.deployDataProtobufSerialize = deployDataProtobufSerialize; exports.domain = domain; exports.effectsRouter = effectsRouter; exports.encodeBase16 = encodeBase16; exports.encodeBase58 = encodeBase58; exports.ethDetected = ethDetected; exports.ethereumAddress = ethereumAddress; exports.ethereumSign = ethereumSign; exports.getAddrFromEth = getAddrFromEth; exports.getAddrFromPrivateKey = getAddrFromPrivateKey; exports.getAddrFromPublicKey = getAddrFromPublicKey; exports.getMetamaskAccount = getMetamaskAccount; exports.getNodeUrls = getNodeUrls; exports.initNet = initNet; exports.localNet = localNet; exports.mainNet = mainNet; exports.makeRNodeWeb = makeRNodeWeb; exports.nets = nets; exports.newRevAccount = newRevAccount; exports.recoverPublicKeyEth = recoverPublicKeyEth; exports.rhoExprToJson = rhoExprToJson; exports.signDeploy = signDeploy; exports.signMetamask = signMetamask; exports.signPrivKey = signPrivKey; exports.testNet = testNet; exports.toWebDeploy = toWebDeploy; exports.verifyDeploy = verifyDeploy; exports.verifyDeployEth = verifyDeployEth; exports.verifyRevAddr = verifyRevAddr;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Effects,
+  Event,
+  Store,
+  cfExploreDeploy,
+  createRevAccount,
+  createRnodeService,
+  decodeAscii,
+  decodeBase16,
+  decodeBase58safe,
+  deployDataProtobufSerialize,
+  domain,
+  effectsRouter,
+  encodeBase16,
+  encodeBase58,
+  ethDetected,
+  ethereumAddress,
+  ethereumSign,
+  getAddrFromEth,
+  getAddrFromPrivateKey,
+  getAddrFromPublicKey,
+  getMetamaskAccount,
+  getNodeUrls,
+  initNet,
+  localNet,
+  mainNet,
+  makeRNodeWeb,
+  nets,
+  newRevAccount,
+  recoverPublicKeyEth,
+  rhoExprToJson,
+  signDeploy,
+  signMetamask,
+  signPrivKey,
+  testNet,
+  toWebDeploy,
+  verifyDeploy,
+  verifyDeployEth,
+  verifyRevAddr
+});
 /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 /**
  * [js-sha3]{@link https://github.com/emn178/js-sha3}
@@ -32022,3 +32065,4 @@ exports.Effects = Effects; exports.Event = Event; exports.Store = Store; exports
  * @copyright Chen, Yi-Cyuan 2015-2018
  * @license MIT
  */
+//# sourceMappingURL=index.js.map
