@@ -1,14 +1,16 @@
 import * as fs from "fs";
 import * as os from "os";
+import * as path from "path";
 import { Status } from "@rholang/connectors";
 
 export const getEnvPath = () => {
   const dir = __dirname;
-  const lastIndex = dir.lastIndexOf("\\");
-  const workspacePath = dir.slice(0, lastIndex + 1);
-  const envPath = `${workspacePath}\\.env`;
-
-  return envPath;
+  const nPath = path.normalize(dir);
+  const lastIndex = nPath.lastIndexOf("\\");
+  const workspacePath = nPath.slice(0, lastIndex + 1);
+  const envPath = "\\.env";
+  const envFilePath = path.join(workspacePath, envPath);
+  return envFilePath;
 };
 
 export const writeEnv = (key: string, value: string) => {
