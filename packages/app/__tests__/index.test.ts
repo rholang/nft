@@ -4,11 +4,7 @@ import { Effects as Fx, Status } from "@rholang/connectors";
 import "isomorphic-fetch";
 import { writeUriEnv, readKeyEnv } from "utils/env";
 
-describe(`ExploreDeploy2`, () => {
-  it("nft explore-deploy2", async () => {
-    console.log(compose({}));
-  });
-});
+
 /* explore deploy -> return channel, deploy -> return(`rho:rchain:deployId`) channel */
 describe(`ExploreDeploy`, () => {
   it("nft explore-deploy", async () => {
@@ -29,22 +25,6 @@ describe(`ExploreDeploy`, () => {
     expect(fn).toBeCalledTimes(1);
   });
 
-  it("test explore-deploy", async () => {
-    const fn = jest.fn();
-
-    Fx.exploreDeployFx.doneData.watch((result) => {
-      console.log(result);
-      fn(result);
-    });
-
-    await Fx.exploreDeployFx({
-      client: "rnode",
-      code: op_test({ composeEntryUri: readKeyEnv("NEXT_ENTRY_COMPOSE") }),
-    });
-
-    expect(fn).toBeCalledTimes(1);
-  });
-});
 
 describe(`Deploy`, () => {
   it("nft deploy", async () => {
@@ -81,20 +61,4 @@ describe(`Deploy`, () => {
     expect(fn).toBeCalledTimes(1);
   }, 1000000);
 
-  it("test deploy", async () => {
-    const fn = jest.fn();
-
-    Fx.deployFx.doneData.watch((result) => {
-      console.log(result);
-      fn(result);
-    });
-
-    await Fx.deployFx({
-      client: "rnode",
-      code: op_test({ composeEntryUri: readKeyEnv("NEXT_ENTRY_COMPOSE") }),
-      phloLimit: "1000000000",
-    });
-
-    expect(fn).toBeCalledTimes(1);
-  }, 1000000);
-});
+  
