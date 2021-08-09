@@ -4,12 +4,13 @@ import * as path from "path";
 import { Status } from "@rholang/connectors";
 
 export const getEnvPath = () => {
-  const dir = __dirname;
-  const nPath = path.normalize(dir);
-  const lastIndex = nPath.lastIndexOf("\\");
-  const workspacePath = nPath.slice(0, lastIndex + 1);
-  const envPath = "\\.env";
+  // workspace path
+  const workspacePath = path.resolve("./packages/app");
+  // env file name
+  const envPath = ".env";
+  // concat workspace and env path
   const envFilePath = path.join(workspacePath, envPath);
+  console.log(envFilePath);
   return envFilePath;
 };
 
