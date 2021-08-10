@@ -4,7 +4,6 @@ import { Effects as Fx, Status } from "@rholang/connectors";
 import "isomorphic-fetch";
 import { writeUriEnv, readKeyEnv } from "utils/env";
 
-
 /* explore deploy -> return channel, deploy -> return(`rho:rchain:deployId`) channel */
 describe(`ExploreDeploy`, () => {
   it("nft explore-deploy", async () => {
@@ -24,7 +23,7 @@ describe(`ExploreDeploy`, () => {
 
     expect(fn).toBeCalledTimes(1);
   });
-
+});
 
 describe(`Deploy`, () => {
   it("nft deploy", async () => {
@@ -60,5 +59,4 @@ describe(`Deploy`, () => {
 
     expect(fn).toBeCalledTimes(1);
   }, 1000000);
-
-  
+});
